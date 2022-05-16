@@ -3,14 +3,16 @@
 
 name: Deploy
 
+
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
     
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    name: Build and Deploy
 
     strategy:
       matrix:
@@ -31,11 +33,11 @@ jobs:
         echo REACT_APP_BASENAME=coach-digital >> .env
     - run: npm run build
     - name: Publish
-        uses: nogsantos/scp-deploy@master
-        with:
-          src: ./dist/*
-          host: ${{ secrets.SSH_HOST }}
-          remote: ${{ secrets.SSH_DIR }}
-          port: ${{ secrets.SSH_PORT }}
-          user: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
+      uses: nogsantos/ssh-scp-deploy@v1.3.0
+      with:
+        src: ./dist/*
+        host: ${{ secrets.SSH_HOST }}
+        remote: ${{ secrets.SSH_DIR }}
+        port: ${{ secrets.SSH_PORT }}
+        user: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
