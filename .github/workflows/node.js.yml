@@ -3,12 +3,11 @@
 
 name: Deploy
 
-
 on:
   push:
     branches:
       - main
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,24 +19,24 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm install
-    - name: create env file
-      run: |
-        touch .env
-        echo REACT_APP_BASENAME=coach-digital >> .env
-    - run: npm run build
-    - name: Publish
-      uses: nogsantos/ssh-scp-deploy@v1.3.0
-      with:
-        src: ./build/*
-        host: ${{ secrets.SSH_HOST }}
-        remote: ${{ secrets.SSH_DIR }}
-        port: ${{ secrets.SSH_PORT }}
-        user: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm install
+      - name: create env file
+        run: |
+          touch .env
+          echo REACT_APP_BASENAME=coach-digital\nPUBLIC_URL=./ >> .env
+      - run: npm run build
+      - name: Publish
+        uses: nogsantos/ssh-scp-deploy@v1.3.0
+        with:
+          src: ./build/*
+          host: ${{ secrets.SSH_HOST }}
+          remote: ${{ secrets.SSH_DIR }}
+          port: ${{ secrets.SSH_PORT }}
+          user: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
