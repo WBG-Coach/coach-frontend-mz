@@ -12,11 +12,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Build and Deploy
-
     strategy:
       matrix:
         node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    env: REACT_APP_BASENAME=coach-digital
+      PUBLIC_URL=./
 
     steps:
       - uses: actions/checkout@v3
@@ -26,10 +27,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - run: npm install
-      - name: create env file
-        run: |
-          touch .env
-          echo REACT_APP_BASENAME=coach-digital\nPUBLIC_URL=./ >> .env
       - run: npm run build
       - name: Publish
         uses: nogsantos/ssh-scp-deploy@v1.3.0
