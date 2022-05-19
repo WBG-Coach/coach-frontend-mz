@@ -1,39 +1,61 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import WorldBank from "../../assets/images/world-bank.png";
-import { Button, Container, Image, Text } from "../../components";
-import {
-  decremented,
-  incremented,
-  selectCounterValue,
-} from "../../store/counter";
+import { Button, Card, Container, Text } from "../../components";
+
+const TEACHERS = [
+  {
+    name: "Teacher 1",
+  },
+  {
+    name: "Teacher 2",
+  },
+  {
+    name: "Teacher 3",
+  },
+  {
+    name: "Teacher 4",
+  },
+  {
+    name: "Teacher 5",
+  },
+];
 
 const Home: React.FC<{}> = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const value = useSelector(selectCounterValue);
 
   return (
-    <Container
-      width="100%"
-      height="100%"
-      alignItems="center"
-      justifyContent="center"
-      flexDirection="column"
-    >
+    <Container width="100%" height="100%" flexDirection="column">
       <Text fontSize={32} mt={24}>
-        Home
+        Teachers
       </Text>
-      <Image src={WorldBank} />
-      <Container flexDirection="row" mb={3}>
-        <Button value="-" onClick={() => dispatch(decremented())} />
-        <Text fontSize={32} mx={12}>
-          {value}
-        </Text>
-        <Button value="+" onClick={() => dispatch(incremented())} />
+      <Container flexWrap="wrap" m="24px -8px">
+        {TEACHERS.map((teacher, index) => (
+          <Card
+            m="8px"
+            mt="16px"
+            key={index}
+            alignContent="center"
+            flexDirection="column"
+          >
+            <Container flexDirection="row">
+              <Text mr="16px" fontSize={40}>
+                🎓
+              </Text>
+              <Container flexDirection="column" justifyContent="center">
+                <Text fontWeight="bold">Name</Text>
+                <Text>{teacher.name}</Text>
+              </Container>
+            </Container>
+            <Button
+              mt="24px"
+              value="Answer"
+              onClick={() => {
+                navigate("/questionary");
+              }}
+            />
+          </Card>
+        ))}
       </Container>
-      <Button value="Go to login" onClick={() => navigate("login")} />
     </Container>
   );
 };

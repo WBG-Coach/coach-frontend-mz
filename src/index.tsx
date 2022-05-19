@@ -5,6 +5,8 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./routes/Home";
 import Login from "./routes/Login";
+import Questionary from "./routes/Questionary";
+import { ProtectedRoute } from "./components";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,8 +16,23 @@ root.render(
   <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route index element={<Home />} />
-        <Route path="login" element={<Login />} />
+        <Route index element={<Login />} />
+        <Route
+          path="home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="questionary"
+          element={
+            <ProtectedRoute>
+              <Questionary />
+            </ProtectedRoute>
+          }
+        />
       </Route>
     </Routes>
   </BrowserRouter>

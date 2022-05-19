@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { space } from "styled-system";
+import { layout, space } from "styled-system";
 import { ButtonProps } from "./types";
 
 export const StyledButton = styled.button<ButtonProps>`
@@ -16,4 +16,5 @@ export const StyledButton = styled.button<ButtonProps>`
     opacity: 0.7;
   }
   ${space}
+  ${layout}
 `;

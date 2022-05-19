@@ -1,39 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Container, Image, Text } from "../../components";
-import WorldBank from "../../assets/images/world-bank.png";
+import { Button, Card, Container, Text } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  decremented,
-  incremented,
-  selectCounterValue,
-} from "../../store/counter";
+import { login, selectCurrentUser } from "../../store/auth";
 
 const Login: React.FC<{}> = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const value = useSelector(selectCounterValue);
+  const user = useSelector(selectCurrentUser);
+
+  useEffect(() => {
+    if (!!user) navigate("home");
+  }, [user, navigate]);
 
   return (
     <Container
       width="100%"
-      height="100%"
-      alignItems="center"
-      justifyContent="center"
       flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
     >
-      <Text fontSize={32} mt={24}>
-        Login
-      </Text>
-      <Image src={WorldBank} />
-      <Container flexDirection="row" mb={3}>
-        <Button value="-" onClick={() => dispatch(decremented())} />
-        <Text fontSize={32} mx={12}>
-          {value}
+      <Card
+        height={400}
+        flexDirection="column"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Text fontSize={32} mt={24}>
+          Login
         </Text>
-        <Button value="+" onClick={() => dispatch(incremented())} />
-      </Container>
-      <Button value="Go to home" onClick={() => navigate("/")} />
+        <Button width="100%" value="Login" onClick={() => dispatch(login())} />
+      </Card>
     </Container>
   );
 };
