@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
     user && (
       <StyledHeader {...props}>
         <Container justifyContent="space-between" alignItems="center" flex={1}>
-          <Image src={Logo} height={"60px"} />
+          <Image src={Logo} height={"100px"} />
           {user?.name && <Text fontSize={18} value={"🤖 " + user.name} />}
         </Container>
       </StyledHeader>

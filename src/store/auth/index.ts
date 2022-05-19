@@ -11,7 +11,7 @@ const authSlice = createSlice({
       return {
         ...state,
         user: {
-          name: "Janderson Souza",
+          name: "Coach name",
         },
       };
     },

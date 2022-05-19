@@ -26,7 +26,7 @@ root.render(
           }
         />
         <Route
-          path="questionary"
+          path="questionnaire"
           element={
             <ProtectedRoute>
               <Questionary />

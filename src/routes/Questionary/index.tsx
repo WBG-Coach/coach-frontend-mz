@@ -37,11 +37,26 @@ const Questionary: React.FC<{}> = () => {
   }, [navigate, currentQuestion]);
 
   return (
-    <Container width="100%" flexDirection="column">
+    <Container flex={1} flexDirection="column">
+      <Container alignItems="center" onClick={() => navigate("/home")}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="#0071BC"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+          />
+        </svg>
+        <Text color="#0071BC" value="Back" />
+      </Container>
       <Text fontSize={32} mt={24}>
         Selected teacher name
       </Text>
-      <Card width="100%" mt={24} flexDirection="column">
+      <Card minWidth="calc(100% - 32px)" mt={24} flexDirection="column">
         <Container justifyContent="space-between">
           <Text>{questions[currentQuestion]?.type}</Text>
           <Text fontSize={18}>
@@ -53,27 +68,29 @@ const Questionary: React.FC<{}> = () => {
           {questions[currentQuestion]?.title}
         </Text>
 
-        {questions[currentQuestion]?.type === "choose" ? (
-          <Container>
+        <Container flexDirection="column">
+          <textarea style={{ height: 100 }} placeholder="..." />
+          {questions[currentQuestion]?.type === "write" && (
+            <Button
+              mt={3}
+              value="Send"
+              onClick={() => setCurrentQuestion(currentQuestion + 1)}
+            />
+          )}
+        </Container>
+
+        {questions[currentQuestion]?.type === "choose" && (
+          <Container mt="24px">
             <Button
               mr={2}
-              value="A"
+              value="YES"
               width="100%"
               onClick={() => setCurrentQuestion(currentQuestion + 1)}
             />
             <Button
               ml={2}
-              value="B"
+              value="NO"
               width="100%"
-              onClick={() => setCurrentQuestion(currentQuestion + 1)}
-            />
-          </Container>
-        ) : (
-          <Container flexDirection="column">
-            <textarea style={{ height: 100 }} />
-            <Button
-              mt={3}
-              value="Send"
               onClick={() => setCurrentQuestion(currentQuestion + 1)}
             />
           </Container>

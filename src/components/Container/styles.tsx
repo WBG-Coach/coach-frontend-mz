@@ -1,10 +1,22 @@
-import styled from "styled-components";
-import { flexbox, layout, space } from "styled-system";
+import styled, { css } from "styled-components";
+import { flexbox, layout, position, space } from "styled-system";
 import { ContainerProps } from "./types";
 
 export const StyledContainer = styled.div<ContainerProps>`
   ${layout}
   ${space}
   ${flexbox}
+  ${position}
+  transition: all 300ms;
   display: flex;
+
+  ${(props) =>
+    props.onClick &&
+    css`
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+        ${props.hoverColor && `background: ${props.hoverColor};`}
+      }
+    `}
 `;
