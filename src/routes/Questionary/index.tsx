@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Card, Container, Text } from "../../components";
 import { questions } from "../../mocks";
 
-const Questionary: React.FC<{}> = () => {
+const Questionnaire: React.FC<{}> = () => {
   const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
@@ -79,4 +79,4 @@ const Questionary: React.FC<{}> = () => {
   );
 };
 
-export default Questionary;
+export default Questionnaire;

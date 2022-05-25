@@ -7,7 +7,7 @@ import Login from "./routes/Login";
 import SchoolsList from "./routes/SchoolsList";
 import TeachersList from "./routes/TeachersList";
 import ApplicationsList from "./routes/ApplicationsList";
-import Questionary from "./routes/Questionary";
+import Questionnaire from "./routes/Questionnaire";
 import { ProtectedRoute } from "./components";
 
 const root = ReactDOM.createRoot(
@@ -44,10 +44,10 @@ root.render(
           }
         />
         <Route
-          path="questionary"
+          path="questionnaire"
           element={
             <ProtectedRoute>
-              <Questionary />
+              <Questionnaire />
             </ProtectedRoute>
           }
         />

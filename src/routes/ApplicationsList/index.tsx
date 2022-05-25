@@ -69,7 +69,7 @@ const Home: React.FC<{}> = () => {
                 mt="24px"
                 value="Assess"
                 onClick={() => {
-                  navigate("/questionary");
+                  navigate("/questionnaire");
                 }}
               />
             </Card>
