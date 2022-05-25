@@ -11,7 +11,7 @@ const Login: React.FC<{}> = () => {
   const user = useSelector(selectCurrentUser);
 
   useEffect(() => {
-    if (!!user) navigate("home");
+    if (!!user) navigate("applications");
   }, [user, navigate]);
 
   return (

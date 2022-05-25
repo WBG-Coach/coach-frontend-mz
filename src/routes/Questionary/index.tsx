@@ -1,44 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Container, Text } from "../../components";
-
-const questions = [
-  {
-    title:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum",
-    type: "choose",
-  },
-  {
-    title: "Cras turpis lectus, consectetur at ante at, faucibus sagittis",
-    type: "write",
-  },
-  {
-    title:
-      "Cras nec ex non tortor laoreet bibendum ut ac libero. Sed dui felis, tincidunt at eros et, pretium pulvinar arcu. Donec sollicitudin lacus at orci posuere faucibus. Suspendisse potenti.",
-    type: "choose",
-  },
-  {
-    title: "Quisque feugiat laoreet neque, ut vestibulum felis rhoncus nec.",
-    type: "choose",
-  },
-  {
-    title:
-      "Morbi in maximus ex. Praesent nunc ex, venenatis eu sem vel, egestas suscipit velit.",
-    type: "write",
-  },
-];
+import { questions } from "../../mocks";
 
 const Questionary: React.FC<{}> = () => {
   const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
   useEffect(() => {
-    if (currentQuestion === 5) navigate("/home");
+    if (currentQuestion === 5) navigate(-1);
   }, [navigate, currentQuestion]);
 
   return (
     <Container flex={1} flexDirection="column">
-      <Container alignItems="center" onClick={() => navigate("/home")}>
+      <Container alignItems="center" onClick={() => navigate(-1)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -53,12 +28,14 @@ const Questionary: React.FC<{}> = () => {
         </svg>
         <Text color="#0071BC" value="Back" />
       </Container>
-      <Text fontSize={32} mt={24}>
-        Selected teacher name
-      </Text>
       <Card minWidth="calc(100% - 32px)" mt={24} flexDirection="column">
         <Container justifyContent="space-between">
-          <Text>{questions[currentQuestion]?.type}</Text>
+          <Button
+            value={questions[currentQuestion]?.competence}
+            onClick={() => {
+              alert("Open details modal");
+            }}
+          />
           <Text fontSize={18}>
             {currentQuestion + 1 + "/" + questions.length}
           </Text>
@@ -70,32 +47,34 @@ const Questionary: React.FC<{}> = () => {
 
         <Container flexDirection="column">
           <textarea style={{ height: 100 }} placeholder="..." />
-          {questions[currentQuestion]?.type === "write" && (
-            <Button
-              mt={3}
-              value="Send"
-              onClick={() => setCurrentQuestion(currentQuestion + 1)}
-            />
-          )}
         </Container>
 
         {questions[currentQuestion]?.type === "choose" && (
           <Container mt="24px">
             <Button
+              variant="secondary"
               mr={2}
               value="YES"
               width="100%"
-              onClick={() => setCurrentQuestion(currentQuestion + 1)}
+              onClick={() => {}}
             />
             <Button
+              variant="secondary"
               ml={2}
               value="NO"
               width="100%"
-              onClick={() => setCurrentQuestion(currentQuestion + 1)}
+              onClick={() => {}}
             />
           </Container>
         )}
       </Card>
+
+      <Button
+        mt={3}
+        value="Next"
+        width="100%"
+        onClick={() => setCurrentQuestion(currentQuestion + 1)}
+      />
     </Container>
   );
 };

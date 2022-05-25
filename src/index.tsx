@@ -3,8 +3,10 @@ import App from "./app";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./routes/Home";
 import Login from "./routes/Login";
+import SchoolsList from "./routes/SchoolsList";
+import TeachersList from "./routes/TeachersList";
+import ApplicationsList from "./routes/ApplicationsList";
 import Questionary from "./routes/Questionary";
 import { ProtectedRoute } from "./components";
 
@@ -18,15 +20,31 @@ root.render(
       <Route path="/" element={<App />}>
         <Route index element={<Login />} />
         <Route
-          path="home"
+          path="applications"
           element={
             <ProtectedRoute>
-              <Home />
+              <SchoolsList />
             </ProtectedRoute>
           }
         />
         <Route
-          path="questionnaire"
+          path="applications/:schoolId"
+          element={
+            <ProtectedRoute>
+              <TeachersList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="applications/:schoolId/:teacherId"
+          element={
+            <ProtectedRoute>
+              <ApplicationsList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="questionary"
           element={
             <ProtectedRoute>
               <Questionary />

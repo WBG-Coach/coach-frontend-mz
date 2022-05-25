@@ -5,10 +5,12 @@ import { Container } from "../Container";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/auth";
 import { Text } from "../Text";
+import { useNavigate } from "react-router-dom";
 const Guide = require("../../assets/Coach_Guide.pdf");
 
 export const Footer: React.FC<FooterProps> = (props) => {
   const user: any = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
 
   const openGuide = () => {
     window.open(Guide, "_black");
@@ -23,7 +25,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
           alignItems="center"
           justifyContent="center"
           hoverColor="#0071BC20"
-          onClick={() => {}}
+          onClick={() => navigate("/applications")}
         >
           <Text
             fontSize={18}
