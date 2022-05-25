@@ -29,14 +29,14 @@ const Home: React.FC<{}> = () => {
           </svg>
           <Text color="#0071BC" value="Back" />
         </Container>
-        <Container>
+        <Container flexDirection="column">
           {schoolId && (
-            <Text fontSize={32} mt={24} mr={4}>
+            <Text fontSize={32} mt={24} mb={4}>
               🏫 {SCHOOLS[parseInt(schoolId, 10)].name}
             </Text>
           )}
           {teacherId && (
-            <Text fontSize={32} mt={24}>
+            <Text fontSize={32}>
               🎓 {TEACHERS[parseInt(teacherId, 10)].name}
             </Text>
           )}
