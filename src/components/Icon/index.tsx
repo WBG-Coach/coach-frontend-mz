@@ -1,11 +1,11 @@
 import React from "react";
-import { StyledIcon } from "./styles";
 import { IconProps } from "./types";
 import WorldIcon from "./icons/world.svg";
 import HomeIcon from "./icons/home.svg";
 import FileIcon from "./icons/file.svg";
 import ChevronRightIcon from "./icons/chevron-right.svg";
 import NotesIcon from "./icons/notes.svg";
+import { Image } from "../Image";
 
 const ICONS = {
   world: WorldIcon,
@@ -16,5 +16,5 @@ const ICONS = {
 };
 
 export const Icon: React.FC<IconProps> = (props) => {
-  return <StyledIcon src={ICONS[props.name]} {...props} />;
+  return <Image src={ICONS[props.name]} {...props} />;
 };
