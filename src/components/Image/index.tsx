@@ -6,11 +6,8 @@ export const Image: React.FC<ImageProps> = (props) => {
   return (
     <StyledImage
       {...props}
-      src={
-        props.src.startsWith("http") || props.src.startsWith("/")
-          ? props.src
-          : `/${props.src}`
-      }
+      rounded
+      src={props.src.startsWith("./") ? props.src.substring(2) : props.src}
     />
   );
 };
