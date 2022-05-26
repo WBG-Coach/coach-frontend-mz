@@ -3,5 +3,14 @@ import { StyledImage } from "./styles";
 import { ImageProps } from "./types";
 
 export const Image: React.FC<ImageProps> = (props) => {
-  return <StyledImage {...props} />;
+  return (
+    <StyledImage
+      {...props}
+      src={
+        props.src.startsWith("http") || props.src.startsWith("/")
+          ? props.src
+          : `/${props.src}`
+      }
+    />
+  );
 };
