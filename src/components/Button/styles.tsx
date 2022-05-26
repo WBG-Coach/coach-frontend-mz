@@ -4,12 +4,17 @@ import { ButtonProps } from "./types";
 
 export const StyledButton = styled.button<ButtonProps>`
   border: none;
+  display: flex;
   cursor: pointer;
   font-size: 16px;
-  padding: 12px 16px;
-  border-radius: 8px;
+  font-weight: 600;
+  line-height: 24px;
+  font-style: normal;
+  padding: 12px 24px;
+  border-radius: 12px;
   transition: all 300ms;
-  font-family: "Montserrat", sans-serif;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
   border: 1px solid ${(props) => props.theme.colors.primary};
   color: ${(props) =>
     props.variant === "secondary" ? props.theme.colors.primary : "#fff"};

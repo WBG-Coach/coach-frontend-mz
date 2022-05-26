@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/auth";
 import { Text } from "../Text";
 import { useNavigate } from "react-router-dom";
+import { Icon } from "../Icon";
+import { Image } from "../Image";
 const Guide = require("../../assets/Coach_Guide.pdf");
 
 export const Footer: React.FC<FooterProps> = (props) => {
@@ -23,31 +25,43 @@ export const Footer: React.FC<FooterProps> = (props) => {
           flex={1}
           height="100%"
           alignItems="center"
+          flexDirection="column"
           justifyContent="center"
           hoverColor="#0071BC20"
           onClick={() => navigate("/applications")}
         >
-          <Text
-            fontSize={18}
-            color="#0071BC"
-            fontWeight="600"
-            value="Assessments"
-          />
+          <Icon mb="8px" name="home" size={24} />
+          <Text fontSize={12} color="#2C4668" value="Home" />
         </Container>
         <Container
           flex={1}
           height="100%"
           alignItems="center"
+          flexDirection="column"
           justifyContent="center"
           hoverColor="#0071BC20"
           onClick={openGuide}
         >
-          <Text
-            fontSize={18}
-            color="#0071BC"
-            fontWeight="600"
-            value="Coach guide"
+          <Icon mb="8px" name="file" size={24} />
+          <Text fontSize={12} color="#2C4668" value="Guide" />
+        </Container>
+        <Container
+          flex={1}
+          height="100%"
+          alignItems="center"
+          flexDirection="column"
+          justifyContent="center"
+          hoverColor="#0071BC20"
+          onClick={() => navigate("/profile")}
+        >
+          <Image
+            mb="8px"
+            width={24}
+            height={24}
+            borderRadius="50%"
+            src={user.profileImage}
           />
+          <Text fontSize={12} color="#2C4668" value="Guide" />
         </Container>
       </StyledFooter>
     )

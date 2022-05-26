@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Card, Container, Footer, Text } from "../../components";
+import { Container, Footer, Icon, Image, Text } from "../../components";
 import { APPLICATIONS, SCHOOLS, TEACHERS } from "../../mocks";
+import LogoSmall from "../../assets/images/logo-small.svg";
 import { format } from "date-fns";
 
 const Home: React.FC<{}> = () => {
@@ -14,65 +15,112 @@ const Home: React.FC<{}> = () => {
   return (
     <>
       <Container width="100%" height="100%" mb="100px" flexDirection="column">
-        <Container alignItems="center" onClick={() => navigate(-1)}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="#0071BC"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
-            />
-          </svg>
-          <Text color="#0071BC" value="Back" />
-        </Container>
-        <Container flexDirection="column">
+        <Container
+          mb="24px"
+          mt="-24px"
+          height="94px"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Image height={32} src={LogoSmall} />
           {schoolId && (
-            <Text fontSize={32} mt={24} mb={4}>
-              🏫 {SCHOOLS[parseInt(schoolId, 10)].name}
-            </Text>
-          )}
-          {teacherId && (
-            <Text fontSize={32}>
-              🎓 {TEACHERS[parseInt(teacherId, 10)].name}
-            </Text>
+            <Image
+              height={40}
+              width={40}
+              src={SCHOOLS[parseInt(schoolId, 10)].image}
+              border="1px solid #F0F3F5"
+              borderRadius="50%"
+            />
           )}
         </Container>
 
-        <Text fontSize={32} mt={24}>
-          Choose a application
+        {teacherId && (
+          <Container
+            mb="40px"
+            width="100%"
+            height="56px"
+            alignContent="center"
+            justifyContent="center"
+            flexDirection="row"
+          >
+            <Image
+              mr="12px"
+              width={56}
+              height={56}
+              borderRadius="50%"
+              src={TEACHERS[parseInt(teacherId, 10)].image}
+            />
+            <Container flex={1} flexDirection="column" justifyContent="center">
+              <Text
+                mb="8px"
+                lineHeight="24px"
+                fontWeight={600}
+                color="#00121A"
+                fontSize="20px"
+              >
+                {TEACHERS[parseInt(teacherId, 10)].name}
+              </Text>
+              <Text lineHeight="20px" color="#2B363B" fontSize="14px">
+                Professor de Português
+              </Text>
+            </Container>
+          </Container>
+        )}
+
+        <Text
+          fontSize="20px"
+          lineHeight="24px"
+          fontWeight={600}
+          mt={24}
+          mb="120px"
+        >
+          Competences
         </Text>
 
-        <Container flexWrap="wrap" m="24px -8px">
+        <Text
+          mt={24}
+          mb="8px"
+          fontSize="20px"
+          lineHeight="24px"
+          fontWeight={600}
+        >
+          Sessions
+        </Text>
+
+        <Container flexWrap="wrap">
           {APPLICATIONS.map((application, index) => (
-            <Card
-              m="8px"
-              mt="16px"
+            <Container
               key={index}
-              width="300px"
-              alignContent="center"
-              flexDirection="column"
+              width="100%"
+              height="88px"
+              alignItems="center"
+              justifyContent="center"
+              flexDirection="row"
+              borderTop={index !== 0 ? "1px solid #F0F3F5" : ""}
+              onClick={() => navigate("/questionnaire")}
             >
-              <Container flexDirection="row">
-                <Text mr="16px" fontSize={40}>
-                  📝
+              <Icon size={24} name="notes" mr="12px" />
+
+              <Container
+                flex={1}
+                flexDirection="column"
+                justifyContent="center"
+              >
+                <Text
+                  lineHeight="24px"
+                  fontWeight={600}
+                  color="#00121A"
+                  fontSize={16}
+                >
+                  {application.name}
                 </Text>
-                <Container flexDirection="column" justifyContent="center">
-                  <Text fontWeight="bold">{application.name}</Text>
-                  <Text>{format(application.date, "yyyy-MM-dd")}</Text>
-                </Container>
+                <Text lineHeight="16px" color="#455054" fontSize={12}>
+                  {format(application.date, "yyyy/MM/dd")}
+                </Text>
               </Container>
-              <Button
-                mt="24px"
-                value="Assess"
-                onClick={() => {
-                  navigate("/questionnaire");
-                }}
-              />
-            </Card>
+              <Icon size={24} name="chevron-right" />
+            </Container>
           ))}
         </Container>
       </Container>

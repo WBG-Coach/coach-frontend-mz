@@ -9,6 +9,7 @@ import TeachersList from "./routes/TeachersList";
 import ApplicationsList from "./routes/ApplicationsList";
 import Questionnaire from "./routes/Questionnaire";
 import { ProtectedRoute } from "./components";
+import Profile from "./routes/Profile";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -48,6 +49,14 @@ root.render(
           element={
             <ProtectedRoute>
               <Questionnaire />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           }
         />

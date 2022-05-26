@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { flexbox, layout, position, space } from "styled-system";
+import { border, flexbox, layout, position, space } from "styled-system";
 import { ContainerProps } from "./types";
 
 export const StyledContainer = styled.div<ContainerProps>`
@@ -7,6 +7,8 @@ export const StyledContainer = styled.div<ContainerProps>`
   ${space}
   ${flexbox}
   ${position}
+  ${border}
+  
   transition: all 300ms;
   display: flex;
 

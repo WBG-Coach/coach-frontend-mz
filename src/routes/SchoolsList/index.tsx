@@ -1,49 +1,44 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Card, Container, Footer, Text } from "../../components";
+import { Container, Image, Text } from "../../components";
+import LogoSmall from "../../assets/images/logo-small.svg";
 import { SCHOOLS } from "../../mocks";
+import useDeviceDetection from "../../hooks/IsMobile";
 
 const SchoolsList: React.FC<{}> = () => {
+  const { isMobile } = useDeviceDetection();
   const navigate = useNavigate();
 
   return (
-    <>
-      <Container width="100%" height="100%" mb="100px" flexDirection="column">
-        <Text fontSize={32} mt={24}>
-          Choose a school
-        </Text>
-        <Container flexWrap="wrap" m="24px -8px">
-          {SCHOOLS.map((teacher, index) => (
-            <Card
-              m="8px"
-              mt="16px"
-              key={index}
-              width="300px"
-              alignContent="center"
-              flexDirection="column"
-            >
-              <Container flexDirection="row">
-                <Text mr="16px" fontSize={40}>
-                  🏫
-                </Text>
-                <Container flexDirection="column" justifyContent="center">
-                  <Text fontWeight="bold">Name</Text>
-                  <Text>{teacher.name}</Text>
-                </Container>
-              </Container>
-              <Button
-                mt="24px"
-                value="Choose"
-                onClick={() => {
-                  navigate(`${index}`);
-                }}
-              />
-            </Card>
-          ))}
-        </Container>
+    <Container width="100%" height="100%" mb="100px" flexDirection="column">
+      <Image height={32} src={LogoSmall} mb="40px" />
+      <Text fontSize={32} fontWeight={600} textAlign="center" mb="32px">
+        Choose a school
+      </Text>
+      <Container flexWrap="wrap" justifyContent="center">
+        {SCHOOLS.map((school, index) => (
+          <Container
+            m="8px"
+            mt="16px"
+            key={index}
+            alignItems="center"
+            alignContent="center"
+            flexDirection="column"
+            onClick={() => navigate(`${index}`)}
+            width={isMobile ? "calc(50% - 16px)" : 200}
+          >
+            <Image
+              src={school.image}
+              width={80}
+              height={80}
+              border="1px solid #F0F3F5"
+              borderRadius="50%"
+            />
+            <Text mt="16px" mb="24px" fontSize={14} value={school.name} />
+          </Container>
+        ))}
       </Container>
-      <Footer />
-    </>
+    </Container>
   );
 };
 

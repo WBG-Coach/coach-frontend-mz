@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Card, Container, Image } from "../../components";
+import { Button, Container, Image } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { login, selectCurrentUser } from "../../store/auth";
-import Logo from "../../assets/images/world-bank.png";
+import Logo from "../../assets/images/logo.svg";
 
 const Login: React.FC<{}> = () => {
   const dispatch = useDispatch();
@@ -16,22 +16,20 @@ const Login: React.FC<{}> = () => {
 
   return (
     <Container
-      width="100%"
+      m="auto"
+      width="350px"
+      height="calc(100vh - 150px)"
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
     >
-      <Card
+      <Image src={Logo} mb="48px" height={"80px"} />
+      <Button
         width="100%"
-        height={400}
-        maxWidth="400px"
-        flexDirection="column"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Image src={Logo} height={"100px"} />
-        <Button width="100%" value="Login" onClick={() => dispatch(login())} />
-      </Card>
+        icon="world"
+        value="Login with SSO"
+        onClick={() => dispatch(login())}
+      />
     </Container>
   );
 };

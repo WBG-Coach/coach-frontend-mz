@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Card, Container, Footer, Text } from "../../components";
+import { Container, Footer, Icon, Image, Text } from "../../components";
+import LogoSmall from "../../assets/images/logo-small.svg";
 import { SCHOOLS, TEACHERS } from "../../mocks";
 
 const TeachersList: React.FC<{}> = () => {
@@ -10,53 +11,87 @@ const TeachersList: React.FC<{}> = () => {
   return (
     <>
       <Container width="100%" height="100%" mb="100px" flexDirection="column">
-        <Container alignItems="center" onClick={() => navigate(-1)}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="#0071BC"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+        <Container
+          mb="24px"
+          mt="-24px"
+          height="94px"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Image height={32} src={LogoSmall} />
+          {schoolId && (
+            <Image
+              height={40}
+              width={40}
+              src={SCHOOLS[parseInt(schoolId, 10)].image}
+              border="1px solid #F0F3F5"
+              borderRadius="50%"
             />
-          </svg>
-          <Text color="#0071BC" value="Back" />
+          )}
         </Container>
+
         {schoolId && (
-          <Text fontSize={32} mt={24}>
-            🏫 {SCHOOLS[parseInt(schoolId, 10)].name}
+          <Text fontSize={24} fontWeight={600} color="#00121A">
+            {SCHOOLS[parseInt(schoolId, 10)].name}
           </Text>
         )}
-        <Container flexWrap="wrap" m="24px -8px">
+
+        <Text
+          mb="4px"
+          mt="32px"
+          fontSize={20}
+          lineHeight="24px"
+          fontWeight={600}
+          value="Teachers"
+          color="#00121A"
+        />
+        <Text
+          fontSize={14}
+          fontWeight={400}
+          color="#2B363B"
+          lineHeight="20px"
+          value="These are the teachers allocated to you."
+        />
+
+        <Container flexWrap="wrap" my="16px">
           {TEACHERS.map((teacher, index) => (
-            <Card
-              m="8px"
-              mt="16px"
+            <Container
               key={index}
-              width="300px"
+              width="100%"
+              height="88px"
               alignContent="center"
-              flexDirection="column"
+              justifyContent="center"
+              flexDirection="row"
+              borderTop={index !== 0 ? "1px solid #F0F3F5" : ""}
+              onClick={() => navigate(`${index}`)}
             >
-              <Container flexDirection="row">
-                <Text mr="16px" fontSize={40}>
-                  🎓
-                </Text>
-                <Container flexDirection="column" justifyContent="center">
-                  <Text fontWeight="bold">Name</Text>
-                  <Text>{teacher.name}</Text>
-                </Container>
-              </Container>
-              <Button
-                mt="24px"
-                value="Choose"
-                onClick={() => {
-                  navigate(`${index}`);
-                }}
+              <Image
+                mr="12px"
+                width={56}
+                height={56}
+                borderRadius="50%"
+                src={teacher.image}
               />
-            </Card>
+              <Container
+                flex={1}
+                flexDirection="column"
+                justifyContent="center"
+              >
+                <Text
+                  lineHeight="24px"
+                  fontWeight={600}
+                  color="#00121A"
+                  fontSize={16}
+                >
+                  {teacher.name}
+                </Text>
+                <Text lineHeight="16px" color="#455054" fontSize={12}>
+                  Professor de Português
+                </Text>
+              </Container>
+              <Icon size={24} name="chevron-right" />
+            </Container>
           ))}
         </Container>
       </Container>

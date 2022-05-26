@@ -1,7 +1,7 @@
 import React from "react";
 import { StyledHeader } from "./styles";
 import { HeaderProps } from "./types";
-import Logo from "../../assets/images/world-bank.png";
+import Logo from "../../assets/images/logo.svg";
 import { Image } from "../Image";
 import { Container } from "../Container";
 import { useSelector } from "react-redux";

@@ -3,7 +3,9 @@ import {
   ColorProps,
   FontSizeProps,
   FontWeightProps,
+  LineHeightProps,
   SpaceProps,
+  TextAlignProps,
 } from "styled-system";
 
 export type TextProps = {
@@ -12,4 +14,6 @@ export type TextProps = {
 } & SpaceProps &
   FontWeightProps &
   FontSizeProps &
+  TextAlignProps &
+  LineHeightProps &
   ColorProps;

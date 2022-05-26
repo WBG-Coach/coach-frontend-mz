@@ -1,10 +1,19 @@
 import styled from "styled-components";
-import { color, fontSize, fontWeight, space } from "styled-system";
+import {
+  color,
+  fontSize,
+  fontWeight,
+  lineHeight,
+  space,
+  textAlign,
+} from "styled-system";
 
 export const StyledText = styled.span<any>`
-  font-family: "Montserrat", sans-serif;
+  font-family: "Inter", sans-serif;
   ${space}
   ${color}
   ${fontSize}
   ${fontWeight}
+  ${textAlign}
+  ${lineHeight}
 `;
