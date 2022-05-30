@@ -10,59 +10,67 @@ import ApplicationsList from "./routes/ApplicationsList";
 import Questionnaire from "./routes/Questionnaire";
 import { ProtectedRoute } from "./components";
 import Profile from "./routes/Profile";
+import { Provider } from "react-redux";
+import { store } from "./store";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./theme";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
 root.render(
-  <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route index element={<Login />} />
-        <Route
-          path="applications"
-          element={
-            <ProtectedRoute>
-              <SchoolsList />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="applications/:schoolId"
-          element={
-            <ProtectedRoute>
-              <TeachersList />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="applications/:schoolId/:teacherId"
-          element={
-            <ProtectedRoute>
-              <ApplicationsList />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="questionnaire"
-          element={
-            <ProtectedRoute>
-              <Questionnaire />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-    </Routes>
-  </BrowserRouter>
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<Login />} />
+            <Route
+              path="choose-school"
+              element={
+                <ProtectedRoute>
+                  <SchoolsList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="teachers"
+              element={
+                <ProtectedRoute>
+                  <TeachersList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="applications/:teacherId"
+              element={
+                <ProtectedRoute>
+                  <ApplicationsList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="questionnaire/:applicationId"
+              element={
+                <ProtectedRoute>
+                  <Questionnaire />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

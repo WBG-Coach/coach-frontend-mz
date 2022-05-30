@@ -1,29 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
+import { api } from "../../service";
+import { User } from "../type";
+
+const INITIAL_STATE: User = {};
 
 const authSlice = createSlice({
-  name: "counter",
-  initialState: {
-    user: undefined,
-    profileImage: "",
-  },
+  name: "auth",
+  initialState: INITIAL_STATE,
   reducers: {
-    login: (state): any => {
-      return {
-        ...state,
-        user: {
-          name: "Coach name",
-          profileImage:
-            "https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png",
-        },
-      };
+    selectSchool: (state, action) => {
+      return { ...state, selectedSchool: action.payload };
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(api.endpoints.login.matchFulfilled, (state, action) => {
+      return { ...state, ...action.payload };
+    });
   },
 });
 
-export const selectCurrentUser = (state: RootState) => state.auth.user;
+export const selectCurrentUser = (state: RootState) => state.auth;
 
-export const { login } = authSlice.actions;
+export const { selectSchool } = authSlice.actions;
 
 const { reducer } = authSlice;
 

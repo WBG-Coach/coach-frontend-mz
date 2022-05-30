@@ -7,7 +7,7 @@ export const ProtectedRoute: React.FC<any> = ({ children }) => {
   const location = useLocation();
   const user = useSelector(selectCurrentUser);
 
-  if (!user) {
+  if (!user.id) {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
 

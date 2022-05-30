@@ -1,18 +1,22 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Image } from "../../components";
-import { useDispatch, useSelector } from "react-redux";
-import { login, selectCurrentUser } from "../../store/auth";
+import { useGetCoachesMutation, useLoginMutation } from "../../service";
 import Logo from "../../assets/images/logo.svg";
+import { LoadingDots } from "../../components/LoadingDots";
 
 const Login: React.FC<{}> = () => {
-  const dispatch = useDispatch();
+  const [getCoaches, { data }] = useGetCoachesMutation();
+  const [login, { isSuccess }] = useLoginMutation();
   const navigate = useNavigate();
-  const user = useSelector(selectCurrentUser);
 
   useEffect(() => {
-    if (!!user) navigate("applications");
-  }, [user, navigate]);
+    getCoaches();
+  }, [getCoaches]);
+
+  useEffect(() => {
+    if (isSuccess) navigate("/choose-school");
+  }, [isSuccess, navigate]);
 
   return (
     <Container
@@ -24,12 +28,16 @@ const Login: React.FC<{}> = () => {
       alignItems="center"
     >
       <Image src={Logo} mb="48px" height={"80px"} />
-      <Button
-        width="100%"
-        icon="world"
-        value="Login with SSO"
-        onClick={() => dispatch(login())}
-      />
+      {data?.map((coach) => (
+        <Button
+          mb={2}
+          width="100%"
+          icon="world"
+          key={coach.id}
+          value={`Login ${coach.name}`}
+          onClick={() => login(coach?.id || 0)}
+        />
+      )) || <LoadingDots />}
     </Container>
   );
 };

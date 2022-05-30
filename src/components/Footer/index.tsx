@@ -11,7 +11,7 @@ import { Image } from "../Image";
 const Guide = require("../../assets/Coach_Guide.pdf");
 
 export const Footer: React.FC<FooterProps> = (props) => {
-  const user: any = useSelector(selectCurrentUser);
+  const user = useSelector(selectCurrentUser);
   const navigate = useNavigate();
 
   const openGuide = () => {
@@ -19,51 +19,49 @@ export const Footer: React.FC<FooterProps> = (props) => {
   };
 
   return (
-    user && (
-      <StyledFooter {...props}>
-        <Container
-          flex={1}
-          height="100%"
-          alignItems="center"
-          flexDirection="column"
-          justifyContent="center"
-          hoverColor="#0071BC20"
-          onClick={() => navigate("/applications")}
-        >
-          <Icon mb="8px" name="home" size={24} />
-          <Text fontSize={12} color="#2C4668" value="Home" />
-        </Container>
-        <Container
-          flex={1}
-          height="100%"
-          alignItems="center"
-          flexDirection="column"
-          justifyContent="center"
-          hoverColor="#0071BC20"
-          onClick={openGuide}
-        >
-          <Icon mb="8px" name="file" size={24} />
-          <Text fontSize={12} color="#2C4668" value="Guide" />
-        </Container>
-        <Container
-          flex={1}
-          height="100%"
-          alignItems="center"
-          flexDirection="column"
-          justifyContent="center"
-          hoverColor="#0071BC20"
-          onClick={() => navigate("/profile")}
-        >
-          <Image
-            mb="8px"
-            width={24}
-            height={24}
-            borderRadius="50%"
-            src={user.profileImage}
-          />
-          <Text fontSize={12} color="#2C4668" value="Guide" />
-        </Container>
-      </StyledFooter>
-    )
+    <StyledFooter {...props}>
+      <Container
+        flex={1}
+        height="100%"
+        alignItems="center"
+        flexDirection="column"
+        justifyContent="center"
+        hoverColor="#0071BC20"
+        onClick={() => navigate("/teachers")}
+      >
+        <Icon mb="8px" name="home" size={24} />
+        <Text fontSize={12} color="#2C4668" value="Home" />
+      </Container>
+      <Container
+        flex={1}
+        height="100%"
+        alignItems="center"
+        flexDirection="column"
+        justifyContent="center"
+        hoverColor="#0071BC20"
+        onClick={openGuide}
+      >
+        <Icon mb="8px" name="file" size={24} />
+        <Text fontSize={12} color="#2C4668" value="Guide" />
+      </Container>
+      <Container
+        flex={1}
+        height="100%"
+        alignItems="center"
+        flexDirection="column"
+        justifyContent="center"
+        hoverColor="#0071BC20"
+        onClick={() => navigate("/profile")}
+      >
+        <Image
+          mb="8px"
+          width={24}
+          height={24}
+          borderRadius="50%"
+          src={user?.image_url || ""}
+        />
+        <Text fontSize={12} color="#2C4668" value="Guide" />
+      </Container>
+    </StyledFooter>
   );
 };
