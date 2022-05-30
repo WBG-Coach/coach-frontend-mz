@@ -19,6 +19,7 @@ jobs:
     env:
       REACT_APP_BASENAME: coach-digital
       PUBLIC_URL: ./
+      REACT_APP_API_URL: http://173.255.230.140:81
 
     steps:
       - uses: actions/checkout@v3
