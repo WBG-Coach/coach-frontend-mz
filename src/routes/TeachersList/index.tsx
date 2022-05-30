@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Footer, Icon, Image, Text } from "../../components";
+import { Container, Icon, Image, Text } from "../../components";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/auth";
 import { useGetTeachersMutation } from "../../service";

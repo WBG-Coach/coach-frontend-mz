@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container, Footer, Icon, Image, Text } from "../../components";
+import { Container, Icon, Image, Text } from "../../components";
 import { format } from "date-fns";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/auth";

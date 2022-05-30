@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Container, Image, Text } from "../../components";
-import LogoSmall from "../../assets/images/logo-small.svg";
 import useDeviceDetection from "../../hooks/IsMobile";
 import { useGetSchoolsMutation } from "../../service";
 import { useDispatch, useSelector } from "react-redux";
