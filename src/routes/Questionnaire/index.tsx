@@ -7,12 +7,16 @@ import { useGetQuestionsMutation } from "../../service";
 const Questionnaire: React.FC<{}> = () => {
   const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const { applicationId } = useParams<{ applicationId: string }>();
+  const { applicationId, questionnaireId } = useParams<{
+    applicationId: string;
+    questionnaireId: string;
+  }>();
   const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
+  console.log(applicationId);
 
   useEffect(() => {
-    if (applicationId) getQuestions(parseInt(applicationId, 10));
-  }, [applicationId, getQuestions]);
+    if (questionnaireId) getQuestions(parseInt(questionnaireId, 10));
+  }, [questionnaireId, getQuestions]);
 
   return isLoading ? (
     <LoadingDots />

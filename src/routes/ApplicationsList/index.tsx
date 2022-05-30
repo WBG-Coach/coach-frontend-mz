@@ -85,7 +85,11 @@ const ApplicationList: React.FC<{}> = () => {
                 justifyContent="center"
                 flexDirection="row"
                 borderTop={index !== 0 ? "1px solid #F0F3F5" : ""}
-                onClick={() => navigate(`/questionnaire/${application.id}`)}
+                onClick={() =>
+                  navigate(
+                    `/questionnaire/${application.id}/${application.questionnaire_id}`
+                  )
+                }
               >
                 <Icon size={24} name="notes" mr="12px" />
 
