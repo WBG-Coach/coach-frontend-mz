@@ -5,7 +5,7 @@ import { useGetCoachesMutation, useLoginMutation } from "../../service";
 import Logo from "../../assets/images/logo.svg";
 import { LoadingDots } from "../../components/LoadingDots";
 
-const Login: React.FC<{}> = () => {
+const Login: React.FC = () => {
   const [getCoaches, { data }] = useGetCoachesMutation();
   const [login, { isSuccess }] = useLoginMutation();
   const navigate = useNavigate();

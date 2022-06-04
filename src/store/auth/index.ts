@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
+import { setLocalUser } from "../../localStorage";
 import { api } from "../../service";
 import { User } from "../type";
 
@@ -9,12 +10,18 @@ const authSlice = createSlice({
   name: "auth",
   initialState: INITIAL_STATE,
   reducers: {
+    loadLocalUser: (_state, action) => {
+      return action.payload;
+    },
     selectSchool: (state, action) => {
-      return { ...state, selectedSchool: action.payload };
+      const newState = { ...state, selectedSchool: action.payload };
+      setLocalUser(newState);
+      return newState;
     },
   },
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.login.matchFulfilled, (state, action) => {
+      setLocalUser(action.payload);
       return { ...state, ...action.payload };
     });
   },
@@ -22,7 +29,7 @@ const authSlice = createSlice({
 
 export const selectCurrentUser = (state: RootState) => state.auth;
 
-export const { selectSchool } = authSlice.actions;
+export const { selectSchool, loadLocalUser } = authSlice.actions;
 
 const { reducer } = authSlice;
 

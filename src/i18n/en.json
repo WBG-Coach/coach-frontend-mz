@@ -1,0 +1,11 @@
+{
+  "Login": {},
+  "Schools": {
+    "title": "Choose a school",
+    "empty": "Without schools",
+    "school_description": "{{value}} Teachers allocated to you"
+  },
+  "Teachers": {},
+  "Teacher": {},
+  "Questionnaire": {}
+}

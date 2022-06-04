@@ -1,19 +1,21 @@
 import React, { useEffect } from "react";
-import { Container, Image, Text } from "../../components";
-import useDeviceDetection from "../../hooks/IsMobile";
-import { useGetSchoolsMutation } from "../../service";
-import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser, selectSchool } from "../../store/auth";
 import { LoadingDots } from "../../components/LoadingDots";
-import { School } from "../../store/type";
+import LogoSmall from "../../assets/images/logo-small.svg";
+import { Container, Image, Text } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
+import useDeviceDetection from "../../hooks/IsMobile";
+import { useGetSchoolsMutation } from "../../service";
 import { useNavigate } from "react-router-dom";
+import { School } from "../../store/type";
+import { useTranslation } from "react-i18next";
 
 const SchoolsList: React.FC<{}> = () => {
   const [getSchools, { data, isLoading }] = useGetSchoolsMutation();
   const user = useSelector(selectCurrentUser);
-  const { isMobile } = useDeviceDetection();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (user.id) getSchools(user.id);
@@ -26,9 +28,20 @@ const SchoolsList: React.FC<{}> = () => {
 
   return (
     <Container width="100%" height="100%" mb="100px" flexDirection="column">
-      <Text fontSize={32} fontWeight={600} textAlign="center" mb="32px">
-        Choose a school
+      <Container mb="32px" mt="-16px" justifyContent="center">
+        <Image height={32} src={LogoSmall} p="16px" />
+      </Container>
+
+      <Text
+        mb="8px"
+        fontSize="24px"
+        color="#191A1B"
+        fontWeight={600}
+        lineHeight="32px"
+      >
+        {t("Schools.title")}
       </Text>
+
       {isLoading ? (
         <LoadingDots />
       ) : (
@@ -36,27 +49,44 @@ const SchoolsList: React.FC<{}> = () => {
           {data && data?.length > 0 ? (
             data?.map((school, index) => (
               <Container
-                m="8px"
-                mt="16px"
+                p="16px 0"
                 key={index}
-                alignItems="center"
-                alignContent="center"
-                flexDirection="column"
+                width="100%"
                 onClick={() => chooseSchool(school)}
-                width={isMobile ? "calc(50% - 16px)" : 200}
+                borderTop={index === 0 ? "none" : "1px solid #F0F2F5"}
               >
                 <Image
-                  src={school.image_url}
-                  width={80}
-                  height={80}
-                  border="1px solid #F0F3F5"
+                  width={48}
+                  height={48}
                   borderRadius="50%"
+                  src={school.image_url}
+                  border="1px solid #E3E5E8"
                 />
-                <Text mt="16px" mb="24px" fontSize={14} value={school.name} />
+                <Container
+                  ml="8px"
+                  flex={1}
+                  flexDirection="column"
+                  justifyContent="space-between"
+                >
+                  <Text
+                    fontSize="16px"
+                    fontWeight={600}
+                    lineHeight="24px"
+                    color="#000000"
+                    value={school.name}
+                  />
+                  <Text
+                    fontSize="14px"
+                    fontWeight={400}
+                    lineHeight="18px"
+                    color="#494B50"
+                    value={t("Schools.school_description", { value: 1 })}
+                  />
+                </Container>
               </Container>
             ))
           ) : (
-            <Text value="Without schools" />
+            <Text value={t("Schools.empty")} />
           )}
         </Container>
       )}
