@@ -48,4 +48,4 @@ jobs:
           SLACK_MESSAGE: "Post Content :rocket:"
           SLACK_TITLE: Coach Digital - Deploy done
           SLACK_USERNAME: GitBot
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK: https://hooks.slack.com/services/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

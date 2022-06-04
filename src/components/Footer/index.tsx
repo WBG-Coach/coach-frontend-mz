@@ -8,9 +8,11 @@ import { Text } from "../Text";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "../Icon";
 import { Image } from "../Image";
+import { useTheme } from "styled-components";
 const Guide = require("../../assets/Coach_Guide.pdf");
 
 export const Footer: React.FC<FooterProps> = (props) => {
+  const theme: any = useTheme();
   const user = useSelector(selectCurrentUser);
   const navigate = useNavigate();
 
@@ -30,7 +32,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
         onClick={() => navigate("/teachers")}
       >
         <Icon mb="8px" name="home" size={24} />
-        <Text fontSize={12} color="#2C4668" value="Home" />
+        <Text fontSize={12} color={theme.colors.primary} value="Home" />
       </Container>
       <Container
         flex={1}

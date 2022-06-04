@@ -4,11 +4,10 @@ import { LoadingDots } from "../../components/LoadingDots";
 import LogoSmall from "../../assets/images/logo-small.svg";
 import { Container, Image, Text } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import useDeviceDetection from "../../hooks/IsMobile";
 import { useGetSchoolsMutation } from "../../service";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { School } from "../../store/type";
-import { useTranslation } from "react-i18next";
 
 const SchoolsList: React.FC<{}> = () => {
   const [getSchools, { data, isLoading }] = useGetSchoolsMutation();
