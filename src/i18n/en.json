@@ -5,7 +5,12 @@
     "empty": "Without schools",
     "school_description": "{{value}} Teachers allocated to you"
   },
-  "Teachers": {},
+  "Teachers": {
+    "title": "Teachers",
+    "empty": "Without Teachers",
+    "teacher_description": "{{subject}} teacher",
+    "description": "These are the teachers allocated to you."
+  },
   "Teacher": {},
   "Questionnaire": {}
 }

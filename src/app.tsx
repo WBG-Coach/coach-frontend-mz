@@ -13,12 +13,12 @@ const App = () => {
   useEffect(() => {
     if (!loaded) {
       const localUser = getLocalUser();
-      if (localUser) {
+      if (localUser.id) {
         dispatch(loadLocalUser(localUser));
         if (localUser.selectedSchool) {
           navigate("/teachers");
         } else {
-          navigate("/schools");
+          navigate("/choose-school");
         }
       }
       setLoaded(true);

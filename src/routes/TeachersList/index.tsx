@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Container, Footer, Icon, Image, Text } from "../../components";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../store/auth";
-import { useGetTeachersMutation } from "../../service";
 import { LoadingDots } from "../../components/LoadingDots";
+import { useGetTeachersMutation } from "../../service";
+import { selectCurrentUser } from "../../store/auth";
 import { Header } from "../../components/Header";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const TeachersList: React.FC<{}> = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   const [getTeachers, { data, isLoading }] = useGetTeachersMutation();
@@ -21,19 +23,13 @@ const TeachersList: React.FC<{}> = () => {
     <>
       <Header />
       <Container width="100%" height="100%" mb="100px" flexDirection="column">
-        {user.selectedSchool && (
-          <Text fontSize={24} fontWeight={600} color="#00121A">
-            {user.selectedSchool.name}
-          </Text>
-        )}
-
         <Text
           mb="4px"
           mt="32px"
           fontSize={20}
           lineHeight="24px"
           fontWeight={600}
-          value="Teachers"
+          value={t("Teachers.title")}
           color="#00121A"
         />
         <Text
@@ -41,7 +37,7 @@ const TeachersList: React.FC<{}> = () => {
           fontWeight={400}
           color="#2B363B"
           lineHeight="20px"
-          value="These are the teachers allocated to you."
+          value={t("Teachers.description")}
         />
 
         {isLoading ? (
@@ -55,7 +51,7 @@ const TeachersList: React.FC<{}> = () => {
                   width="100%"
                   height="88px"
                   flexDirection="row"
-                  alignContent="center"
+                  alignItems="center"
                   justifyContent="center"
                   borderTop={index !== 0 ? "1px solid #F0F3F5" : ""}
                   onClick={() => navigate(`/applications/${teacher.id}`)}
@@ -75,22 +71,23 @@ const TeachersList: React.FC<{}> = () => {
                     justifyContent="center"
                   >
                     <Text
-                      lineHeight="24px"
+                      fontSize={16}
                       fontWeight={600}
                       color="#00121A"
-                      fontSize={16}
-                    >
-                      {teacher.name}
-                    </Text>
+                      lineHeight="24px"
+                      value={teacher.name}
+                    />
                     <Text lineHeight="16px" color="#455054" fontSize={12}>
-                      {teacher.subject} teacher
+                      {t("Teachers.teacher_description", {
+                        subject: teacher.subject,
+                      })}
                     </Text>
                   </Container>
                   <Icon size={24} name="chevron-right" />
                 </Container>
               ))
             ) : (
-              <Text value="Without Teachers" />
+              <Text value={t("Teachers.empty")} />
             )}
           </Container>
         )}

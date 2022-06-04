@@ -36,7 +36,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
     user && (
       <>
         <Container
-          mb="24px"
           mt="-24px"
           height="94px"
           flexDirection="row"
