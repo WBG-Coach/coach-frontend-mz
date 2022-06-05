@@ -5,6 +5,7 @@ export type IconProps = {
   name:
     | "home"
     | "file"
+    | "close"
     | "world"
     | "notes"
     | "check"

@@ -1,4 +1,9 @@
-import { LayoutProps, SpaceProps } from "styled-system";
+import {
+  JustifyContentProps,
+  LayoutProps,
+  SpaceProps,
+  TextAlignProps,
+} from "styled-system";
 
 export type ButtonProps = {
   value: string;
@@ -6,4 +11,6 @@ export type ButtonProps = {
   onClick: () => void;
   variant?: "primary" | "secondary";
 } & SpaceProps &
+  TextAlignProps &
+  JustifyContentProps &
   LayoutProps;

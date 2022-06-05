@@ -8,6 +8,7 @@ import CheckIcon from "./icons/check.svg";
 import NotesIcon from "./icons/notes.svg";
 import ChevronBottomIcon from "./icons/chevron-bottom.svg";
 import ArrowLeftIcon from "./icons/arrow-left.svg";
+import CloseIcon from "./icons/close.svg";
 import { Image } from "../Image";
 
 const ICONS = {
@@ -16,6 +17,7 @@ const ICONS = {
   home: HomeIcon,
   notes: NotesIcon,
   check: CheckIcon,
+  close: CloseIcon,
   "chevron-right": ChevronRightIcon,
   "chevron-bottom": ChevronBottomIcon,
   "arrow-left": ArrowLeftIcon,

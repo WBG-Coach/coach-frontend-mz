@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Card, Container, Text } from "../../components";
+import { Button, Container, Icon, Text } from "../../components";
 import { LoadingDots } from "../../components/LoadingDots";
+import { QuestionButton } from "../../components/QuestionButton";
 import { useGetQuestionsMutation } from "../../service";
 
 const Questionnaire: React.FC<{}> = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
   const { applicationId, questionnaireId } = useParams<{
     applicationId: string;
     questionnaireId: string;
   }>();
-  const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
   console.log(applicationId);
 
   useEffect(() => {
@@ -22,79 +25,101 @@ const Questionnaire: React.FC<{}> = () => {
     <LoadingDots />
   ) : (
     <Container flex={1} flexDirection="column">
-      <Container alignItems="center" onClick={() => navigate(-1)}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="#0071BC"
-          viewBox="0 0 16 16"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+      <Container mb="8px" flexDirection="row" p="16px 0" mt="-16px">
+        <Container flex={1} justifyContent="center">
+          <Container width="24px" />
+          <Text
+            fontSize="16px"
+            color="#191A1B"
+            fontWeight={600}
+            lineHeight="24px"
+            value={t("Questionnaire.title")}
           />
-        </svg>
-        <Text color="#0071BC" value="Back" />
+        </Container>
+        <Container onClick={() => navigate(-1)}>
+          <Icon name="close" size={24} />
+        </Container>
       </Container>
-      <Container my={3} flexDirection="row">
+      <Container
+        mx={-16}
+        p="16px"
+        mb="24px"
+        flexDirection="row"
+        overflowX="scroll"
+        borderBottom="1px solid #F0F2F5"
+      >
         {data?.questions.map((_, index) => (
-          <Button
+          <QuestionButton
             mr={3}
+            selected={index === currentQuestion}
             onClick={() => setCurrentQuestion(index)}
-            value={`Question ${index + 1}`}
-            variant={index === currentQuestion ? "primary" : "secondary"}
+            value={
+              index === currentQuestion
+                ? `Question ${index + 1}`
+                : `${index + 1}`
+            }
           />
         ))}
       </Container>
-      <Card minWidth="calc(100% - 32px)" mt={24} flexDirection="column">
-        <Container justifyContent="space-between">
-          <Button
-            variant="secondary"
-            value={
-              data?.questions[currentQuestion]?.question.competence.name || ""
-            }
-            onClick={() => {
-              alert("Open details modal");
-            }}
-          />
-          <Text fontSize={18}>
-            {currentQuestion + 1 + "/" + data?.questions.length}
-          </Text>
-        </Container>
 
-        <Text fontSize={18} my={24} fontWeight="bold">
+      <Container flexDirection="column">
+        <Text fontSize={18} fontWeight="bold">
           {data?.questions[currentQuestion]?.question?.text}
         </Text>
-
-        <Container flexDirection="column">
-          <textarea style={{ height: 100 }} placeholder="..." />
+        <Container mb="24px">
+          <Container
+            mt="8px"
+            p="4px 8px"
+            width="auto"
+            borderRadius="20px"
+            background="#F0F2F5"
+          >
+            <Text
+              value={
+                data?.questions[currentQuestion]?.question.competence.name || ""
+              }
+            />
+          </Container>
         </Container>
 
-        <Container mt="24px">
+        <Container mt="24px" flexDirection="column">
           <Button
+            mb="16px"
             variant="secondary"
-            mr={2}
+            justifyContent="flex-start"
             value="YES"
             width="100%"
             onClick={() => {}}
           />
           <Button
-            variant="secondary"
-            ml={2}
+            mb="16px"
             value="NO"
             width="100%"
+            justifyContent="flex-start"
+            variant="secondary"
             onClick={() => {}}
           />
         </Container>
-      </Card>
+      </Container>
 
-      <Button
-        mt={3}
-        value="Next"
-        width="100%"
-        onClick={() => setCurrentQuestion(currentQuestion + 1)}
-      />
+      <Container mt="16px" flexDirection="column">
+        <textarea style={{ height: 100 }} placeholder="..." />
+      </Container>
+
+      <Container
+        left="0"
+        right="0"
+        bottom="0"
+        p="24px 16px"
+        position="absolute"
+      >
+        <Button
+          mt={3}
+          width="100%"
+          value={t("Questionnaire.continue")}
+          onClick={() => setCurrentQuestion(currentQuestion + 1)}
+        />
+      </Container>
     </Container>
   );
 };

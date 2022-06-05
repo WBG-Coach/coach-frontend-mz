@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { layout, space } from "styled-system";
+import { justifyContent, layout, space, textAlign } from "styled-system";
 import { ButtonProps } from "./types";
 
 export const StyledButton = styled.button<ButtonProps>`
@@ -25,4 +25,6 @@ export const StyledButton = styled.button<ButtonProps>`
   }
   ${space}
   ${layout}
+  ${textAlign}
+  ${justifyContent}
 `;

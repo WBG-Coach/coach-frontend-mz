@@ -14,7 +14,11 @@
   "Teacher": {
     "title": "Teacher",
     "sessions": "Sessions",
+    "empty": "Without application",
     "subject": "{{subject}} teacher"
   },
-  "Questionnaire": {}
+  "Questionnaire": {
+    "title": "Session",
+    "continue": "Continue"
+  }
 }

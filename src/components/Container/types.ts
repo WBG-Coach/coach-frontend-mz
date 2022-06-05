@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import {
+  BackgroundProps,
   BorderProps,
   FlexboxProps,
   LayoutProps,
@@ -15,4 +16,5 @@ export type ContainerProps = {
   SpaceProps &
   FlexboxProps &
   BorderProps &
+  BackgroundProps &
   PositionProps;

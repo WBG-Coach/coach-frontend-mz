@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container, Icon, Image, Text } from "../../components";
+import { Container, Footer, Icon, Image, Text } from "../../components";
 import { format } from "date-fns";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/auth";
@@ -132,10 +132,11 @@ const ApplicationList: React.FC<{}> = () => {
               </Container>
             ))
           ) : (
-            <Text value="Without applications" />
+            <Text value={t("empty")} />
           )}
         </Container>
       )}
+      <Footer />
     </Container>
   );
 };
