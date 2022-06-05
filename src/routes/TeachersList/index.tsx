@@ -29,8 +29,8 @@ const TeachersList: React.FC<{}> = () => {
           fontSize={20}
           lineHeight="24px"
           fontWeight={600}
-          value={t("Teachers.title")}
           color="#00121A"
+          value={t("Teachers.title")}
         />
         <Text
           fontSize={14}

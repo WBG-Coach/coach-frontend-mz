@@ -8,6 +8,7 @@ export type IconProps = {
     | "world"
     | "notes"
     | "check"
+    | "arrow-left"
     | "chevron-right"
     | "chevron-bottom";
 } & SpaceProps &

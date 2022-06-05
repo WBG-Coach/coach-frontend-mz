@@ -53,7 +53,7 @@ root.render(
               }
             />
             <Route
-              path="questionnaire/:applicationId"
+              path="questionnaire/:applicationId/:questionnaireId"
               element={
                 <ProtectedRoute>
                   <Questionnaire />

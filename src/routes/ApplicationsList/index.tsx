@@ -9,6 +9,7 @@ import {
   useGetTeacherByIdMutation,
 } from "../../service";
 import { LoadingDots } from "../../components/LoadingDots";
+import { useTranslation } from "react-i18next";
 
 const ApplicationList: React.FC<{}> = () => {
   const user = useSelector(selectCurrentUser);
@@ -16,6 +17,7 @@ const ApplicationList: React.FC<{}> = () => {
   const [getApplications, { data, isLoading }] = useGetApplicationsMutation();
   const { teacherId } = useParams<{ teacherId: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (user.id && user.selectedSchool?.id && teacherId) {
@@ -30,36 +32,52 @@ const ApplicationList: React.FC<{}> = () => {
 
   return (
     <Container width="100%" height="100%" mb="100px" flexDirection="column">
+      <Container mb="24px" flexDirection="row" p="16px 0" mt="-16px">
+        <Container onClick={() => navigate(-1)}>
+          <Icon name="arrow-left" size={24} />
+        </Container>
+        <Container flex={1} justifyContent="center">
+          <Text
+            fontSize="16px"
+            color="#191A1B"
+            fontWeight={600}
+            lineHeight="24px"
+            value={t("Teacher.title")}
+          />
+        </Container>
+        <Container width="24px" />
+      </Container>
+
       {teacherRequest.isLoading ? (
         <LoadingDots />
       ) : (
         teacherRequest.data && (
           <Container
-            mb="40px"
+            mb="34px"
             width="100%"
-            height="56px"
             alignContent="center"
             justifyContent="center"
             flexDirection="row"
           >
             <Image
               mr="12px"
-              width={56}
-              height={56}
+              width={40}
+              height={40}
               borderRadius="50%"
               src={teacherRequest.data?.image_url || ""}
             />
-            <Container flex={1} flexDirection="column" justifyContent="center">
+            <Container
+              flex={1}
+              flexDirection="column"
+              justifyContent="space-between"
+            >
               <Text
-                mb="8px"
-                lineHeight="24px"
                 fontWeight={600}
+                fontSize="18px"
                 color="#00121A"
-                fontSize="20px"
-              >
-                {teacherRequest.data.name}
-              </Text>
-              <Text lineHeight="20px" color="#2B363B" fontSize="14px">
+                value={teacherRequest.data.name}
+              />
+              <Text color="#2B363B" fontSize="14px">
                 Professor de Português
               </Text>
             </Container>

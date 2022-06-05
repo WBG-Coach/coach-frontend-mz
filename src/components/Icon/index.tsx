@@ -7,6 +7,7 @@ import ChevronRightIcon from "./icons/chevron-right.svg";
 import CheckIcon from "./icons/check.svg";
 import NotesIcon from "./icons/notes.svg";
 import ChevronBottomIcon from "./icons/chevron-bottom.svg";
+import ArrowLeftIcon from "./icons/arrow-left.svg";
 import { Image } from "../Image";
 
 const ICONS = {
@@ -17,6 +18,7 @@ const ICONS = {
   check: CheckIcon,
   "chevron-right": ChevronRightIcon,
   "chevron-bottom": ChevronBottomIcon,
+  "arrow-left": ArrowLeftIcon,
 };
 
 export const Icon: React.FC<IconProps> = (props) => {
