@@ -13,6 +13,7 @@
   },
   "Teacher": {
     "title": "Teacher",
+    "sessions": "Sessions",
     "subject": "{{subject}} teacher"
   },
   "Questionnaire": {}

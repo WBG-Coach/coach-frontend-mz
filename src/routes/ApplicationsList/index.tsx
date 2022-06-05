@@ -86,7 +86,7 @@ const ApplicationList: React.FC<{}> = () => {
       )}
 
       <Text mt={24} mb="8px" fontSize="20px" lineHeight="24px" fontWeight={600}>
-        Sessions
+        {t("Teacher.sessions")}
       </Text>
 
       {isLoading ? (
