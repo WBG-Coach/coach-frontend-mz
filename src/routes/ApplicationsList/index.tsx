@@ -78,7 +78,7 @@ const ApplicationList: React.FC<{}> = () => {
                 value={teacherRequest.data.name}
               />
               <Text color="#2B363B" fontSize="14px">
-                Professor de Português
+                {t("Teacher.subject", { subject: teacherRequest.data.subject })}
               </Text>
             </Container>
           </Container>

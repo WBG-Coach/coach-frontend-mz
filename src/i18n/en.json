@@ -12,7 +12,8 @@
     "description": "These are the teachers allocated to you."
   },
   "Teacher": {
-    "title": "Teacher"
+    "title": "Teacher",
+    "subject": "{{subject}} teacher"
   },
   "Questionnaire": {}
 }
