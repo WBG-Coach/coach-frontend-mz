@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Container, Icon, OptionButton, Text } from "../../components";
+import {
+  Button,
+  Container,
+  Icon,
+  Image,
+  OptionButton,
+  Text,
+} from "../../components";
 import { LoadingDots } from "../../components/LoadingDots";
 import { QuestionButton } from "../../components/QuestionButton";
 import { useGetQuestionsMutation } from "../../service";
+import FinishImage from "../../assets/images/finish-image.svg";
 
 const Questionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [isFinish, setFinish] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
   const [answers, setAnswers] = useState<number[]>([]);
@@ -34,6 +43,10 @@ const Questionnaire: React.FC<{}> = () => {
     }
   };
 
+  const sendQuestionnaire = () => {
+    setFinish(true);
+  };
+
   return isLoading ? (
     <LoadingDots />
   ) : (
@@ -53,68 +66,99 @@ const Questionnaire: React.FC<{}> = () => {
           <Icon name="close" size={24} />
         </Container>
       </Container>
-      <Container
-        mx={-16}
-        p="16px"
-        mb="24px"
-        flexDirection="row"
-        overflowX="scroll"
-        borderBottom="1px solid #F0F2F5"
-      >
-        {data?.questions.map((_, index) => (
-          <QuestionButton
-            mr={3}
-            selected={index === currentQuestion}
-            onClick={() => setCurrentQuestion(index)}
-            value={
-              index === currentQuestion
-                ? `Question ${index + 1}`
-                : `${index + 1}`
-            }
+
+      {isFinish ? (
+        <Container
+          mt={"100px"}
+          flexDirection="column"
+          justifyContent={"center"}
+          alignContent="center"
+        >
+          <Image src={FinishImage} m="auto" />
+          <Text
+            mt={"32px"}
+            fontSize={24}
+            textAlign="center"
+            value="Sessão concluída!"
+            mb="16px"
+            fontWeight={600}
           />
-        ))}
-      </Container>
-
-      <Container flexDirection="column">
-        <Text fontSize={18} fontWeight="bold">
-          {data?.questions[currentQuestion]?.question?.text}
-        </Text>
-        <Container mb="24px">
+          <Text
+            textAlign="center"
+            fontSize={16}
+            fontWeight={400}
+            value="Parabéns, Coach! Fique a vontade para ver o resumo dessa sessão a qualquer momento."
+          />
+        </Container>
+      ) : (
+        <>
           <Container
-            mt="8px"
-            p="4px 8px"
-            width="auto"
-            borderRadius="20px"
-            background="#F0F2F5"
+            mx={-16}
+            p="16px"
+            mb="24px"
+            flexDirection="row"
+            overflowX="scroll"
+            borderBottom="1px solid #F0F2F5"
           >
-            <Text
-              value={
-                data?.questions[currentQuestion]?.question.competence.name || ""
-              }
-            />
+            {data?.questions.map((_, index) => (
+              <QuestionButton
+                mr={3}
+                selected={index === currentQuestion}
+                onClick={() => setCurrentQuestion(index)}
+                value={
+                  index === currentQuestion
+                    ? `Question ${index + 1}`
+                    : `${index + 1}`
+                }
+              />
+            ))}
           </Container>
-        </Container>
 
-        <Container mt="24px" flexDirection="column">
-          {data?.questions[currentQuestion]?.question.options.map((option) => (
-            <OptionButton
-              mb="16px"
-              width="100%"
-              textAlign="left"
-              variant="secondary"
-              value={option.text}
-              justifyContent="flex-start"
-              selectedColor={option.selected_color}
-              isSelected={answers[currentQuestion] === option.id}
-              onClick={() => answerQuestion(currentQuestion, option.id)}
-            />
-          ))}
-        </Container>
-      </Container>
+          <Container flexDirection="column">
+            <Text fontSize={18} fontWeight="bold">
+              {data?.questions[currentQuestion]?.question?.text}
+            </Text>
+            <Container mb="24px">
+              <Container
+                mt="8px"
+                p="4px 8px"
+                width="auto"
+                borderRadius="20px"
+                background="#F0F2F5"
+              >
+                <Text
+                  value={
+                    data?.questions[currentQuestion]?.question.competence
+                      .name || ""
+                  }
+                />
+              </Container>
+            </Container>
 
-      <Container mt="16px" flexDirection="column">
-        <textarea style={{ height: 100 }} placeholder="..." />
-      </Container>
+            <Container mt="24px" flexDirection="column">
+              {data?.questions[currentQuestion]?.question.options.map(
+                (option) => (
+                  <OptionButton
+                    mb="16px"
+                    width="100%"
+                    textAlign="left"
+                    variant="secondary"
+                    value={option.text}
+                    justifyContent="flex-start"
+                    selectedColor={option.selected_color}
+                    isSelected={answers[currentQuestion] === option.id}
+                    onClick={() => answerQuestion(currentQuestion, option.id)}
+                  />
+                )
+              )}
+            </Container>
+          </Container>
+
+          <Container mt="16px" flexDirection="column">
+            <textarea style={{ height: 100 }} placeholder="..." />
+          </Container>
+        </>
+      )}
 
       <Container
         left="0"
@@ -123,12 +167,29 @@ const Questionnaire: React.FC<{}> = () => {
         p="24px 16px"
         position="absolute"
       >
-        <Button
-          mt={3}
-          width="100%"
-          value={t("Questionnaire.continue")}
-          onClick={() => setCurrentQuestion(currentQuestion + 1)}
-        />
+        {isFinish ? (
+          <Button
+            mt={3}
+            width="100%"
+            variant="secondary"
+            onClick={() => navigate(-1)}
+            value={t("Questionnaire.see-summary")}
+          />
+        ) : currentQuestion + 1 === data?.questions.length ? (
+          <Button
+            mt={3}
+            width="100%"
+            onClick={sendQuestionnaire}
+            value={t("Questionnaire.finish")}
+          />
+        ) : (
+          <Button
+            mt={3}
+            width="100%"
+            value={t("Questionnaire.continue")}
+            onClick={() => setCurrentQuestion(currentQuestion + 1)}
+          />
+        )}
       </Container>
     </Container>
   );

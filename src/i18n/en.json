@@ -19,6 +19,8 @@
   },
   "Questionnaire": {
     "title": "Session",
-    "continue": "Continue"
+    "continue": "Continue",
+    "finish": "Finish",
+    "see-summary": "See summary"
   }
 }
