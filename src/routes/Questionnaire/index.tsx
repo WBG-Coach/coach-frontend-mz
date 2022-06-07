@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Container, Icon, Text } from "../../components";
+import { Button, Container, Icon, OptionButton, Text } from "../../components";
 import { LoadingDots } from "../../components/LoadingDots";
 import { QuestionButton } from "../../components/QuestionButton";
 import { useGetQuestionsMutation } from "../../service";
@@ -11,6 +11,7 @@ const Questionnaire: React.FC<{}> = () => {
   const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
+  const [answers, setAnswers] = useState<number[]>([]);
   const { applicationId, questionnaireId } = useParams<{
     applicationId: string;
     questionnaireId: string;
@@ -20,6 +21,18 @@ const Questionnaire: React.FC<{}> = () => {
   useEffect(() => {
     if (questionnaireId) getQuestions(parseInt(questionnaireId, 10));
   }, [questionnaireId, getQuestions]);
+
+  const answerQuestion = (currentQuestion: number, optionId: number) => {
+    if (answers[currentQuestion]) {
+      setAnswers(
+        answers.map((oldOption, index) =>
+          index === currentQuestion ? optionId : oldOption
+        )
+      );
+    } else {
+      setAnswers([...answers, optionId]);
+    }
+  };
 
   return isLoading ? (
     <LoadingDots />
@@ -83,22 +96,19 @@ const Questionnaire: React.FC<{}> = () => {
         </Container>
 
         <Container mt="24px" flexDirection="column">
-          <Button
-            mb="16px"
-            variant="secondary"
-            justifyContent="flex-start"
-            value="YES"
-            width="100%"
-            onClick={() => {}}
-          />
-          <Button
-            mb="16px"
-            value="NO"
-            width="100%"
-            justifyContent="flex-start"
-            variant="secondary"
-            onClick={() => {}}
-          />
+          {data?.questions[currentQuestion]?.question.options.map((option) => (
+            <OptionButton
+              mb="16px"
+              width="100%"
+              textAlign="left"
+              variant="secondary"
+              value={option.text}
+              justifyContent="flex-start"
+              selectedColor={option.selected_color}
+              isSelected={answers[currentQuestion] === option.id}
+              onClick={() => answerQuestion(currentQuestion, option.id)}
+            />
+          ))}
         </Container>
       </Container>
 

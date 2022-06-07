@@ -36,6 +36,14 @@ export type Application = {
   questionnaire: Questionnaire;
 };
 
+export type Option = {
+  id: number;
+  question_id: number;
+  selected_color: string | null;
+  selected_icon: string | null;
+  text: string;
+};
+
 export type Question = {
   id: number;
   question_id: number;
@@ -48,6 +56,7 @@ export type Question = {
     created_at: Date;
     updated_at: Date;
     text: string;
+    options: Option[];
     competence: {
       id: number;
       name: string;
