@@ -19,7 +19,11 @@ export const StyledButton = styled.button<ButtonProps>`
   color: ${(props) =>
     props.variant === "secondary" ? props.theme.colors.primary : "#fff"};
   background: ${(props) =>
-    props.variant === "secondary" ? "#fff" : props.theme.colors.primary};
+    props.isDisabled
+      ? "#eee"
+      : props.variant === "secondary"
+      ? "#fff"
+      : props.theme.colors.primary};
   &:hover {
     opacity: 0.7;
   }

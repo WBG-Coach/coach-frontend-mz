@@ -7,7 +7,7 @@ export const StyledTextAreaContainer = styled.span<any>`
   background-color: #f9fafb;
   border-radius: 8px;
 `;
-export const StyledTextArea = styled.textarea<any>`
+export const StyledTextArea = styled.textarea`
   font-family: "Inter", sans-serif;
   margin: 0;
   border: none;

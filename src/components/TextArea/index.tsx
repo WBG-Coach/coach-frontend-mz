@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Icon } from "../Icon";
 import {
   StyledInputFileIcon,
@@ -8,13 +8,21 @@ import {
 import { TextAreaProps } from "./types";
 
 export const TextArea: React.FC<TextAreaProps> = ({
+  value,
   onChangeText: onChange,
   onLoadFile,
   ...props
 }) => {
+  useEffect(() => {
+    console.log(value);
+  }, [value]);
+
   return (
     <StyledTextAreaContainer {...props}>
-      <StyledTextArea onChange={(e: any): void => onChange(e.target.value)} />
+      <StyledTextArea
+        value={value}
+        onChange={(e: any): void => onChange(e.target.value)}
+      />
       <StyledInputFileIcon for="file">
         <Icon name="file-blank" size={24} />
       </StyledInputFileIcon>

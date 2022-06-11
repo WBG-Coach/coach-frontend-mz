@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -22,6 +22,7 @@ const Questionnaire: React.FC<{}> = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
   const [answers, setAnswers] = useState<number[]>([]);
+  const [notes, setNotes] = useState<string[]>([]);
   const { applicationId, questionnaireId } = useParams<{
     applicationId: string;
     questionnaireId: string;
@@ -31,21 +32,37 @@ const Questionnaire: React.FC<{}> = () => {
     if (questionnaireId) getQuestions(parseInt(questionnaireId, 10));
   }, [questionnaireId, getQuestions]);
 
-  const answerQuestion = (currentQuestion: number, optionId: number) => {
-    if (answers[currentQuestion]) {
-      setAnswers(
-        answers.map((oldOption, index) =>
-          index === currentQuestion ? optionId : oldOption
-        )
-      );
-    } else {
-      setAnswers([...answers, optionId]);
+  useEffect(() => {
+    if (data?.questions) {
+      setAnswers(new Array(data?.questions.length).fill(undefined));
+      setNotes(new Array(data?.questions.length).fill(undefined));
     }
+  }, [data]);
+
+  const answerQuestion = (optionId: number) => {
+    setAnswers(
+      answers.map((oldOption, index) =>
+        index === currentQuestion ? optionId : oldOption
+      )
+    );
+  };
+
+  const noteQuestion = (text: string) => {
+    setNotes(
+      notes.map((oldNode, index) =>
+        index === currentQuestion ? text : oldNode
+      )
+    );
+  };
+
+  const goToNextQuestion = () => {
+    setCurrentQuestion(currentQuestion + 1);
   };
 
   const sendQuestionnaire = () => {
     console.log(applicationId);
     console.log(answers);
+    console.log(notes);
     setFinish(true);
   };
 
@@ -150,8 +167,8 @@ const Questionnaire: React.FC<{}> = () => {
                     value={option.text}
                     justifyContent="flex-start"
                     selectedColor={option.selected_color}
+                    onClick={() => answerQuestion(option.id)}
                     isSelected={answers[currentQuestion] === option.id}
-                    onClick={() => answerQuestion(currentQuestion, option.id)}
                   />
                 )
               )}
@@ -159,7 +176,17 @@ const Questionnaire: React.FC<{}> = () => {
           </Container>
 
           <Container mt="16px" flexDirection="column">
-            <TextArea onChangeText={(text) => console.log(text)} onLoadFile={() => {}} />
+            {notes.map(
+              (note: string, index: number): ReactNode =>
+                currentQuestion === index && (
+                  <TextArea
+                    key={index}
+                    value={note}
+                    onLoadFile={() => {}}
+                    onChangeText={(text) => noteQuestion(text)}
+                  />
+                )
+            )}
           </Container>
         </>
       )}
@@ -190,8 +217,9 @@ const Questionnaire: React.FC<{}> = () => {
           <Button
             mt={3}
             width="100%"
+            isDisabled={!answers[currentQuestion]}
             value={t("Questionnaire.continue")}
-            onClick={() => setCurrentQuestion(currentQuestion + 1)}
+            onClick={goToNextQuestion}
           />
         )}
       </Container>

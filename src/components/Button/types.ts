@@ -9,6 +9,7 @@ export type ButtonProps = {
   value: string;
   icon?: "world";
   onClick: () => void;
+  isDisabled?: boolean;
   variant?: "primary" | "secondary";
 } & SpaceProps &
   TextAlignProps &
