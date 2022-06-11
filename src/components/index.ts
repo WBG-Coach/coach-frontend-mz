@@ -7,6 +7,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import { Card } from "./Card";
 import { Footer } from "./Footer";
 import { Icon } from "./Icon";
+import { TextArea } from "./TextArea";
 
 export {
   Button,
@@ -18,4 +19,5 @@ export {
   Card,
   Footer,
   Icon,
+  TextArea,
 };

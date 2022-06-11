@@ -8,11 +8,12 @@ import {
   Image,
   OptionButton,
   Text,
+  TextArea,
 } from "../../components";
-import { LoadingDots } from "../../components/LoadingDots";
-import { QuestionButton } from "../../components/QuestionButton";
 import { useGetQuestionsMutation } from "../../service";
+import { LoadingDots } from "../../components/LoadingDots";
 import FinishImage from "../../assets/images/finish-image.svg";
+import { QuestionButton } from "../../components/QuestionButton";
 
 const Questionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
@@ -25,7 +26,6 @@ const Questionnaire: React.FC<{}> = () => {
     applicationId: string;
     questionnaireId: string;
   }>();
-  console.log(applicationId);
 
   useEffect(() => {
     if (questionnaireId) getQuestions(parseInt(questionnaireId, 10));
@@ -44,6 +44,8 @@ const Questionnaire: React.FC<{}> = () => {
   };
 
   const sendQuestionnaire = () => {
+    console.log(applicationId);
+    console.log(answers);
     setFinish(true);
   };
 
@@ -103,6 +105,7 @@ const Questionnaire: React.FC<{}> = () => {
             {data?.questions.map((_, index) => (
               <QuestionButton
                 mr={3}
+                key={index}
                 selected={index === currentQuestion}
                 onClick={() => setCurrentQuestion(index)}
                 value={
@@ -139,6 +142,7 @@ const Questionnaire: React.FC<{}> = () => {
               {data?.questions[currentQuestion]?.question.options.map(
                 (option) => (
                   <OptionButton
+                    key={option.id}
                     mb="16px"
                     width="100%"
                     textAlign="left"
@@ -155,7 +159,7 @@ const Questionnaire: React.FC<{}> = () => {
           </Container>
 
           <Container mt="16px" flexDirection="column">
-            <textarea style={{ height: 100 }} placeholder="..." />
+            <TextArea onChangeText={(text) => console.log(text)} onLoadFile={() => {}} />
           </Container>
         </>
       )}
