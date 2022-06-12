@@ -12,6 +12,7 @@ import CloseIcon from "./icons/close.svg";
 import ThumbsUpIcon from "./icons/thumbs-up.svg";
 import ThumbsDownIcon from "./icons/thumbs-down.svg";
 import FileBlankIcon from "./icons/file-blank.svg";
+import CameraIcon from "./icons/camera.svg";
 import { Image } from "../Image";
 
 const ICONS = {
@@ -21,6 +22,7 @@ const ICONS = {
   notes: NotesIcon,
   check: CheckIcon,
   close: CloseIcon,
+  camera: CameraIcon,
   "chevron-right": ChevronRightIcon,
   "chevron-bottom": ChevronBottomIcon,
   "arrow-left": ArrowLeftIcon,

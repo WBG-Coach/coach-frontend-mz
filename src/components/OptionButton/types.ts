@@ -7,10 +7,10 @@ import {
 
 export type ButtonProps = {
   value: string;
-  icon?: "world";
   onClick: () => void;
   isSelected?: boolean;
   selectedColor?: string | null;
+  selectedIcon?: "thumbs-up" | "thumbs-down" | null;
   variant?: "primary" | "secondary";
 } & SpaceProps &
   TextAlignProps &

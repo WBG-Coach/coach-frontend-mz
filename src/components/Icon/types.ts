@@ -9,6 +9,7 @@ export type IconProps = {
     | "world"
     | "notes"
     | "check"
+    | "camera"
     | "thumbs-up"
     | "file-blank"
     | "arrow-left"

@@ -6,8 +6,10 @@ import { ButtonProps } from "./types";
 export const OptionButton: React.FC<ButtonProps> = (props) => {
   return (
     <StyledButton {...props}>
-      {props.icon && <Icon name={props.icon} mr={3} size={24} />}
       {props.value}
+      {props.selectedIcon && props.isSelected && (
+        <Icon name={props.selectedIcon} mr={3} size={24} />
+      )}
     </StyledButton>
   );
 };

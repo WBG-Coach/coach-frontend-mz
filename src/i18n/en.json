@@ -19,8 +19,11 @@
   },
   "Questionnaire": {
     "title": "Session",
-    "continue": "Continue",
     "finish": "Finish",
-    "see-summary": "See summary"
+    "continue": "Continue",
+    "see-summary": "See summary",
+    "finish-title": "Session completed!",
+    "question-number": "Question {{value}}",
+    "finish-description": "Congratulations, coach! Feel free to view the summary of this session at any time."
   }
 }

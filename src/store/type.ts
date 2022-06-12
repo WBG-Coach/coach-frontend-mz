@@ -27,6 +27,7 @@ export type Questionnaire = {
 
 export type Application = {
   id: number;
+  status: string;
   questionnaire_id: number;
   coach_id: number;
   teacher_id: number;

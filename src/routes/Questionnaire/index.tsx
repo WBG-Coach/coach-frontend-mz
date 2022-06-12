@@ -1,28 +1,30 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  Button,
-  Container,
-  Icon,
-  Image,
-  OptionButton,
-  Text,
-  TextArea,
-} from "../../components";
-import { useGetQuestionsMutation } from "../../service";
 import { LoadingDots } from "../../components/LoadingDots";
-import FinishImage from "../../assets/images/finish-image.svg";
-import { QuestionButton } from "../../components/QuestionButton";
+import { useParams } from "react-router-dom";
+import {
+  useGetApplicationMutation,
+  useGetQuestionsMutation,
+} from "../../service";
+import { useTranslation } from "react-i18next";
+import {
+  Text,
+  Button,
+  TextArea,
+  Container,
+  OptionButton,
+} from "../../components";
+import { FinishContainer } from "./FinishContainer";
+import { ButtonQuestionList } from "./ButtonQuestionList";
+import { QuestionnaireHeader } from "./QuestionnaireHeader";
 
 const Questionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [isFinish, setFinish] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
-  const [answers, setAnswers] = useState<number[]>([]);
-  const [notes, setNotes] = useState<string[]>([]);
+  const [getApplication, applicationRequest] = useGetApplicationMutation();
+  const [answers, setAnswers] = useState<Array<number | undefined>>([]);
+  const [notes, setNotes] = useState<Array<string | undefined>>([]);
   const { applicationId, questionnaireId } = useParams<{
     applicationId: string;
     questionnaireId: string;
@@ -31,6 +33,10 @@ const Questionnaire: React.FC<{}> = () => {
   useEffect(() => {
     if (questionnaireId) getQuestions(parseInt(questionnaireId, 10));
   }, [questionnaireId, getQuestions]);
+
+  useEffect(() => {
+    if (applicationId) getApplication({ id: parseInt(applicationId, 10) });
+  }, [applicationId, getApplication]);
 
   useEffect(() => {
     if (data?.questions) {
@@ -66,78 +72,27 @@ const Questionnaire: React.FC<{}> = () => {
     setFinish(true);
   };
 
-  return isLoading ? (
+  return isLoading || applicationRequest.isLoading ? (
     <LoadingDots />
   ) : (
     <Container flex={1} flexDirection="column">
-      <Container mb="8px" flexDirection="row" p="16px 0" mt="-16px">
-        <Container flex={1} justifyContent="center">
-          <Container width="24px" />
-          <Text
-            fontSize="16px"
-            color="#191A1B"
-            fontWeight={600}
-            lineHeight="24px"
-            value={t("Questionnaire.title")}
-          />
-        </Container>
-        <Container onClick={() => navigate(-1)}>
-          <Icon name="close" size={24} />
-        </Container>
-      </Container>
+      <QuestionnaireHeader />
 
       {isFinish ? (
-        <Container
-          mt={"100px"}
-          flexDirection="column"
-          justifyContent={"center"}
-          alignContent="center"
-        >
-          <Image src={FinishImage} m="auto" />
-          <Text
-            mt={"32px"}
-            fontSize={24}
-            textAlign="center"
-            value="Sessão concluída!"
-            mb="16px"
-            fontWeight={600}
-          />
-          <Text
-            textAlign="center"
-            fontSize={16}
-            fontWeight={400}
-            value="Parabéns, Coach! Fique a vontade para ver o resumo dessa sessão a qualquer momento."
-          />
-        </Container>
+        <FinishContainer />
       ) : (
         <>
-          <Container
-            mx={-16}
-            p="16px"
-            mb="24px"
-            flexDirection="row"
-            overflowX="scroll"
-            borderBottom="1px solid #F0F2F5"
-          >
-            {data?.questions.map((_, index) => (
-              <QuestionButton
-                mr={3}
-                key={index}
-                selected={index === currentQuestion}
-                onClick={() => setCurrentQuestion(index)}
-                value={
-                  index === currentQuestion
-                    ? `Question ${index + 1}`
-                    : `${index + 1}`
-                }
-              />
-            ))}
-          </Container>
+          <ButtonQuestionList
+            currentQuestion={currentQuestion}
+            onClick={(index) => setCurrentQuestion(index)}
+            questions={data?.questions || []}
+          />
 
           <Container flexDirection="column">
             <Text fontSize={18} fontWeight="bold">
               {data?.questions[currentQuestion]?.question?.text}
             </Text>
+
             <Container mb="24px">
               <Container
                 mt="8px"
@@ -161,13 +116,12 @@ const Questionnaire: React.FC<{}> = () => {
                   <OptionButton
                     key={option.id}
                     mb="16px"
-                    width="100%"
                     textAlign="left"
                     variant="secondary"
                     value={option.text}
-                    justifyContent="flex-start"
                     selectedColor={option.selected_color}
                     onClick={() => answerQuestion(option.id)}
+                    selectedIcon={option.selected_icon as any}
                     isSelected={answers[currentQuestion] === option.id}
                   />
                 )
@@ -177,7 +131,7 @@ const Questionnaire: React.FC<{}> = () => {
 
           <Container mt="16px" flexDirection="column">
             {notes.map(
-              (note: string, index: number): ReactNode =>
+              (note: string | undefined, index: number): ReactNode =>
                 currentQuestion === index && (
                   <TextArea
                     key={index}
@@ -188,41 +142,34 @@ const Questionnaire: React.FC<{}> = () => {
                 )
             )}
           </Container>
+
+          <Container
+            left="0"
+            right="0"
+            bottom="0"
+            p="24px 16px"
+            position="absolute"
+          >
+            {currentQuestion + 1 === data?.questions.length ? (
+              <Button
+                mt={3}
+                width="100%"
+                onClick={sendQuestionnaire}
+                value={t("Questionnaire.finish")}
+                isDisabled={answers.includes(undefined)}
+              />
+            ) : (
+              <Button
+                mt={3}
+                width="100%"
+                onClick={goToNextQuestion}
+                value={t("Questionnaire.continue")}
+                isDisabled={!answers[currentQuestion]}
+              />
+            )}
+          </Container>
         </>
       )}
-
-      <Container
-        left="0"
-        right="0"
-        bottom="0"
-        p="24px 16px"
-        position="absolute"
-      >
-        {isFinish ? (
-          <Button
-            mt={3}
-            width="100%"
-            variant="secondary"
-            onClick={() => navigate(-1)}
-            value={t("Questionnaire.see-summary")}
-          />
-        ) : currentQuestion + 1 === data?.questions.length ? (
-          <Button
-            mt={3}
-            width="100%"
-            onClick={sendQuestionnaire}
-            value={t("Questionnaire.finish")}
-          />
-        ) : (
-          <Button
-            mt={3}
-            width="100%"
-            isDisabled={!answers[currentQuestion]}
-            value={t("Questionnaire.continue")}
-            onClick={goToNextQuestion}
-          />
-        )}
-      </Container>
     </Container>
   );
 };

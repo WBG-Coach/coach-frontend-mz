@@ -67,6 +67,13 @@ export const api = createApi({
         body,
       }),
     }),
+    getApplication: builder.mutation<Application, { id: number }>({
+      query: (body) => ({
+        method: "POST",
+        url: "/api/questionnaire-applications/search",
+        body,
+      }),
+    }),
     getQuestions: builder.mutation<
       { questions: Question[]; questionnaire: Questionnaire },
       number
@@ -87,7 +94,8 @@ export const {
   useGetCoachesMutation,
   useGetSchoolsMutation,
   useGetTeachersMutation,
-  useGetTeacherByIdMutation,
-  useGetApplicationsMutation,
   useGetQuestionsMutation,
+  useGetTeacherByIdMutation,
+  useGetApplicationMutation,
+  useGetApplicationsMutation,
 } = api;

@@ -3,6 +3,8 @@ import { justifyContent, layout, space, textAlign } from "styled-system";
 import { ButtonProps } from "./types";
 
 export const StyledButton = styled.button<ButtonProps>`
+  width: 100%;
+  flex: 1;
   border: none;
   display: flex;
   cursor: pointer;
@@ -12,7 +14,8 @@ export const StyledButton = styled.button<ButtonProps>`
   padding: 12px 24px;
   border-radius: 12px;
   transition: all 300ms;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   font-family: "Inter", sans-serif;
   font-weight: ${(props) => (props.isSelected ? 600 : 400)};
   border: 2px solid
