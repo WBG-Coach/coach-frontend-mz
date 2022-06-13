@@ -36,8 +36,8 @@
     "finish": "Finish",
     "continue": "Continue",
     "see-summary": "See summary",
-    "finish-title": "Session completed!",
+    "finish-title": "Good job, Coach!",
     "question-number": "Question {{value}}",
-    "finish-description": "Congratulations, coach! Feel free to view the summary of this session at any time."
+    "finish-description": "The observation sheet has been saved."
   }
 }

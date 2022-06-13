@@ -43,9 +43,8 @@ export const FinishContainer: React.FC = () => {
         <Button
           mt={3}
           width="100%"
-          variant="secondary"
           onClick={() => navigate(-1)}
-          value={t("Questionnaire.see-summary")}
+          value={t("Questionnaire.continue")}
         />
       </Container>
     </>

@@ -51,9 +51,7 @@ const QuestionnaireReview: React.FC<{}> = () => {
           </Container>
         </>
       ) : (
-        <>
-          <Text mt="24px" fontWeight={500} fontSize="16px" value={note} />
-        </>
+        <Text mt="24px" fontWeight={500} fontSize="16px" value={note} />
       )}
     </Container>
   );
