@@ -25,7 +25,8 @@
     "label-feedback": "Feedback",
     "description-feedback": "Prepare feedback for the teacher.",
     "label-review": "Documentation",
-    "description-review": "Prepare feedback for the teacher."
+    "description-review": "Prepare feedback for the teacher.",
+    "new-review": "New note"
   },
   "Questionnaire": {
     "title": "Session",

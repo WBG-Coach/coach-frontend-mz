@@ -1,60 +1,37 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Button, Container, FabButton, Text, TextArea } from "../../components";
+import { Button, Container, Text, TextArea } from "../../components";
 import { QuestionnaireHeader } from "../Questionnaire/QuestionnaireHeader";
+import { getLocalNotes, setLocalNotes } from "../../storage";
 
 const QuestionnaireReview: React.FC<{}> = () => {
   const { t } = useTranslation();
-  const [step, setStep] = useState(0);
   const [note, setNote] = useState("");
-  const [notes, setNotes] = useState<string[]>([]);
-  const { applicationId, questionnaireId } = useParams<{
+  const navigate = useNavigate();
+  const { index, applicationId, questionnaireId } = useParams<{
+    index: string;
     applicationId: string;
     questionnaireId: string;
   }>();
 
-  const sendQuestionnaire = () => {
+  useEffect(() => {
+    setNote(getLocalNotes()[parseInt(index || "0", 10)]);
+  }, [index]);
+
+  const sendQuestionnaire = async () => {
     console.log(applicationId);
     console.log(questionnaireId);
-    console.log(notes);
-    if (!!note) setNotes([...notes, note]);
+    const notes = getLocalNotes();
+    setLocalNotes([...notes, note]);
+    navigate(-1);
     setNote("");
-    setStep(0);
   };
 
   return (
     <Container flex={1} flexDirection="column">
       <QuestionnaireHeader title={t("Questionnaire.title-review")} />
-      {step === 0 ? (
-        <>
-          <Container
-            mt="32px"
-            flexDirection="row"
-            flexWrap="wrap"
-            justifyContent="space-between"
-          >
-            {notes.map((currentNote) => (
-              <Container
-                p="12px"
-                mb="24px"
-                borderRadius="12px"
-                width="calc(50% - 32px)"
-                border="1px solid #E3E5E8"
-              >
-                <Text value={currentNote} />
-              </Container>
-            ))}
-          </Container>
-          <FabButton
-            icon="plus"
-            onClick={() => setStep(1)}
-            position="fixed"
-            bottom="16px"
-            right="16px"
-          />
-        </>
-      ) : (
+      {index === undefined ? (
         <>
           <TextArea onChangeText={setNote} />
           <Container
@@ -72,6 +49,10 @@ const QuestionnaireReview: React.FC<{}> = () => {
               value={t("Questionnaire.save")}
             />
           </Container>
+        </>
+      ) : (
+        <>
+          <Text mt="24px" fontWeight={500} fontSize="16px" value={note} />
         </>
       )}
     </Container>

@@ -9,3 +9,12 @@ export const getLocalUser = (): User | null => {
   if (!localUser) return null;
   return JSON.parse(localUser);
 };
+// @coach:notes
+export const setLocalNotes = (notes: string[]): void => {
+  localStorage.setItem("@coach:notes", JSON.stringify(notes));
+};
+export const getLocalNotes = (): string[] => {
+  const notes = localStorage.getItem("@coach:notes");
+  if (!notes) return [];
+  return JSON.parse(notes);
+};

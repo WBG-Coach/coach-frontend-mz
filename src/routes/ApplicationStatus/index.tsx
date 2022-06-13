@@ -1,17 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Footer, Icon, LoadingDots, Text } from "../../components";
 import { useGetApplicationMutation } from "../../service";
-import { StatusItem } from "./StatusItem";
+import { getLocalNotes } from "../../storage";
 
 const ApplicationStatus: React.FC<{}> = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [notes, setNotes] = useState<string[]>([]);
   const [getApplication, { data, isLoading }] = useGetApplicationMutation();
   const { applicationId } = useParams<{
     applicationId: string;
   }>();
+
+  useEffect(() => {
+    setNotes(getLocalNotes());
+  }, []);
+
+  useEffect(() => {
+    if (applicationId) {
+      getApplication({ id: parseInt(applicationId, 10) });
+    }
+  }, [applicationId, getApplication]);
 
   useEffect(() => {
     if (applicationId) {
@@ -29,57 +40,125 @@ const ApplicationStatus: React.FC<{}> = () => {
             <Container onClick={() => navigate(-1)}>
               <Icon name="arrow-left" size={24} />
             </Container>
-            <Container flex={1} justifyContent="center">
-              <Text
-                fontSize="16px"
-                color="#191A1B"
-                fontWeight={600}
-                lineHeight="24px"
-                value={t("ApplicationStatus.title", { value: data?.id })}
-              />
-            </Container>
-            <Container width="24px" />
           </Container>
 
-          <Container mt="32px" flexDirection="column">
+          <Container mt="16px" flexDirection="column">
+            <Text
+              mb="32px"
+              fontSize="24px"
+              color="#191A1B"
+              fontWeight={600}
+              lineHeight="32px"
+              value={t("ApplicationStatus.title", { value: data?.id })}
+            />
+
+            <Container mb="40px" flexDirection="row">
+              <Container
+                p="12px"
+                mr="6px"
+                flex={1}
+                borderRadius="12px"
+                alignItems="center"
+                flexDirection="column"
+                background="#F0F2F5"
+                justifyContent="center"
+                onClick={() =>
+                  navigate(
+                    `/questionnaire/${applicationId}/${data?.questionnaire_id}`
+                  )
+                }
+              >
+                <Icon mb="12px" name="clipboard-notes" size={24} />
+                <Text
+                  fontSize="12px"
+                  fontWeight={500}
+                  color="#191A1B"
+                  value={t("ApplicationStatus.label-observation")}
+                />
+              </Container>
+
+              <Container
+                flex={1}
+                p="12px"
+                ml="6px"
+                alignItems="center"
+                borderRadius="12px"
+                flexDirection="column"
+                background="#F0F2F5"
+                justifyContent="center"
+                onClick={() =>
+                  navigate(
+                    `/questionnaire-feedback/${applicationId}/${data?.questionnaire_id}`
+                  )
+                }
+              >
+                <Icon mb="12px" name="comments" size={24} />
+                <Text
+                  fontSize="12px"
+                  fontWeight={500}
+                  color="#191A1B"
+                  value={t("ApplicationStatus.label-feedback")}
+                />
+              </Container>
+            </Container>
+
             <Text
               mb="24px"
               fontSize="20px"
               color="#191A1B"
               fontWeight={600}
               lineHeight="24px"
-              value={t("ApplicationStatus.steps")}
+              value={t("ApplicationStatus.label-review")}
             />
 
-            <StatusItem
-              label={t("ApplicationStatus.label-observation")}
-              description={t("ApplicationStatus.description-observation")}
-              onClick={() =>
-                navigate(
-                  `/questionnaire/${applicationId}/${data?.questionnaire_id}`
-                )
-              }
-            />
-
-            <StatusItem
-              label={t("ApplicationStatus.label-feedback")}
-              description={t("ApplicationStatus.description-feedback")}
-              onClick={() =>
-                navigate(
-                  `/questionnaire-feedback/${applicationId}/${data?.questionnaire_id}`
-                )
-              }
-            />
-
-            <StatusItem
-              label={t("ApplicationStatus.label-review")}
-              description={t("ApplicationStatus.description-review")}
-              onClick={() =>
-                navigate(
-                  `/questionnaire-review/${applicationId}/${data?.questionnaire_id}`
-                )
-              }
-            />
+            <Container
+              flexDirection="row"
+              flexWrap="wrap"
+              justifyContent="space-between"
+            >
+              {notes.map((note, index) => (
+                <Container
+                  key={index}
+                  p="12px"
+                  mb="24px"
+                  minHeight="80px"
+                  borderRadius="12px"
+                  width="calc(50% - 32px)"
+                  border="1px solid #E3E5E8"
+                  onClick={() => navigate(`/questionnaire-review/${index}`)}
+                >
+                  <Text
+                    fontSize="12px"
+                    color="#191A1B"
+                    lineHeight="16px"
+                    value={note}
+                  />
+                </Container>
+              ))}
+              <Container
+                p="12px"
+                mb="24px"
+                minHeight="80px"
+                borderRadius="12px"
+                alignItems="center"
+                flexDirection="column"
+                justifyContent="center"
+                width="calc(50% - 32px)"
+                border="1px solid #E3E5E8"
+                onClick={() =>
+                  navigate(
+                    `/questionnaire-review/${applicationId}/${data?.questionnaire_id}`
+                  )
+                }
+              >
+                <Icon mb="8px" name="plus" size={24} />
+                <Text
+                  fontSize="14px"
+                  color="#191A1B"
+                  value={t("ApplicationStatus.new-review")}
+                />
+              </Container>
+            </Container>
           </Container>
         </>
       )}

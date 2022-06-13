@@ -11,11 +11,13 @@ export type IconProps = {
     | "notes"
     | "check"
     | "camera"
+    | "comments"
     | "thumbs-up"
     | "file-blank"
     | "arrow-left"
     | "thumbs-down"
     | "chevron-right"
+    | "clipboard-notes"
     | "chevron-bottom";
 } & SpaceProps &
   PositionProps;

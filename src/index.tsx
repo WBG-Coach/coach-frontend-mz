@@ -88,6 +88,14 @@ root.render(
               }
             />
             <Route
+              path="questionnaire-review/:index"
+              element={
+                <ProtectedRoute>
+                  <QuestionnaireReview />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="profile"
               element={
                 <ProtectedRoute>
