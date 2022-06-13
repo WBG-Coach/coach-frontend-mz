@@ -62,7 +62,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
           borderRadius="50%"
           src={user?.image_url || ""}
         />
-        <Text fontSize={12} color="#2C4668" value="Guide" />
+        <Text fontSize={12} color="#2C4668" value="Profile" />
       </Container>
     </StyledFooter>
   );
