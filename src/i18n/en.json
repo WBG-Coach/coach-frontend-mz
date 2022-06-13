@@ -11,14 +11,27 @@
     "teacher_description": "{{subject}} teacher",
     "description": "These are the teachers allocated to you."
   },
-  "Teacher": {
+  "Applications": {
     "title": "Teacher",
     "sessions": "Sessions",
-    "empty": "Without application",
+    "item-description": "Session {{value}}",
     "subject": "{{subject}} teacher"
+  },
+  "ApplicationStatus": {
+    "title": "Session {{value}}",
+    "steps": "Steps",
+    "label-observation": "Observation sheet",
+    "description-observation": "The first step of the orientation session.",
+    "label-feedback": "Feedback",
+    "description-feedback": "Prepare feedback for the teacher.",
+    "label-review": "Documentation",
+    "description-review": "Prepare feedback for the teacher."
   },
   "Questionnaire": {
     "title": "Session",
+    "title-feedback": "Feedback preparation",
+    "title-review": "Documentation",
+    "save": "Save",
     "finish": "Finish",
     "continue": "Continue",
     "see-summary": "See summary",

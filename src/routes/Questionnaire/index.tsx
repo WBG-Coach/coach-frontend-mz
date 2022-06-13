@@ -1,21 +1,21 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { LoadingDots } from "../../components/LoadingDots";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { FinishContainer } from "./FinishContainer";
+import { ButtonQuestionList } from "./ButtonQuestionList";
+import { QuestionnaireHeader } from "./QuestionnaireHeader";
 import {
   useGetApplicationMutation,
   useGetQuestionsMutation,
 } from "../../service";
-import { useTranslation } from "react-i18next";
 import {
   Text,
   Button,
   TextArea,
   Container,
+  LoadingDots,
   OptionButton,
 } from "../../components";
-import { FinishContainer } from "./FinishContainer";
-import { ButtonQuestionList } from "./ButtonQuestionList";
-import { QuestionnaireHeader } from "./QuestionnaireHeader";
 
 const Questionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
@@ -76,7 +76,7 @@ const Questionnaire: React.FC<{}> = () => {
     <LoadingDots />
   ) : (
     <Container flex={1} flexDirection="column">
-      <QuestionnaireHeader />
+      <QuestionnaireHeader title={t("Questionnaire.title")} />
 
       {isFinish ? (
         <FinishContainer />

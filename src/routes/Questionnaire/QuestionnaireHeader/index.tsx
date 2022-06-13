@@ -1,11 +1,12 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Container, Icon, Text } from "../../../components";
+type Props = {
+  title: string;
+};
 
-export const QuestionnaireHeader: React.FC = () => {
+export const QuestionnaireHeader: React.FC<Props> = ({ title }) => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   return (
     <Container mb="8px" flexDirection="row" p="16px 0" mt="-16px">
@@ -16,7 +17,7 @@ export const QuestionnaireHeader: React.FC = () => {
           color="#191A1B"
           fontWeight={600}
           lineHeight="24px"
-          value={t("Questionnaire.title")}
+          value={title}
         />
       </Container>
       <Container onClick={() => navigate(-1)}>

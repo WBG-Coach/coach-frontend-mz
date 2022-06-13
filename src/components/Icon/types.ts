@@ -3,6 +3,7 @@ import { PositionProps, SpaceProps } from "styled-system";
 export type IconProps = {
   size: number;
   name:
+    | "plus"
     | "home"
     | "file"
     | "close"

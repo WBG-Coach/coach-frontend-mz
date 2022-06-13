@@ -11,11 +11,14 @@ import { theme } from "./theme";
 import App from "./app";
 import "./i18n";
 
-import ApplicationsList from "./routes/ApplicationsList";
+import ApplicationsList from "./routes/Applications";
 import Questionnaire from "./routes/Questionnaire";
-import TeachersList from "./routes/TeachersList";
-import SchoolsList from "./routes/SchoolsList";
+import TeachersList from "./routes/Teachers";
+import SchoolsList from "./routes/Schools";
 import Login from "./routes/Login";
+import ApplicationStatus from "./routes/ApplicationStatus";
+import QuestionnaireReview from "./routes/QuestionnaireReview";
+import QuestionnaireFeedback from "./routes/QuestionnaireFeedback";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -53,10 +56,34 @@ root.render(
               }
             />
             <Route
+              path="application-status/:applicationId/:questionnaireId"
+              element={
+                <ProtectedRoute>
+                  <ApplicationStatus />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="questionnaire/:applicationId/:questionnaireId"
               element={
                 <ProtectedRoute>
                   <Questionnaire />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="questionnaire-feedback/:applicationId/:questionnaireId"
+              element={
+                <ProtectedRoute>
+                  <QuestionnaireFeedback />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="questionnaire-review/:applicationId/:questionnaireId"
+              element={
+                <ProtectedRoute>
+                  <QuestionnaireReview />
                 </ProtectedRoute>
               }
             />

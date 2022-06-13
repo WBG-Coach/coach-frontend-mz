@@ -8,16 +8,20 @@ import { Card } from "./Card";
 import { Footer } from "./Footer";
 import { Icon } from "./Icon";
 import { TextArea } from "./TextArea";
+import { LoadingDots } from "./LoadingDots";
+import { FabButton } from "./FabButton";
 
 export {
-  Button,
-  Container,
-  OptionButton,
-  Image,
-  Text,
-  ProtectedRoute,
-  Card,
-  Footer,
   Icon,
+  Text,
+  Card,
+  Image,
+  Button,
+  Footer,
   TextArea,
+  Container,
+  LoadingDots,
+  OptionButton,
+  ProtectedRoute,
+  FabButton,
 };

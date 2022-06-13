@@ -13,6 +13,7 @@ import ThumbsUpIcon from "./icons/thumbs-up.svg";
 import ThumbsDownIcon from "./icons/thumbs-down.svg";
 import FileBlankIcon from "./icons/file-blank.svg";
 import CameraIcon from "./icons/camera.svg";
+import PlusIcon from "./icons/plus.svg";
 import { Image } from "../Image";
 
 const ICONS = {
@@ -29,6 +30,7 @@ const ICONS = {
   "thumbs-down": ThumbsDownIcon,
   "thumbs-up": ThumbsUpIcon,
   "file-blank": FileBlankIcon,
+  plus: PlusIcon,
 };
 
 export const Icon: React.FC<IconProps> = (props) => {
