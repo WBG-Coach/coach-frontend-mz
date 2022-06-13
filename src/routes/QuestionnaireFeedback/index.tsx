@@ -9,6 +9,7 @@ import {
   TextArea,
 } from "../../components";
 import { QuestionnaireHeader } from "../Questionnaire/QuestionnaireHeader";
+import { getLocalFeedbacks, setLocalFeedbacks } from "../../storage";
 
 const questions = [
   {
@@ -50,8 +51,9 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Array<number | undefined>>([]);
-  const [notes, setNotes] = useState<Array<string | undefined>>([]);
+  const [notes, setNotes] = useState<string[]>(
+    new Array(questions.length).fill("")
+  );
   const { applicationId, questionnaireId } = useParams<{
     applicationId: string;
     questionnaireId: string;
@@ -69,10 +71,6 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
     }
   }, [data]);*/
 
-  const selectOption = (optionId: number) => {
-    setAnswers([optionId]);
-  };
-
   const noteQuestion = (text: string, index: number) => {
     setNotes(notes.map((oldNode, i) => (i === index ? text : oldNode)));
   };
@@ -84,8 +82,8 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
   const sendQuestionnaire = () => {
     console.log(applicationId);
     console.log(questionnaireId);
-    console.log(answers);
     console.log(notes);
+    setLocalFeedbacks([...getLocalFeedbacks(), notes]);
     navigate(-1);
   };
 
@@ -110,9 +108,9 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
                 variant="secondary"
                 value={option.text}
                 selectedColor={option.selected_color}
-                onClick={() => selectOption(option.id)}
+                onClick={() => noteQuestion(option.text, 0)}
                 selectedIcon={option.selected_icon as any}
-                isSelected={answers[0] === option.id}
+                isSelected={notes[0]?.startsWith(option.text)}
               />
             ))}
           </Container>
@@ -129,7 +127,7 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
               width="100%"
               onClick={goToFeedbackQuestions}
               value={t("Questionnaire.continue")}
-              isDisabled={!answers[0]}
+              isDisabled={!notes[0]}
             />
           </Container>
         </Container>
@@ -141,7 +139,7 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
               color="#191A1B"
               lineHeight="16px"
               fontWeight={600}
-              value={options.find((option) => answers[0] === option.id)?.text}
+              value={notes[0]}
             />
           </Container>
 
@@ -178,6 +176,7 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
               mt={3}
               width="100%"
               onClick={sendQuestionnaire}
+              isDisabled={notes.includes("")}
               value={t("Questionnaire.save")}
             />
           </Container>

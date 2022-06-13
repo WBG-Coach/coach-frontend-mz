@@ -39,5 +39,9 @@
     "finish-title": "Good job, Coach!",
     "question-number": "Question {{value}}",
     "finish-description": "The observation sheet has been saved."
+  },
+  "FeedbackList": {
+    "title": "Feedbacks",
+    "new": "Create new feedback"
   }
 }

@@ -86,11 +86,7 @@ const ApplicationStatus: React.FC<{}> = () => {
                 flexDirection="column"
                 background="#F0F2F5"
                 justifyContent="center"
-                onClick={() =>
-                  navigate(
-                    `/questionnaire-feedback/${applicationId}/${data?.questionnaire_id}`
-                  )
-                }
+                onClick={() => navigate(`/feedback-list/${applicationId}`)}
               >
                 <Icon mb="12px" name="comments" size={24} />
                 <Text

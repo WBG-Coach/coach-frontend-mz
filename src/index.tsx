@@ -19,6 +19,8 @@ import Login from "./routes/Login";
 import ApplicationStatus from "./routes/ApplicationStatus";
 import QuestionnaireReview from "./routes/QuestionnaireReview";
 import QuestionnaireFeedback from "./routes/QuestionnaireFeedback";
+import FeedbackList from "./routes/FeedbackList";
+import FeedbackDetails from "./routes/FeedbackDetails";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -68,6 +70,22 @@ root.render(
               element={
                 <ProtectedRoute>
                   <Questionnaire />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="feedback-list/:applicationId"
+              element={
+                <ProtectedRoute>
+                  <FeedbackList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="feedback-details/:index"
+              element={
+                <ProtectedRoute>
+                  <FeedbackDetails />
                 </ProtectedRoute>
               }
             />

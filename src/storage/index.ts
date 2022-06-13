@@ -18,3 +18,12 @@ export const getLocalNotes = (): string[] => {
   if (!notes) return [];
   return JSON.parse(notes);
 };
+// @coach:feedbacks
+export const setLocalFeedbacks = (feedbacks: any[]): void => {
+  localStorage.setItem("@coach:feedbacks", JSON.stringify(feedbacks));
+};
+export const getLocalFeedbacks = (): any[] => {
+  const feedbacks = localStorage.getItem("@coach:feedbacks");
+  if (!feedbacks) return [];
+  return JSON.parse(feedbacks);
+};
