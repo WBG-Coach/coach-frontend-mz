@@ -27,3 +27,18 @@ export const getLocalFeedbacks = (): any[] => {
   if (!feedbacks) return [];
   return JSON.parse(feedbacks);
 };
+
+// @coach:hide-onboarding-application
+export const setLocalHideOnboardingApplication = (
+  onboarding: boolean
+): void => {
+  localStorage.setItem(
+    "@coach:hide-onboarding-application",
+    JSON.stringify(onboarding)
+  );
+};
+export const getLocalHideOnBoardingApplication = (): boolean => {
+  const onboarding = localStorage.getItem("@coach:hide-onboarding-application");
+  if (!onboarding) return false;
+  return JSON.parse(onboarding);
+};

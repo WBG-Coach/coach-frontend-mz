@@ -4,13 +4,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Container, Footer, Icon, LoadingDots, Text } from "../../components";
 import { Modal } from "../../components/Modal";
 import { useGetApplicationMutation } from "../../service";
-import { getLocalNotes } from "../../storage";
+import {
+  getLocalHideOnBoardingApplication,
+  getLocalNotes,
+  setLocalHideOnboardingApplication,
+} from "../../storage";
 
 const ApplicationStatus: React.FC<{}> = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [notes, setNotes] = useState<string[]>([]);
-  const [onboarding, setOnboarding] = useState(true);
+  const [onboarding, setOnboarding] = useState(
+    !getLocalHideOnBoardingApplication()
+  );
   const [getApplication, { data, isLoading }] = useGetApplicationMutation();
   const { applicationId } = useParams<{
     applicationId: string;
@@ -31,6 +37,11 @@ const ApplicationStatus: React.FC<{}> = () => {
       getApplication({ id: parseInt(applicationId, 10) });
     }
   }, [applicationId, getApplication]);
+
+  const closeOnboarding = () => {
+    setLocalHideOnboardingApplication(true);
+    setOnboarding(false);
+  };
 
   return (
     <Container width="100%" height="100%" mb="100px" flexDirection="column">
@@ -184,12 +195,7 @@ const ApplicationStatus: React.FC<{}> = () => {
       )}
 
       <Footer />
-      <Modal
-        isOpen={onboarding}
-        onClose={() => {
-          setOnboarding(false);
-        }}
-      ></Modal>
+      <Modal isOpen={onboarding} onClose={closeOnboarding}></Modal>
     </Container>
   );
 };
