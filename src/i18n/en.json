@@ -24,7 +24,8 @@
     "label-feedback": "Feedback",
     "label-review": "Documentation",
     "new-review": "New note",
-    "info": "To access the Feedback page, you must first fill in the Observation Form"
+    "info": "To access the Feedback page, you must first fill in the Observation Form",
+    "competences": "Competences"
   },
   "Questionnaire": {
     "title": "Session",

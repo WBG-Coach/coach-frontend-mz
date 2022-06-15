@@ -3,7 +3,10 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Footer, Icon, LoadingDots, Text } from "../../components";
 import { Modal } from "../../components/Modal";
-import { useGetApplicationMutation } from "../../service";
+import {
+  useGetAnswersMutation,
+  useGetApplicationMutation,
+} from "../../service";
 import {
   getLocalHideOnBoardingApplication,
   getLocalNotes,
@@ -18,6 +21,7 @@ const ApplicationStatus: React.FC<{}> = () => {
     !getLocalHideOnBoardingApplication()
   );
   const [getApplication, { data, isLoading }] = useGetApplicationMutation();
+  const [getAnswers, answerRequest] = useGetAnswersMutation();
   const { applicationId } = useParams<{
     applicationId: string;
   }>();
@@ -31,6 +35,12 @@ const ApplicationStatus: React.FC<{}> = () => {
       getApplication({ id: parseInt(applicationId, 10) });
     }
   }, [applicationId, getApplication]);
+
+  useEffect(() => {
+    if (data?.id && data?.status !== "PENDING_RESPONSE") {
+      getAnswers(data?.id);
+    }
+  }, [data, getAnswers]);
 
   useEffect(() => {
     if (applicationId) {
@@ -150,6 +160,69 @@ const ApplicationStatus: React.FC<{}> = () => {
                 </Container>
               )}
             </Container>
+
+            {answerRequest?.isSuccess && !!answerRequest.data.length && (
+              <>
+                <Text
+                  mb="12px"
+                  fontSize="20px"
+                  color="#191A1B"
+                  fontWeight={600}
+                  lineHeight="24px"
+                  value={t("ApplicationStatus.competences")}
+                />
+
+                <Container
+                  flexDirection="row"
+                  pt="12px"
+                  overflowX="scroll"
+                  mb="40px"
+                >
+                  {answerRequest.data.map(
+                    ({ option }, index) =>
+                      option.question.competence && (
+                        <Container
+                          p="12px"
+                          mr="12px"
+                          overflow="visible"
+                          position="relative"
+                          minWidth="100px"
+                          minHeight="100px"
+                          borderRadius="8px"
+                          flexDirection="column"
+                          justifyContent="space-between"
+                          border="1px solid #E3E5E8"
+                        >
+                          <Text
+                            mb="8px"
+                            fontWeight={600}
+                            value={index.toString()}
+                          />
+                          <Text
+                            color="#191A1B"
+                            fontSize={12}
+                            value={option.question.competence.subtitle}
+                          />
+                          <Container
+                            background={option.selected_color}
+                            position="absolute"
+                            p="4px"
+                            borderRadius="50%"
+                            top={-8}
+                            right={-8}
+                          >
+                            <Icon
+                              name={option.selected_icon}
+                              size={16}
+                              filter="invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);"
+                            />
+                          </Container>
+                        </Container>
+                      )
+                  )}
+                </Container>
+              </>
+            )}
 
             <Text
               mb="24px"
