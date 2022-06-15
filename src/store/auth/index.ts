@@ -18,6 +18,10 @@ const authSlice = createSlice({
       setLocalUser(newState);
       return newState;
     },
+    logout: () => {
+      setLocalUser(INITIAL_STATE);
+      return INITIAL_STATE;
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.login.matchFulfilled, (state, action) => {
@@ -29,7 +33,7 @@ const authSlice = createSlice({
 
 export const selectCurrentUser = (state: RootState) => state.auth;
 
-export const { selectSchool, loadLocalUser } = authSlice.actions;
+export const { selectSchool, loadLocalUser, logout } = authSlice.actions;
 
 const { reducer } = authSlice;
 

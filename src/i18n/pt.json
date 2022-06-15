@@ -1,0 +1,45 @@
+{
+  "Login": {},
+  "Schools": {
+    "title": "Escolha a escola",
+    "empty": "Sem escolas",
+    "school_description": "{{value}} Professores alocados a você"
+  },
+  "Teachers": {
+    "title": "Professores",
+    "empty": "Sem professores",
+    "teacher_description": "Professor de {{subject}}",
+    "description": "Esses são os professores alocados a você."
+  },
+  "Applications": {
+    "title": "Professor",
+    "sessions": "Sessões de orientação",
+    "item-description": "Sessão {{value}}",
+    "subject": "Professor de {{subject}}"
+  },
+  "ApplicationStatus": {
+    "title": "Sessão {{value}}",
+    "label-observation": "Ficha de observação",
+    "label-feedback": "Feedbacks",
+    "label-review": "Documentação",
+    "new-review": "Nova nota"
+  },
+  "Questionnaire": {
+    "title": "Ficha de observação",
+    "title-feedback": "Feedback",
+    "title-review": "Documentação",
+    "save": "Salvar",
+    "finish": "Concluir",
+    "continue": "Continuar",
+    "finish-title": "Bom trabalho, Coach!",
+    "question-number": "Questão {{value}}",
+    "finish-description": "A competência pedagógica foi selecionada!"
+  },
+  "FeedbackList": {
+    "title": "Feedbacks",
+    "new": "Criar novo feedback"
+  },
+  "Profile": {
+    "logout": "Sair"
+  }
+}

@@ -5,6 +5,7 @@ import { FinishContainer } from "./FinishContainer";
 import { ButtonQuestionList } from "./ButtonQuestionList";
 import { QuestionnaireHeader } from "./QuestionnaireHeader";
 import {
+  useAnswerQuestionnaireMutation,
   useGetApplicationMutation,
   useGetQuestionsMutation,
 } from "../../service";
@@ -16,6 +17,7 @@ import {
   LoadingDots,
   OptionButton,
 } from "../../components";
+import { Answer } from "../../store/type";
 
 const Questionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
@@ -23,6 +25,7 @@ const Questionnaire: React.FC<{}> = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
   const [getApplication, applicationRequest] = useGetApplicationMutation();
+  const [answerQuestionnaire] = useAnswerQuestionnaireMutation();
   const [answers, setAnswers] = useState<Array<number | undefined>>([]);
   const [notes, setNotes] = useState<Array<string | undefined>>([]);
   const { applicationId, questionnaireId } = useParams<{
@@ -45,10 +48,10 @@ const Questionnaire: React.FC<{}> = () => {
     }
   }, [data]);
 
-  const answerQuestion = (optionId: number) => {
+  const answerQuestion = (newOptionID: number) => {
     setAnswers(
-      answers.map((oldOption, index) =>
-        index === currentQuestion ? optionId : oldOption
+      answers.map((currentOption, index) =>
+        index === currentQuestion ? newOptionID : currentOption
       )
     );
   };
@@ -65,10 +68,18 @@ const Questionnaire: React.FC<{}> = () => {
     setCurrentQuestion(currentQuestion + 1);
   };
 
-  const sendQuestionnaire = () => {
-    console.log(applicationId);
-    console.log(answers);
-    console.log(notes);
+  const sendQuestionnaire = async () => {
+    await answerQuestionnaire({
+      questionnaire_application_id: parseInt(applicationId || "", 10),
+      answers:
+        data?.questions.map(
+          (questionnaireQuestion, index): Answer => ({
+            questionnaire_question_id: questionnaireQuestion.id,
+            option_id: answers[index] || 0,
+            notes: notes[index] || "",
+          })
+        ) || [],
+    });
     setFinish(true);
   };
 
@@ -93,22 +104,24 @@ const Questionnaire: React.FC<{}> = () => {
               {data?.questions[currentQuestion]?.question?.text}
             </Text>
 
-            <Container mb="24px">
-              <Container
-                mt="8px"
-                p="4px 8px"
-                width="auto"
-                borderRadius="20px"
-                background="#F0F2F5"
-              >
-                <Text
-                  value={
-                    data?.questions[currentQuestion]?.question.competence
-                      .name || ""
-                  }
-                />
+            {data?.questions[currentQuestion]?.question?.competence && (
+              <Container mb="24px">
+                <Container
+                  mt="8px"
+                  p="4px 8px"
+                  width="auto"
+                  borderRadius="20px"
+                  background="#F0F2F5"
+                >
+                  <Text
+                    value={
+                      data?.questions[currentQuestion]?.question?.competence
+                        .name || ""
+                    }
+                  />
+                </Container>
               </Container>
-            </Container>
+            )}
 
             <Container mt="24px" flexDirection="column">
               {data?.questions[currentQuestion]?.question.options.map(

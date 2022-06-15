@@ -67,3 +67,14 @@ export type Question = {
     };
   };
 };
+
+export type Answer = {
+  questionnaire_question_id: number;
+  notes?: string;
+  option_id: number;
+};
+
+export type AnswerQuestionnaire = {
+  questionnaire_application_id: number;
+  answers: Answer[];
+};

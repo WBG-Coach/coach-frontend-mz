@@ -60,9 +60,12 @@ const ApplicationStatus: React.FC<{}> = () => {
                 borderRadius="12px"
                 alignItems="center"
                 flexDirection="column"
-                background="#F0F2F5"
+                background={
+                  data?.status === "PENDING_RESPONSE" ? "#F0F2F5" : "#f5f5f5"
+                }
                 justifyContent="center"
                 onClick={() =>
+                  data?.status === "PENDING_RESPONSE" &&
                   navigate(
                     `/questionnaire/${applicationId}/${data?.questionnaire_id}`
                   )
@@ -84,9 +87,13 @@ const ApplicationStatus: React.FC<{}> = () => {
                 alignItems="center"
                 borderRadius="12px"
                 flexDirection="column"
-                background="#F0F2F5"
-                justifyContent="center"
-                onClick={() => navigate(`/feedback-list/${applicationId}`)}
+                background={
+                  data?.status === "PENDING_FEEDBACK" ? "#F0F2F5" : "#f5f5f5"
+                }
+                onClick={() =>
+                  data?.status === "PENDING_FEEDBACK" &&
+                  navigate(`/feedback-list/${applicationId}`)
+                }
               >
                 <Icon mb="12px" name="comments" size={24} />
                 <Text

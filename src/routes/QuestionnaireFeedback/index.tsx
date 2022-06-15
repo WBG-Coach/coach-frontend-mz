@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  Button,
-  Container,
-  OptionButton,
-  Text,
-  TextArea,
-} from "../../components";
+import { Button, Container, Icon, Text, TextArea } from "../../components";
 import { QuestionnaireHeader } from "../Questionnaire/QuestionnaireHeader";
 import { getLocalFeedbacks, setLocalFeedbacks } from "../../storage";
+import { useGetAnswersMutation } from "../../service";
 
 const questions = [
   {
@@ -32,25 +27,11 @@ const questions = [
   },
 ];
 
-const options = [
-  {
-    id: 1,
-    text: "Competencia 2",
-    selected_color: undefined,
-    selected_icon: undefined,
-  },
-  {
-    id: 2,
-    text: "Competencia 5",
-    selected_color: undefined,
-    selected_icon: undefined,
-  },
-];
-
 const QuestionnaireFeedback: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
+  const [getAnswer, { data }] = useGetAnswersMutation();
   const [notes, setNotes] = useState<string[]>(
     new Array(questions.length).fill("")
   );
@@ -58,6 +39,10 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
     applicationId: string;
     questionnaireId: string;
   }>();
+
+  useEffect(() => {
+    if (applicationId) getAnswer(parseInt(applicationId, 10));
+  }, [applicationId, getAnswer]);
   // const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
 
   /*useEffect(() => {
@@ -99,20 +84,54 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
             fontWeight="bold"
             value={questions[0]?.text}
           />
-          <Container mt="24px" flexDirection="column">
-            {options.map((option) => (
-              <OptionButton
-                key={option.id}
-                mb="16px"
-                textAlign="left"
-                variant="secondary"
-                value={option.text}
-                selectedColor={option.selected_color}
-                onClick={() => noteQuestion(option.text, 0)}
-                selectedIcon={option.selected_icon as any}
-                isSelected={notes[0]?.startsWith(option.text)}
-              />
-            ))}
+          <Container mt="24px" mb="100px" flexDirection="column">
+            {data?.map(
+              ({ option }) =>
+                option?.question?.competence && (
+                  <Container
+                    p="16px"
+                    mb="12px"
+                    borderRadius="8px"
+                    flexDirection="column"
+                    justifyContent="center"
+                    onClick={() =>
+                      noteQuestion(option.question.competence.name, 0)
+                    }
+                    border={
+                      notes[0] === option.question.competence.name
+                        ? "1px solid #3373CC"
+                        : "1px solid #E3E5E8"
+                    }
+                  >
+                    <Text
+                      color="#494B50"
+                      fontSize={"14px"}
+                      value={option.question.competence.name}
+                    />
+                    <Text
+                      my="8px"
+                      fontSize={"16px"}
+                      value={option.question.competence.description}
+                    />
+                    <Container
+                      justifyContent="center"
+                      alignItems="center"
+                      width="70px"
+                      border="1px solid"
+                      borderColor={option.selected_color}
+                      borderRadius="12px"
+                    >
+                      <Text
+                        value={option.text}
+                        color={option.selected_color}
+                        m="auto"
+                        mr="4px"
+                      />
+                      <Icon mr="8px" name={option.selected_icon} size={16} />
+                    </Container>
+                  </Container>
+                )
+            )}
           </Container>
 
           <Container
@@ -120,7 +139,7 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
             right="0"
             bottom="0"
             p="24px 16px"
-            position="absolute"
+            position="fixed"
           >
             <Button
               mt={3}

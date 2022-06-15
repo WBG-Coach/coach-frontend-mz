@@ -43,5 +43,8 @@
   "FeedbackList": {
     "title": "Feedbacks",
     "new": "Create new feedback"
+  },
+  "Profile": {
+    "logout": "Logout"
   }
 }

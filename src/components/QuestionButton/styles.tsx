@@ -8,7 +8,6 @@ export const StyledQuestionButton = styled.button<ButtonProps>`
   display: flex;
   height: 32px;
   min-width: 32px;
-  padding: 0 12px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;

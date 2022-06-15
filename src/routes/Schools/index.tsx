@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { selectCurrentUser, selectSchool } from "../../store/auth";
+import { logout, selectCurrentUser, selectSchool } from "../../store/auth";
 import { LoadingDots } from "../../components/LoadingDots";
 import LogoSmall from "../../assets/images/logo-small.svg";
-import { Container, Image, Text } from "../../components";
+import { Button, Container, Image, Text } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetSchoolsMutation } from "../../service";
 import { useTranslation } from "react-i18next";
@@ -85,7 +85,14 @@ const SchoolsList: React.FC<{}> = () => {
               </Container>
             ))
           ) : (
-            <Text value={t("Schools.empty")} />
+            <>
+              <Text value={t("Schools.empty")} mb="40px" />
+              <Button
+                value="Logout"
+                width="100%"
+                onClick={() => dispatch(logout())}
+              />
+            </>
           )}
         </Container>
       )}
