@@ -110,7 +110,16 @@ const ApplicationStatus: React.FC<{}> = () => {
                   navigate(`/feedback-list/${applicationId}`)
                 }
               >
-                <Icon mr="8px" name="comments" size={24} />
+                <Icon
+                  mr="8px"
+                  name="comments"
+                  size={24}
+                  filter={
+                    data?.status !== "PENDING_FEEDBACK"
+                      ? "invert(65%) sepia(3%) saturate(562%) hue-rotate(184deg) brightness(91%) contrast(89%);"
+                      : undefined
+                  }
+                />
                 <Text
                   fontSize="12px"
                   fontWeight={500}
@@ -119,7 +128,16 @@ const ApplicationStatus: React.FC<{}> = () => {
                   }
                   value={t("ApplicationStatus.label-feedback")}
                 />
-                <Icon ml="auto" name="chevron-right" size={24} />
+                <Icon
+                  ml="auto"
+                  name="chevron-right"
+                  size={24}
+                  filter={
+                    data?.status !== "PENDING_FEEDBACK"
+                      ? "invert(65%) sepia(3%) saturate(562%) hue-rotate(184deg) brightness(91%) contrast(89%);"
+                      : undefined
+                  }
+                />
               </Container>
 
               {data?.status === "PENDING_RESPONSE" && (

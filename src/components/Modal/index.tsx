@@ -62,7 +62,11 @@ export const Modal: React.FC<Props> = ({ onClose, isOpen }) => {
             alignItems="center"
             background="#EBF1FF"
           >
-            <Icon name="notes" size={24} />
+            <Icon
+              name="eye"
+              size={24}
+              filter="invert(33%) sepia(88%) saturate(939%) hue-rotate(189deg) brightness(98%) contrast(83%)"
+            />
           </Container>
           <Container flex={1} flexDirection="column">
             <Text
@@ -95,7 +99,11 @@ export const Modal: React.FC<Props> = ({ onClose, isOpen }) => {
             alignItems="center"
             background="#EBF1FF"
           >
-            <Icon name="notes" size={24} />
+            <Icon
+              name="edit-file"
+              size={24}
+              filter="invert(33%) sepia(88%) saturate(939%) hue-rotate(189deg) brightness(98%) contrast(83%);"
+            />
           </Container>
           <Container flex={1} flexDirection="column">
             <Text
@@ -128,7 +136,11 @@ export const Modal: React.FC<Props> = ({ onClose, isOpen }) => {
             alignItems="center"
             background="#EBF1FF"
           >
-            <Icon name="notes" size={24} />
+            <Icon
+              name="comments-outline"
+              size={24}
+              filter="invert(33%) sepia(88%) saturate(939%) hue-rotate(189deg) brightness(98%) contrast(83%)"
+            />
           </Container>
           <Container flex={1} flexDirection="column">
             <Text
@@ -161,7 +173,11 @@ export const Modal: React.FC<Props> = ({ onClose, isOpen }) => {
             alignItems="center"
             background="#EBF1FF"
           >
-            <Icon name="notes" size={24} />
+            <Icon
+              name="notes"
+              size={24}
+              filter="invert(33%) sepia(88%) saturate(939%) hue-rotate(189deg) brightness(98%) contrast(83%)"
+            />
           </Container>
           <Container flex={1} flexDirection="column">
             <Text

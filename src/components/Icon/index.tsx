@@ -16,9 +16,14 @@ import ThumbsDownIcon from "./icons/thumbs-down.svg";
 import ChevronRightIcon from "./icons/chevron-right.svg";
 import ChevronBottomIcon from "./icons/chevron-bottom.svg";
 import ClipboardNotesIcon from "./icons/clipboard-notes.svg";
+import EditFileIcon from "./icons/edit-file.svg";
+import EyeIcon from "./icons/eye.svg";
+import CommentsOutileIcon from "./icons/comments-outline.svg";
 import { Image } from "../Image";
 
 const ICONS = {
+  eye: EyeIcon,
+  "edit-file": EditFileIcon,
   file: FileIcon,
   home: HomeIcon,
   plus: PlusIcon,
@@ -28,6 +33,7 @@ const ICONS = {
   close: CloseIcon,
   camera: CameraIcon,
   comments: CommentsIcon,
+  "comments-outline": CommentsOutileIcon,
   "thumbs-up": ThumbsUpIcon,
   "arrow-left": ArrowLeftIcon,
   "file-blank": FileBlankIcon,
