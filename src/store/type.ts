@@ -60,7 +60,9 @@ export type Question = {
     options: Option[];
     competence: {
       id: number;
-      name: string;
+      title: string;
+      subtitle: string;
+      description: string;
       matrix_id: number;
       created_at: Date;
       updated_at: Date;

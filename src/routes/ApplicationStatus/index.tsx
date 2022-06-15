@@ -91,7 +91,7 @@ const ApplicationStatus: React.FC<{}> = () => {
                         `/questionnaire/${applicationId}/${data?.questionnaire_id}`
                       )
                     : navigate(
-                        `/questionnaire-review/${applicationId}/${data?.questionnaire_id}`
+                        `/questionnaire-observation-review/${applicationId}`
                       )
                 }
               >

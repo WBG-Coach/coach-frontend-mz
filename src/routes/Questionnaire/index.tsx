@@ -116,7 +116,7 @@ const Questionnaire: React.FC<{}> = () => {
                   <Text
                     value={
                       data?.questions[currentQuestion]?.question?.competence
-                        .name || ""
+                        .title || ""
                     }
                   />
                 </Container>

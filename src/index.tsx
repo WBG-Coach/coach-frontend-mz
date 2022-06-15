@@ -21,6 +21,7 @@ import QuestionnaireReview from "./routes/QuestionnaireReview";
 import QuestionnaireFeedback from "./routes/QuestionnaireFeedback";
 import FeedbackList from "./routes/FeedbackList";
 import FeedbackDetails from "./routes/FeedbackDetails";
+import QuestionnaireObservationReview from "./routes/QuestionnaireObservationReview";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -70,6 +71,14 @@ root.render(
               element={
                 <ProtectedRoute>
                   <Questionnaire />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="questionnaire-observation-review/:applicationId"
+              element={
+                <ProtectedRoute>
+                  <QuestionnaireObservationReview />
                 </ProtectedRoute>
               }
             />

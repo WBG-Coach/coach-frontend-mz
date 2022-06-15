@@ -37,7 +37,9 @@
     "see-summary": "See summary",
     "finish-title": "Good job, Coach!",
     "question-number": "Question {{value}}",
-    "finish-description": "The observation sheet has been saved."
+    "finish-description": "The observation sheet has been saved.",
+    "annotation": "Annotation",
+    "return": "Return"
   },
   "FeedbackList": {
     "title": "Feedbacks",

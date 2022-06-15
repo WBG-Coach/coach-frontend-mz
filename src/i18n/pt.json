@@ -35,7 +35,9 @@
     "continue": "Continuar",
     "finish-title": "Bom trabalho, Coach!",
     "question-number": "Questão {{value}}",
-    "finish-description": "A competência pedagógica foi selecionada!"
+    "finish-description": "A competência pedagógica foi selecionada!",
+    "annotation": "Annotation",
+    "return": "Voltar"
   },
   "FeedbackList": {
     "title": "Feedbacks",
