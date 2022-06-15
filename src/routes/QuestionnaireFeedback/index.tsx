@@ -95,10 +95,10 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
                     flexDirection="column"
                     justifyContent="center"
                     onClick={() =>
-                      noteQuestion(option.question.competence.name, 0)
+                      noteQuestion(option.question.competence.title, 0)
                     }
                     border={
-                      notes[0] === option.question.competence.name
+                      notes[0] === option.question.competence.title
                         ? "1px solid #3373CC"
                         : "1px solid #E3E5E8"
                     }
@@ -106,12 +106,12 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
                     <Text
                       color="#494B50"
                       fontSize={"14px"}
-                      value={option.question.competence.name}
+                      value={option.question.competence.title}
                     />
                     <Text
                       my="8px"
                       fontSize={"16px"}
-                      value={option.question.competence.description}
+                      value={option.question.competence.subtitle}
                     />
                     <Container
                       justifyContent="center"
