@@ -22,7 +22,8 @@
     "label-observation": "Ficha de observação",
     "label-feedback": "Feedbacks",
     "label-review": "Documentação",
-    "new-review": "Nova nota"
+    "new-review": "Nova nota",
+    "info": "Para acessar a página de Feedbacks é necessário primeiro preencher a Ficha de Observação"
   },
   "Questionnaire": {
     "title": "Ficha de observação",

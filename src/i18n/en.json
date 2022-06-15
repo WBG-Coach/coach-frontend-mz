@@ -21,12 +21,10 @@
     "title": "Session {{value}}",
     "steps": "Steps",
     "label-observation": "Observation sheet",
-    "description-observation": "The first step of the orientation session.",
     "label-feedback": "Feedback",
-    "description-feedback": "Prepare feedback for the teacher.",
     "label-review": "Documentation",
-    "description-review": "Prepare feedback for the teacher.",
-    "new-review": "New note"
+    "new-review": "New note",
+    "info": "To access the Feedback page, you must first fill in the Observation Form"
   },
   "Questionnaire": {
     "title": "Session",

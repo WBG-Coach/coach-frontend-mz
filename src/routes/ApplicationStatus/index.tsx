@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Footer, Icon, LoadingDots, Text } from "../../components";
+import { Modal } from "../../components/Modal";
 import { useGetApplicationMutation } from "../../service";
 import { getLocalNotes } from "../../storage";
 
@@ -9,6 +10,7 @@ const ApplicationStatus: React.FC<{}> = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [notes, setNotes] = useState<string[]>([]);
+  const [onboarding, setOnboarding] = useState(true);
   const [getApplication, { data, isLoading }] = useGetApplicationMutation();
   const { applicationId } = useParams<{
     applicationId: string;
@@ -52,57 +54,72 @@ const ApplicationStatus: React.FC<{}> = () => {
               value={t("ApplicationStatus.title", { value: data?.id })}
             />
 
-            <Container mb="40px" flexDirection="row">
+            <Container mb="40px" flexDirection="column">
               <Container
                 p="12px"
                 mr="6px"
+                mb="12px"
                 flex={1}
                 borderRadius="12px"
                 alignItems="center"
-                flexDirection="column"
-                background={
-                  data?.status === "PENDING_RESPONSE" ? "#F0F2F5" : "#f5f5f5"
-                }
-                justifyContent="center"
+                flexDirection="row"
+                background="#F0F2F5"
                 onClick={() =>
-                  data?.status === "PENDING_RESPONSE" &&
-                  navigate(
-                    `/questionnaire/${applicationId}/${data?.questionnaire_id}`
-                  )
+                  data?.status === "PENDING_RESPONSE"
+                    ? navigate(
+                        `/questionnaire/${applicationId}/${data?.questionnaire_id}`
+                      )
+                    : navigate(
+                        `/questionnaire-review/${applicationId}/${data?.questionnaire_id}`
+                      )
                 }
               >
-                <Icon mb="12px" name="clipboard-notes" size={24} />
+                <Icon mr="8px" name="clipboard-notes" size={24} />
                 <Text
                   fontSize="12px"
                   fontWeight={500}
                   color="#191A1B"
                   value={t("ApplicationStatus.label-observation")}
                 />
+                <Icon ml="auto" name="chevron-right" size={24} />
               </Container>
 
               <Container
-                flex={1}
                 p="12px"
-                ml="6px"
-                alignItems="center"
+                mr="6px"
+                flex={1}
                 borderRadius="12px"
-                flexDirection="column"
+                alignItems="center"
+                flexDirection="row"
                 background={
-                  data?.status === "PENDING_FEEDBACK" ? "#F0F2F5" : "#f5f5f5"
+                  data?.status === "PENDING_FEEDBACK" ? "#F0F2F5" : "#F9FAFB"
                 }
                 onClick={() =>
                   data?.status === "PENDING_FEEDBACK" &&
                   navigate(`/feedback-list/${applicationId}`)
                 }
               >
-                <Icon mb="12px" name="comments" size={24} />
+                <Icon mr="8px" name="comments" size={24} />
                 <Text
                   fontSize="12px"
                   fontWeight={500}
-                  color="#191A1B"
+                  color={
+                    data?.status === "PENDING_FEEDBACK" ? "#191A1B" : "#94979E"
+                  }
                   value={t("ApplicationStatus.label-feedback")}
                 />
+                <Icon ml="auto" name="chevron-right" size={24} />
               </Container>
+
+              {data?.status === "PENDING_RESPONSE" && (
+                <Container mt="16px">
+                  <Text
+                    fontSize="12px"
+                    color="#494B50"
+                    value={t("ApplicationStatus.info")}
+                  />
+                </Container>
+              )}
             </Container>
 
             <Text
@@ -167,6 +184,12 @@ const ApplicationStatus: React.FC<{}> = () => {
       )}
 
       <Footer />
+      <Modal
+        isOpen={onboarding}
+        onClose={() => {
+          setOnboarding(false);
+        }}
+      ></Modal>
     </Container>
   );
 };
