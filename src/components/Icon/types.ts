@@ -2,7 +2,7 @@ import { PositionProps, SpaceProps } from "styled-system";
 
 export type IconProps = {
   size: number;
-  filter?: string;
+  color?: string;
   name:
     | "eye"
     | "edit-file"

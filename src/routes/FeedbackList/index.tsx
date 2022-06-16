@@ -57,7 +57,7 @@ const FeedbackList: React.FC<{}> = () => {
               flexDirection="column"
               justifyContent="center"
             >
-              <Image mb="32px" src={EmptyStateImage} width={240} />
+              <Image mb="32px" src={EmptyStateImage} width="220px" />
               <Text
                 color="#000"
                 fontSize="16px"

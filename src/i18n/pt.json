@@ -1,5 +1,9 @@
 {
   "Login": {},
+  "Menu": {
+    "home": "Inicio",
+    "guide": "Guião"
+  },
   "Schools": {
     "title": "Escolha a escola",
     "empty": "Sem escolas",

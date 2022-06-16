@@ -119,15 +119,21 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
                       width="70px"
                       border="1px solid"
                       borderColor={option.selected_color}
+                      background={option.selected_color}
                       borderRadius="12px"
                     >
                       <Text
                         value={option.text}
-                        color={option.selected_color}
+                        color="#fff"
                         m="auto"
                         mr="4px"
                       />
-                      <Icon mr="8px" name={option.selected_icon} size={16} />
+                      <Icon
+                        mr="8px"
+                        name={option.selected_icon}
+                        size={16}
+                        color="#fff"
+                      />
                     </Container>
                   </Container>
                 )

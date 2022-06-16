@@ -107,7 +107,16 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     />
                   </Container>
                   {user.selectedSchool?.id === school.id && (
-                    <Icon name="check" size={24} />
+                    <Container
+                      width="24px"
+                      height="24px"
+                      alignItems="center"
+                      borderRadius="12px"
+                      background="#3373CC"
+                      justifyContent="center"
+                    >
+                      <Icon name="check" size={18} color="#fff" />
+                    </Container>
                   )}
                 </Container>
               ))

@@ -1,5 +1,9 @@
 {
   "Login": {},
+  "Menu": {
+    "home": "Home",
+    "guide": "Guide"
+  },
   "Schools": {
     "title": "Choose a school",
     "empty": "Without schools",

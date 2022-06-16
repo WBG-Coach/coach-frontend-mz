@@ -4,6 +4,7 @@ import { ButtonProps } from "./types";
 
 export const StyledQuestionButton = styled.button<ButtonProps>`
   width: auto;
+  display: inline;
   border: none;
   display: flex;
   height: 32px;

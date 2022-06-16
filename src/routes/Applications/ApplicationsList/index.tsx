@@ -35,26 +35,25 @@ export const ApplicationsList: React.FC<Props> = ({
               onClick(application.id, application.questionnaire_id)
             }
           >
-            <Icon size={24} name="notes" mr="12px" />
+            <Icon size={24} name="notes" mr="12px" color="#C7CAD1" />
 
             <Container flex={1} flexDirection="column" justifyContent="center">
               <Text
-                fontSize={16}
-                color="#00121A"
-                fontWeight={600}
+                fontSize="16px"
+                color="#191A1B"
                 lineHeight="24px"
                 value={t("Applications.item-description", {
                   value: application.id,
                 })}
               />
               <Text
-                fontSize={12}
-                color="#455054"
+                fontSize="14px"
+                color="#494B50"
                 lineHeight="16px"
                 value={format(new Date(application.created_at), "yyyy/MM/dd")}
               />
             </Container>
-            <Icon size={24} name="chevron-right" />
+            <Icon size={24} name="chevron-right" color="#C7CAD1" />
           </Container>
         ))}
     </>

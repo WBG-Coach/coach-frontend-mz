@@ -9,12 +9,14 @@ import { useNavigate } from "react-router-dom";
 import { Icon } from "../Icon";
 import { Image } from "../Image";
 import { useTheme } from "styled-components";
+import { useTranslation } from "react-i18next";
 const Guide = require("../../assets/Coach_Guide.pdf");
 
 export const Footer: React.FC<FooterProps> = (props) => {
-  const theme: any = useTheme();
   const user = useSelector(selectCurrentUser);
   const navigate = useNavigate();
+  const theme: any = useTheme();
+  const { t } = useTranslation();
 
   const openGuide = () => {
     window.open(Guide, "_black");
@@ -31,9 +33,14 @@ export const Footer: React.FC<FooterProps> = (props) => {
         hoverColor="#0071BC20"
         onClick={() => navigate("/teachers")}
       >
-        <Icon mb="8px" name="home" size={24} />
-        <Text fontSize={12} color={theme.colors.primary} value="Home" />
+        <Icon mb="8px" name="home" size={24} color={theme.colors.primary} />
+        <Text
+          fontSize={12}
+          color={theme.colors.primary}
+          value={t("Menu.home")}
+        />
       </Container>
+
       <Container
         flex={1}
         height="100%"
@@ -43,9 +50,10 @@ export const Footer: React.FC<FooterProps> = (props) => {
         hoverColor="#0071BC20"
         onClick={openGuide}
       >
-        <Icon mb="8px" name="file" size={24} />
-        <Text fontSize={12} color="#2C4668" value="Guide" />
+        <Icon mb="8px" name="file" size={24} color="#2C4668" />
+        <Text fontSize={12} color="#2C4668" value={t("Menu.guide")} />
       </Container>
+
       <Container
         flex={1}
         height="100%"
