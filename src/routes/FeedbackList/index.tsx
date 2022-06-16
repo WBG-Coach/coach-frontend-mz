@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Container, Icon, LoadingDots, Text } from "../../components";
+import {
+  Button,
+  Container,
+  Icon,
+  Image,
+  LoadingDots,
+  Text,
+} from "../../components";
 import { useGetApplicationMutation } from "../../service";
 import { getLocalFeedbacks } from "../../storage";
+import EmptyStateImage from "../../assets/images/empty-state.svg";
 
 const FeedbackList: React.FC<{}> = () => {
   const navigate = useNavigate();
@@ -41,43 +49,64 @@ const FeedbackList: React.FC<{}> = () => {
               <Icon name="arrow-left" size={24} />
             </Container>
           </Container>
-          <Text
-            mb="16px"
-            fontWeight={600}
-            fontSize="24px"
-            color="#191A1B"
-            lineHeight="32px"
-            value={t("FeedbackList.title")}
-          />
-          {feedbacks.map((feedback, index) => (
+          {feedbacks.length === 0 ? (
             <Container
-              key={index}
-              width="100%"
-              height="88px"
+              flex={1}
               alignItems="center"
-              flexDirection="row"
+              mt="calc(50% - 50px)"
+              flexDirection="column"
               justifyContent="center"
-              borderTop={index !== 0 ? "1px solid #F0F3F5" : ""}
-              onClick={() => navigate(`/feedback-details/${index}`)}
             >
-              <Icon size={24} name="notes" mr="12px" />
-
-              <Container
-                flex={1}
-                flexDirection="column"
-                justifyContent="center"
-              >
-                <Text
-                  fontSize={16}
-                  color="#00121A"
-                  fontWeight={600}
-                  lineHeight="24px"
-                  value={feedback[0]}
-                />
-              </Container>
-              <Icon size={24} name="chevron-right" />
+              <Image mb="32px" src={EmptyStateImage} width={240} />
+              <Text
+                color="#000"
+                fontSize="16px"
+                fontWeight={600}
+                lineHeight="24px"
+                value={t("FeedbackList.empty-text")}
+              />
             </Container>
-          ))}
+          ) : (
+            <>
+              <Text
+                mb="16px"
+                fontWeight={600}
+                fontSize="24px"
+                color="#191A1B"
+                lineHeight="32px"
+                value={t("FeedbackList.title")}
+              />
+              {feedbacks.map((feedback, index) => (
+                <Container
+                  key={index}
+                  width="100%"
+                  height="88px"
+                  alignItems="center"
+                  flexDirection="row"
+                  justifyContent="center"
+                  borderTop={index !== 0 ? "1px solid #F0F3F5" : ""}
+                  onClick={() => navigate(`/feedback-details/${index}`)}
+                >
+                  <Icon size={24} name="notes" mr="12px" />
+
+                  <Container
+                    flex={1}
+                    flexDirection="column"
+                    justifyContent="center"
+                  >
+                    <Text
+                      fontSize={16}
+                      color="#00121A"
+                      fontWeight={600}
+                      lineHeight="24px"
+                      value={feedback[0]}
+                    />
+                  </Container>
+                  <Icon size={24} name="chevron-right" />
+                </Container>
+              ))}
+            </>
+          )}
           <Container
             left="0"
             right="0"

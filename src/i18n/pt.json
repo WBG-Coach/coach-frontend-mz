@@ -41,7 +41,8 @@
   },
   "FeedbackList": {
     "title": "Feedbacks",
-    "new": "Criar novo feedback"
+    "new": "Criar novo feedback",
+    "empty-text": "Ainda não tem nenhum feedback aqui"
   },
   "Profile": {
     "logout": "Sair"
