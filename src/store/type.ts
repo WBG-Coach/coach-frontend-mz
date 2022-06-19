@@ -25,6 +25,14 @@ export type Questionnaire = {
   updated_at: Date;
 };
 
+export type Note = {
+  id: number;
+  text: string;
+  created_at: Date;
+  updated_at: Date;
+  questionnaire_application_id: number;
+};
+
 export type Application = {
   id: number;
   status: string;
@@ -34,6 +42,8 @@ export type Application = {
   created_at: Date;
   updated_at: Date;
   school_id: number;
+  teacher: User;
+  notes: Note[];
   questionnaire: Questionnaire;
 };
 
@@ -79,4 +89,9 @@ export type Answer = {
 export type AnswerQuestionnaire = {
   questionnaire_application_id: number;
   answers: Answer[];
+};
+
+export type AnswerFile = {
+  url: string;
+  name: string;
 };

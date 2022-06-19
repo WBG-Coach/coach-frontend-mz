@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { Container, Text } from "../../components";
+import { Container, Icon, Text } from "../../components";
+import {
+  useGetAnswersMutation,
+  useGetApplicationMutation,
+} from "../../service";
 import { getLocalFeedbacks } from "../../storage";
+import { TeacherInfo } from "../Applications/TeacherInfo";
 import { QuestionnaireHeader } from "../Questionnaire/QuestionnaireHeader";
 
 const questions = [
@@ -29,25 +34,101 @@ const questions = [
 const FeedbackDetails: React.FC<{}> = () => {
   const { t } = useTranslation();
   const [feedback, setFeedback] = useState<any>();
-  const { index } = useParams<{ index: string }>();
+  const [getApplication, { data }] = useGetApplicationMutation();
+  const [getAnswers, answersRequest] = useGetAnswersMutation();
+  const { feedbackId, applicationId } = useParams<{
+    feedbackId: string;
+    applicationId: string;
+  }>();
 
   useEffect(() => {
-    if (index) {
-      setFeedback(getLocalFeedbacks()[parseInt(index, 10)]);
+    if (feedbackId) {
+      setFeedback(getLocalFeedbacks()[parseInt(feedbackId, 10)]);
     }
-  }, [index]);
+  }, [feedbackId]);
+
+  useEffect(() => {
+    if (applicationId) {
+      getApplication({ id: parseInt(applicationId, 10) });
+      getAnswers(parseInt(applicationId, 10));
+    }
+  }, [applicationId, getApplication, getAnswers]);
 
   return feedback ? (
     <Container flex={1} flexDirection="column">
-      <QuestionnaireHeader title={t("Questionnaire.title-feedback")} />
+      <QuestionnaireHeader title={t("Questionnaire.feedback")} />
 
-      <Container mb="40px" background="#F0F2F5" borderRadius="8px" p="12px">
+      <Text
+        mb="16px"
+        fontSize="20px"
+        fontWeight={600}
+        lineHeight="24px"
+        value={t("Questionnaire.session-title", { value: data?.id })}
+      />
+
+      <Text
+        mb="16px"
+        fontSize="14px"
+        color="#494B50"
+        lineHeight="18px"
+        value={t("Questionnaire.teacher")}
+      />
+
+      <TeacherInfo teacher={data?.teacher} />
+
+      <Text
+        mb="16px"
+        fontSize="14px"
+        color="#494B50"
+        lineHeight="18px"
+        value={t("Questionnaire.class-plan")}
+      />
+
+      <Container flexDirection="row" mb="40px" alignItems="center">
+        <Container
+          mr="8px"
+          width="40px"
+          height="40px"
+          borderRadius="50%"
+          alignItems="center"
+          background="#F0F2F5"
+          justifyContent="center"
+        >
+          <Icon name="graduation" size={24} />
+        </Container>
+        {answersRequest.data && (
+          <Text value={answersRequest.data[0].option.text} />
+        )}
+      </Container>
+
+      <Text
+        mb="16px"
+        fontSize="20px"
+        fontWeight={600}
+        lineHeight="24px"
+        value={t("Questionnaire.title-feedback")}
+      />
+
+      <Container
+        p="12px"
+        mb="40px"
+        borderRadius="8px"
+        background="#F0F2F5"
+        flexDirection="column"
+      >
+        <Text
+          mb="8px"
+          fontSize="12px"
+          color="#494B50"
+          lineHeight="12px"
+          value={feedback?.competence?.title}
+        />
         <Text
           fontSize="14px"
           color="#191A1B"
           lineHeight="16px"
           fontWeight={600}
-          value={feedback[0]}
+          value={feedback?.competence?.subtitle}
         />
       </Container>
 
@@ -62,7 +143,7 @@ const FeedbackDetails: React.FC<{}> = () => {
                 lineHeight="18px"
                 value={question.text}
               />
-              <Text mb="20px" value={feedback[index]} />
+              <Text mb="20px" value={feedback?.notes[index]} />
             </Container>
           )
       )}

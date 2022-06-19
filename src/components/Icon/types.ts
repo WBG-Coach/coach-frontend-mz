@@ -5,7 +5,6 @@ export type IconProps = {
   color?: string;
   name:
     | "eye"
-    | "edit-file"
     | "plus"
     | "home"
     | "file"
@@ -15,13 +14,15 @@ export type IconProps = {
     | "check"
     | "camera"
     | "comments"
-    | "comments-outline"
+    | "edit-file"
     | "thumbs-up"
     | "file-blank"
+    | "graduation"
     | "arrow-left"
     | "thumbs-down"
     | "chevron-right"
     | "clipboard-notes"
+    | "comments-outline"
     | "chevron-bottom";
 } & SpaceProps &
   PositionProps;

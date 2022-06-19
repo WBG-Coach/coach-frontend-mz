@@ -9,14 +9,12 @@ import {
 } from "../../service";
 import {
   getLocalHideOnBoardingApplication,
-  getLocalNotes,
   setLocalHideOnboardingApplication,
 } from "../../storage";
 
 const ApplicationStatus: React.FC<{}> = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [notes, setNotes] = useState<string[]>([]);
   const [onboarding, setOnboarding] = useState(
     !getLocalHideOnBoardingApplication()
   );
@@ -25,10 +23,6 @@ const ApplicationStatus: React.FC<{}> = () => {
   const { applicationId } = useParams<{
     applicationId: string;
   }>();
-
-  useEffect(() => {
-    setNotes(getLocalNotes());
-  }, []);
 
   useEffect(() => {
     if (applicationId) {
@@ -190,6 +184,7 @@ const ApplicationStatus: React.FC<{}> = () => {
                         <Container
                           p="12px"
                           mr="12px"
+                          key={index}
                           overflow="visible"
                           position="relative"
                           minWidth="100px"
@@ -244,7 +239,7 @@ const ApplicationStatus: React.FC<{}> = () => {
               flexWrap="wrap"
               justifyContent="space-between"
             >
-              {notes.map((note, index) => (
+              {data?.notes.map((note, index) => (
                 <Container
                   key={index}
                   p="12px"
@@ -253,13 +248,17 @@ const ApplicationStatus: React.FC<{}> = () => {
                   borderRadius="12px"
                   width="calc(50% - 32px)"
                   border="1px solid #E3E5E8"
-                  onClick={() => navigate(`/questionnaire-review/${index}`)}
+                  onClick={() =>
+                    navigate(`/questionnaire-review-details/${note.id}`)
+                  }
                 >
                   <Text
                     fontSize="12px"
                     color="#191A1B"
                     lineHeight="16px"
-                    value={note}
+                    value={`${note.text.substring(0, 50)}${
+                      note.text.length > 50 ? "..." : ""
+                    }`}
                   />
                 </Container>
               ))}
@@ -274,9 +273,7 @@ const ApplicationStatus: React.FC<{}> = () => {
                 width="calc(50% - 32px)"
                 border="1px solid #E3E5E8"
                 onClick={() =>
-                  navigate(
-                    `/questionnaire-review/${applicationId}/${data?.questionnaire_id}`
-                  )
+                  navigate(`/questionnaire-review/${applicationId}`)
                 }
               >
                 <Icon mb="8px" name="plus" size={24} />

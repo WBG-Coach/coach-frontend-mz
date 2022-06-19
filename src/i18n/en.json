@@ -33,6 +33,8 @@
   },
   "Questionnaire": {
     "title": "Session",
+    "feedback": "Feedback",
+    "session-title": "Session {{value}}",
     "title-feedback": "Feedback preparation",
     "title-review": "Documentation",
     "save": "Save",
@@ -43,7 +45,9 @@
     "question-number": "Question {{value}}",
     "finish-description": "The observation sheet has been saved.",
     "annotation": "Annotation",
-    "return": "Return"
+    "return": "Return",
+    "teacher": "Teacher",
+    "class-plan": "Class plan"
   },
   "FeedbackList": {
     "title": "Feedbacks",

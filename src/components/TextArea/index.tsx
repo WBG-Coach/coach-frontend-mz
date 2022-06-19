@@ -34,15 +34,19 @@ export const TextArea: React.FC<TextAreaProps> = ({
             id="file"
             type="file"
             style={{ display: "none" }}
-            onChange={onLoadFile}
+            onChange={(e) => {
+              onLoadFile(e.target.files?.item(0));
+            }}
           />
           <input
             capture
             id="camera"
             type="file"
             accept="image/*"
-            onChange={onLoadFile}
             style={{ display: "none" }}
+            onChange={(e) => {
+              onLoadFile(e.target.files?.item(0));
+            }}
           />
         </>
       )}

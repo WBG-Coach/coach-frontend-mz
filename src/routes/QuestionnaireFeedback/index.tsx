@@ -30,12 +30,13 @@ const questions = [
 const QuestionnaireFeedback: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [competence, setCompatence] = useState<any>();
   const [currentStep, setCurrentStep] = useState(0);
   const [getAnswer, { data }] = useGetAnswersMutation();
   const [notes, setNotes] = useState<string[]>(
     new Array(questions.length).fill("")
   );
-  const { applicationId, questionnaireId } = useParams<{
+  const { applicationId } = useParams<{
     applicationId: string;
     questionnaireId: string;
   }>();
@@ -43,18 +44,6 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
   useEffect(() => {
     if (applicationId) getAnswer(parseInt(applicationId, 10));
   }, [applicationId, getAnswer]);
-  // const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
-
-  /*useEffect(() => {
-    if (questionnaireId) getQuestions(parseInt(questionnaireId, 10));
-  }, [questionnaireId, getQuestions]);*/
-
-  /*useEffect(() => {
-    if (data?.questions) {
-      setAnswers(new Array(data?.questions.length).fill(undefined));
-      setNotes(new Array(data?.questions.length).fill(undefined));
-    }
-  }, [data]);*/
 
   const noteQuestion = (text: string, index: number) => {
     setNotes(notes.map((oldNode, i) => (i === index ? text : oldNode)));
@@ -65,10 +54,7 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
   };
 
   const sendQuestionnaire = () => {
-    console.log(applicationId);
-    console.log(questionnaireId);
-    console.log(notes);
-    setLocalFeedbacks([...getLocalFeedbacks(), notes]);
+    setLocalFeedbacks([...getLocalFeedbacks(), { competence, notes }]);
     navigate(-1);
   };
 
@@ -94,11 +80,9 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
                     borderRadius="8px"
                     flexDirection="column"
                     justifyContent="center"
-                    onClick={() =>
-                      noteQuestion(option.question.competence.title, 0)
-                    }
+                    onClick={() => setCompatence(option.question.competence)}
                     border={
-                      notes[0] === option.question.competence.title
+                      competence?.id === option.question.competence.id
                         ? "1px solid #3373CC"
                         : "1px solid #E3E5E8"
                     }
@@ -152,19 +136,33 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
               width="100%"
               onClick={goToFeedbackQuestions}
               value={t("Questionnaire.continue")}
-              isDisabled={!notes[0]}
+              isDisabled={!competence?.id}
             />
           </Container>
         </Container>
       ) : (
         <Container flex={1} flexDirection="column">
-          <Container mb="40px" background="#F0F2F5" borderRadius="8px" p="12px">
+          <Container
+            flexDirection="column"
+            mb="40px"
+            background="#F0F2F5"
+            borderRadius="8px"
+            p="12px"
+          >
+            <Text
+              mb="4px"
+              fontSize="10px"
+              color="#494B50"
+              lineHeight="16px"
+              fontWeight={400}
+              value={competence.title}
+            />
             <Text
               fontSize="14px"
               color="#191A1B"
               lineHeight="16px"
               fontWeight={600}
-              value={notes[0]}
+              value={competence.subtitle}
             />
           </Container>
 
@@ -201,7 +199,6 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
               mt={3}
               width="100%"
               onClick={sendQuestionnaire}
-              isDisabled={notes.includes("")}
               value={t("Questionnaire.save")}
             />
           </Container>

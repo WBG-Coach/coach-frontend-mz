@@ -16,10 +16,14 @@ import {
   Container,
   LoadingDots,
   OptionButton,
+  Icon,
 } from "../../components";
-import { Answer } from "../../store/type";
+import { Answer, AnswerFile } from "../../store/type";
+import { uploadFileToS3 } from "../../util";
+import { useTheme } from "styled-components";
 
 const Questionnaire: React.FC<{}> = () => {
+  const theme: any = useTheme();
   const { t } = useTranslation();
   const [isFinish, setFinish] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -27,6 +31,7 @@ const Questionnaire: React.FC<{}> = () => {
   const [getApplication, applicationRequest] = useGetApplicationMutation();
   const [answerQuestionnaire] = useAnswerQuestionnaireMutation();
   const [answers, setAnswers] = useState<Array<number | undefined>>([]);
+  const [files, setFiles] = useState<AnswerFile[][]>([[]]);
   const [notes, setNotes] = useState<Array<string | undefined>>([]);
   const { applicationId, questionnaireId } = useParams<{
     applicationId: string;
@@ -43,10 +48,25 @@ const Questionnaire: React.FC<{}> = () => {
 
   useEffect(() => {
     if (data?.questions) {
-      setAnswers(new Array(data?.questions.length).fill(undefined));
+      setFiles(new Array(data?.questions.length).fill([]));
       setNotes(new Array(data?.questions.length).fill(undefined));
+      setAnswers(new Array(data?.questions.length).fill(undefined));
     }
   }, [data]);
+
+  const addImage = async (file: File) => {
+    try {
+      const fileUrl = await uploadFileToS3(file);
+
+      setFiles(
+        files.map((fileList, index) =>
+          index === currentQuestion ? [...fileList, fileUrl] : fileList
+        )
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const answerQuestion = (newOptionID: number) => {
     setAnswers(
@@ -149,10 +169,37 @@ const Questionnaire: React.FC<{}> = () => {
                   <TextArea
                     key={index}
                     value={note}
-                    onLoadFile={() => {}}
+                    onLoadFile={addImage}
                     onChangeText={(text) => noteQuestion(text)}
                   />
                 )
+            )}
+          </Container>
+
+          <Container mt="16px" mb="100px" flexDirection="column">
+            {files.map(
+              (fileList: AnswerFile[], index: number): ReactNode =>
+                currentQuestion === index &&
+                fileList.map((file) => (
+                  <Container
+                    p="16px"
+                    mt="16px"
+                    borderRadius="8px"
+                    border="1px solid"
+                    borderColor={theme.colors.primary}
+                    justifyContent="space-between"
+                    onClick={() => {
+                      window.open(file.url, "_blank");
+                    }}
+                  >
+                    <Text value={file.name} color={theme.colors.primary} />
+                    <Icon
+                      size={24}
+                      name="file-blank"
+                      color={theme.colors.primary}
+                    />
+                  </Container>
+                ))
             )}
           </Container>
 
@@ -161,7 +208,7 @@ const Questionnaire: React.FC<{}> = () => {
             right="0"
             bottom="0"
             p="24px 16px"
-            position="absolute"
+            position="fixed"
           >
             {currentQuestion + 1 === data?.questions.length ? (
               <Button

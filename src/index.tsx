@@ -91,7 +91,7 @@ root.render(
               }
             />
             <Route
-              path="feedback-details/:index"
+              path="feedback-details/:applicationId/:feedbackId"
               element={
                 <ProtectedRoute>
                   <FeedbackDetails />
@@ -107,7 +107,7 @@ root.render(
               }
             />
             <Route
-              path="questionnaire-review/:applicationId/:questionnaireId"
+              path="questionnaire-review/:applicationId"
               element={
                 <ProtectedRoute>
                   <QuestionnaireReview />
@@ -115,7 +115,7 @@ root.render(
               }
             />
             <Route
-              path="questionnaire-review/:index"
+              path="questionnaire-review-details/:id"
               element={
                 <ProtectedRoute>
                   <QuestionnaireReview />

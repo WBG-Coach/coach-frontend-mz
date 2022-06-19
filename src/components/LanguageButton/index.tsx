@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import UsaFlag from "../../assets/images/flags/usa.png";
 import MozanbiqueFlag from "../../assets/images/flags/mozanbique.png";
 import { useTranslation } from "react-i18next";
@@ -12,10 +12,6 @@ const IMAGES: any = {
 
 export const LanguageButton: React.FC<{}> = () => {
   const { i18n } = useTranslation();
-
-  useEffect(() => {
-    console.log(i18n.language);
-  }, [i18n]);
 
   const handleLanguage = (language: string) => {
     i18n.changeLanguage(language);

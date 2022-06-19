@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   AnswerQuestionnaire,
   Application,
+  Note,
   Question,
   Questionnaire,
   School,
@@ -101,11 +102,30 @@ export const api = createApi({
         body: { questionnaire_application_id },
       }),
     }),
+    saveNote: builder.mutation<
+      void,
+      { questionnaire_application_id: number; text: string }
+    >({
+      query: (body) => ({
+        method: "POST",
+        url: "/api/notes",
+        body,
+      }),
+    }),
+    getNote: builder.mutation<Note, number>({
+      query: (id) => ({
+        method: "POST",
+        url: "/api/notes/search",
+        body: { id },
+      }),
+    }),
   }),
 });
 
 export const {
   useLoginMutation,
+  useGetNoteMutation,
+  useSaveNoteMutation,
   useGetAnswersMutation,
   useGetCoachesMutation,
   useGetSchoolsMutation,

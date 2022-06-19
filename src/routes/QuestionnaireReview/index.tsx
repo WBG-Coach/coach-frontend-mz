@@ -3,27 +3,31 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Container, Text, TextArea } from "../../components";
 import { QuestionnaireHeader } from "../Questionnaire/QuestionnaireHeader";
-import { getLocalNotes, setLocalNotes } from "../../storage";
+import { useGetNoteMutation, useSaveNoteMutation } from "../../service";
 
 const QuestionnaireReview: React.FC<{}> = () => {
   const { t } = useTranslation();
-  const [note, setNote] = useState("");
   const navigate = useNavigate();
-  const { index, applicationId, questionnaireId } = useParams<{
-    index: string;
+  const [note, setNote] = useState("");
+  const [saveNote] = useSaveNoteMutation();
+  const [getNote, { data }] = useGetNoteMutation();
+  const { id, applicationId } = useParams<{
+    id: string;
     applicationId: string;
-    questionnaireId: string;
   }>();
 
   useEffect(() => {
-    setNote(getLocalNotes()[parseInt(index || "0", 10)]);
-  }, [index]);
+    if (id) getNote(parseInt(id, 10));
+  }, [id, getNote]);
 
   const sendQuestionnaire = async () => {
-    console.log(applicationId);
-    console.log(questionnaireId);
-    const notes = getLocalNotes();
-    setLocalNotes([...notes, note]);
+    if (applicationId) {
+      saveNote({
+        questionnaire_application_id: parseInt(applicationId, 10),
+        text: note,
+      });
+    }
+
     navigate(-1);
     setNote("");
   };
@@ -31,7 +35,7 @@ const QuestionnaireReview: React.FC<{}> = () => {
   return (
     <Container flex={1} flexDirection="column">
       <QuestionnaireHeader title={t("Questionnaire.title-review")} />
-      {index === undefined ? (
+      {!data?.text ? (
         <>
           <TextArea onChangeText={setNote} />
           <Container
@@ -51,7 +55,7 @@ const QuestionnaireReview: React.FC<{}> = () => {
           </Container>
         </>
       ) : (
-        <Text mt="24px" fontWeight={500} fontSize="16px" value={note} />
+        <Text mt="24px" fontWeight={500} fontSize="16px" value={data.text} />
       )}
     </Container>
   );
