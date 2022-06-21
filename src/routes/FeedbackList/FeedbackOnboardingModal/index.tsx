@@ -125,7 +125,12 @@ export const FeedbackOnboardingModal = () => {
           </Container>
         )}
         {step === 1 && (
-          <Container flex={1} justifyContent="center" alignItems="center">
+          <Container
+            flex={1}
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+          >
             <Image src={OnboardingChecks} width={168} mb="32px" />
             <Text
               mb="8px"
@@ -143,7 +148,12 @@ export const FeedbackOnboardingModal = () => {
           </Container>
         )}
         {step === 2 && (
-          <Container flex={1} justifyContent="center" alignItems="center">
+          <Container
+            flex={1}
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+          >
             <Image src={OnboardingChecks} width={168} mb="32px" />
             <Text
               mb="8px"
