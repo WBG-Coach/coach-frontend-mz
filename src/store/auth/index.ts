@@ -1,8 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import { setLocalUser } from "../../localStorage";
 import { api } from "../../service";
-import { setLocalFeedbacks } from "../../storage";
+import { createSlice } from "@reduxjs/toolkit";
+import { clearLocalStorage, setLocalUser } from "../../storage";
 import { User } from "../type";
 
 const INITIAL_STATE: User = {};
@@ -20,7 +19,7 @@ const authSlice = createSlice({
       return newState;
     },
     logout: () => {
-      setLocalFeedbacks([]);
+      clearLocalStorage();
       setLocalUser(INITIAL_STATE);
       return INITIAL_STATE;
     },

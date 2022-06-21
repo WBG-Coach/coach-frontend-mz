@@ -10,6 +10,7 @@ import { Icon } from "./Icon";
 import { TextArea } from "./TextArea";
 import { LoadingDots } from "./LoadingDots";
 import { FabButton } from "./FabButton";
+import { Modal } from "./Modal";
 
 export {
   Icon,
@@ -24,4 +25,5 @@ export {
   OptionButton,
   ProtectedRoute,
   FabButton,
+  Modal,
 };

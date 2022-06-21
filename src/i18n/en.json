@@ -52,7 +52,9 @@
   "FeedbackList": {
     "title": "Feedbacks",
     "new": "Create new feedback",
-    "empty-text": "No feedback here yet"
+    "empty-text": "No feedback here yet",
+    "continue": "Continuar",
+    "finish": "Preparar feedback"
   },
   "Profile": {
     "logout": "Logout"

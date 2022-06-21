@@ -1,23 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import { OnboardingApplicationModal } from "./OnboardingApplicationModal";
 import { Container, Footer, Icon, LoadingDots, Text } from "../../components";
-import { Modal } from "../../components/Modal";
 import {
   useGetAnswersMutation,
   useGetApplicationMutation,
 } from "../../service";
-import {
-  getLocalHideOnBoardingApplication,
-  setLocalHideOnboardingApplication,
-} from "../../storage";
 
-const ApplicationStatus: React.FC<{}> = () => {
+const ApplicationStatus: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [onboarding, setOnboarding] = useState(
-    !getLocalHideOnBoardingApplication()
-  );
   const [getApplication, { data, isLoading }] = useGetApplicationMutation();
   const [getAnswers, answerRequest] = useGetAnswersMutation();
   const { applicationId } = useParams<{
@@ -41,11 +34,6 @@ const ApplicationStatus: React.FC<{}> = () => {
       getApplication({ id: parseInt(applicationId, 10) });
     }
   }, [applicationId, getApplication]);
-
-  const closeOnboarding = () => {
-    setLocalHideOnboardingApplication(true);
-    setOnboarding(false);
-  };
 
   return (
     <Container width="100%" height="100%" mb="100px" flexDirection="column">
@@ -289,7 +277,8 @@ const ApplicationStatus: React.FC<{}> = () => {
       )}
 
       <Footer />
-      <Modal isOpen={onboarding} onClose={closeOnboarding}></Modal>
+
+      <OnboardingApplicationModal />
     </Container>
   );
 };

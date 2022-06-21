@@ -12,6 +12,7 @@ import {
 import { useGetApplicationMutation } from "../../service";
 import { getLocalFeedbacks } from "../../storage";
 import EmptyStateImage from "../../assets/images/empty-state.svg";
+import { FeedbackOnboardingModal } from "./FeedbackOnboardingModal";
 
 const FeedbackList: React.FC<{}> = () => {
   const navigate = useNavigate();
@@ -129,6 +130,7 @@ const FeedbackList: React.FC<{}> = () => {
           </Container>
         </>
       )}
+      <FeedbackOnboardingModal />
     </Container>
   );
 };

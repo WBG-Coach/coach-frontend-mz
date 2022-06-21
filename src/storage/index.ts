@@ -1,5 +1,9 @@
 import { User } from "../store/type";
 
+export const clearLocalStorage = (): void => {
+  localStorage.clear();
+};
+
 // @coach:user
 export const setLocalUser = (user: User): void => {
   localStorage.setItem("@coach:user", JSON.stringify(user));
@@ -9,15 +13,7 @@ export const getLocalUser = (): User | null => {
   if (!localUser) return null;
   return JSON.parse(localUser);
 };
-// @coach:notes
-export const setLocalNotes = (notes: string[]): void => {
-  localStorage.setItem("@coach:notes", JSON.stringify(notes));
-};
-export const getLocalNotes = (): string[] => {
-  const notes = localStorage.getItem("@coach:notes");
-  if (!notes) return [];
-  return JSON.parse(notes);
-};
+
 // @coach:feedbacks
 export const setLocalFeedbacks = (feedbacks: any[]): void => {
   localStorage.setItem("@coach:feedbacks", JSON.stringify(feedbacks));
@@ -39,6 +35,20 @@ export const setLocalHideOnboardingApplication = (
 };
 export const getLocalHideOnBoardingApplication = (): boolean => {
   const onboarding = localStorage.getItem("@coach:hide-onboarding-application");
+  if (!onboarding) return false;
+  return JSON.parse(onboarding);
+};
+
+// @coach:hide-onboarding-feedback
+export const setLocalHideOnboardingFeedback = (onboarding: boolean): void => {
+  localStorage.setItem(
+    "@coach:hide-onboarding-feedback",
+    JSON.stringify(onboarding)
+  );
+};
+
+export const getLocalHideOnBoardingFeedback = (): boolean => {
+  const onboarding = localStorage.getItem("@coach:hide-onboarding-feedback");
   if (!onboarding) return false;
   return JSON.parse(onboarding);
 };
