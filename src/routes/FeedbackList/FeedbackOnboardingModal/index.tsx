@@ -135,6 +135,7 @@ export const FeedbackOnboardingModal = () => {
             <Text
               mb="8px"
               fontWeight={600}
+              textAlign="center"
               value="Indique apenas 1 área de melhoria de cada vez"
               fontSize="24px"
             />
@@ -158,6 +159,7 @@ export const FeedbackOnboardingModal = () => {
             <Text
               mb="8px"
               fontWeight={600}
+              textAlign="center"
               value="Demonstrar e praticar na sessão de orientação"
               fontSize="24px"
             />
@@ -170,7 +172,7 @@ export const FeedbackOnboardingModal = () => {
             />
           </Container>
         )}
-        {step <= 2 ? (
+        {step < 2 ? (
           <Button
             mb="16px"
             mt="auto"
