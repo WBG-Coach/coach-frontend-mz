@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
 import { loadLocalUser } from "./store/auth";
 import { Outlet, useNavigate } from "react-router-dom";
-import { getLocalUser } from "./localStorage";
 import { useEffect, useState } from "react";
 import { Container } from "./components";
+import { getLocalUser } from "./storage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const App = () => {
   useEffect(() => {
     if (!loaded) {
       const localUser = getLocalUser();
-      if (localUser.id) {
+      if (localUser?.id) {
         dispatch(loadLocalUser(localUser));
         if (localUser.selectedSchool) {
           navigate("/teachers");
@@ -27,7 +27,7 @@ const App = () => {
 
   return (
     <Container p="16px" flexDirection="column">
-      <Outlet />
+      {loaded && <Outlet />}
     </Container>
   );
 };

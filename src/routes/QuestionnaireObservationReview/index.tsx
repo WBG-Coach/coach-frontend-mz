@@ -10,11 +10,14 @@ import {
   Container,
   LoadingDots,
   OptionButton,
+  Icon,
 } from "../../components";
+import { useTheme } from "styled-components";
 
 const QuestionnaireObservationReview: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const theme: any = useTheme();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [getAnswers, { data, isLoading }] = useGetAnswersMutation();
   const { applicationId } = useParams<{ applicationId: string }>();
@@ -94,6 +97,30 @@ const QuestionnaireObservationReview: React.FC<{}> = () => {
           lineHeight="24px"
           value={data[currentQuestion].notes || "-"}
         />
+      </Container>
+
+      <Container mt="16px" mb="100px" flexDirection="column">
+        {data[currentQuestion].files.map((file: any) => (
+          <Container
+            p="16px"
+            mt="16px"
+            borderRadius="8px"
+            border="1px solid"
+            borderColor={theme.colors.primary}
+            justifyContent="space-between"
+            onClick={() => {
+              window.open(file.url, "_blank");
+            }}
+          >
+            <Text
+              value={`${
+                file.name.length > 35 ? file.name.substring(0, 35) : file.name
+              }`}
+              color={theme.colors.primary}
+            />
+            <Icon size={24} name="file-blank" color={theme.colors.primary} />
+          </Container>
+        ))}
       </Container>
 
       <Container

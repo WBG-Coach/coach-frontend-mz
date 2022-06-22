@@ -44,6 +44,7 @@ export type Application = {
   school_id: number;
   teacher: User;
   notes: Note[];
+  application_date: Date;
   questionnaire: Questionnaire;
 };
 
@@ -57,12 +58,13 @@ export type Option = {
 
 export type Question = {
   id: number;
-  question_id: number;
   created_at: Date;
   updated_at: Date;
+  question_id: number;
   questionnaire_id: number;
   question: {
     id: number;
+    type: string;
     competency_id: number;
     created_at: Date;
     updated_at: Date;
@@ -84,6 +86,7 @@ export type Answer = {
   questionnaire_question_id: number;
   notes?: string;
   option_id: number;
+  files?: { url: string }[];
 };
 
 export type AnswerQuestionnaire = {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container, Icon, Text } from "../../components";
 import {
   useGetAnswersMutation,
@@ -33,6 +33,7 @@ const questions = [
 
 const FeedbackDetails: React.FC<{}> = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [feedback, setFeedback] = useState<any>();
   const [getApplication, { data }] = useGetApplicationMutation();
   const [getAnswers, answersRequest] = useGetAnswersMutation();
@@ -84,21 +85,29 @@ const FeedbackDetails: React.FC<{}> = () => {
         value={t("Questionnaire.class-plan")}
       />
 
-      <Container flexDirection="row" mb="40px" alignItems="center">
+      <Container
+        flexDirection="row"
+        mb="40px"
+        alignItems="center"
+        onClick={() => navigate("/guide-content")}
+      >
         <Container
           mr="8px"
           width="40px"
           height="40px"
-          borderRadius="50%"
+          borderRadius="20px"
           alignItems="center"
           background="#F0F2F5"
           justifyContent="center"
         >
           <Icon name="graduation" size={24} />
         </Container>
-        {answersRequest.data && (
-          <Text value={answersRequest.data[0].option.text} />
-        )}
+        <Container flex={1}>
+          {answersRequest.data && (
+            <Text value={answersRequest.data[0].option.text} />
+          )}
+        </Container>
+        <Icon name="chevron-right" size={24} color="#94979E" />
       </Container>
 
       <Text
@@ -115,6 +124,7 @@ const FeedbackDetails: React.FC<{}> = () => {
         borderRadius="8px"
         background="#F0F2F5"
         flexDirection="column"
+        onClick={() => navigate("/guide-content")}
       >
         <Text
           mb="8px"
@@ -135,7 +145,12 @@ const FeedbackDetails: React.FC<{}> = () => {
       {questions.map(
         (question, index) =>
           index !== 0 && (
-            <Container key={index} flexDirection="column">
+            <Container
+              key={index}
+              mb="24px"
+              flexDirection="column"
+              borderBottom="1px solid #E3E5E8"
+            >
               <Text
                 mb="8px"
                 color="#494B50"

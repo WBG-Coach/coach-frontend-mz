@@ -13,6 +13,7 @@ export type IconProps = {
     | "notes"
     | "check"
     | "camera"
+    | "search"
     | "comments"
     | "edit-file"
     | "thumbs-up"

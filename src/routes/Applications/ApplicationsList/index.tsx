@@ -50,7 +50,10 @@ export const ApplicationsList: React.FC<Props> = ({
                 fontSize="14px"
                 color="#494B50"
                 lineHeight="16px"
-                value={format(new Date(application.created_at), "yyyy/MM/dd")}
+                value={format(
+                  new Date(application.application_date),
+                  "yyyy/MM/dd"
+                )}
               />
             </Container>
             <Icon size={24} name="chevron-right" color="#C7CAD1" />

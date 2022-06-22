@@ -4,23 +4,23 @@ import { useTranslation } from "react-i18next";
 import { FinishContainer } from "./FinishContainer";
 import { ButtonQuestionList } from "./ButtonQuestionList";
 import { QuestionnaireHeader } from "./QuestionnaireHeader";
+import { Answer, AnswerFile } from "../../store/type";
+import { uploadFileToS3 } from "../../util";
+import { useTheme } from "styled-components";
+import { OptionsList } from "./OptionsList";
 import {
-  useAnswerQuestionnaireMutation,
-  useGetApplicationMutation,
-  useGetQuestionsMutation,
-} from "../../service";
-import {
+  Icon,
   Text,
   Button,
   TextArea,
   Container,
   LoadingDots,
-  OptionButton,
-  Icon,
 } from "../../components";
-import { Answer, AnswerFile } from "../../store/type";
-import { uploadFileToS3 } from "../../util";
-import { useTheme } from "styled-components";
+import {
+  useAnswerQuestionnaireMutation,
+  useGetApplicationMutation,
+  useGetQuestionsMutation,
+} from "../../service";
 
 const Questionnaire: React.FC<{}> = () => {
   const theme: any = useTheme();
@@ -74,6 +74,9 @@ const Questionnaire: React.FC<{}> = () => {
         index === currentQuestion ? newOptionID : currentOption
       )
     );
+
+    if (data?.questions[currentQuestion]?.question.type === "LIST")
+      goToNextQuestion();
   };
 
   const noteQuestion = (text: string) => {
@@ -97,6 +100,7 @@ const Questionnaire: React.FC<{}> = () => {
             questionnaire_question_id: questionnaireQuestion.id,
             option_id: answers[index] || 0,
             notes: notes[index] || "",
+            files: files[index],
           })
         ) || [],
     });
@@ -142,39 +146,36 @@ const Questionnaire: React.FC<{}> = () => {
                 </Container>
               </Container>
             )}
-
-            <Container mt="24px" flexDirection="column">
-              {data?.questions[currentQuestion]?.question.options.map(
-                (option) => (
-                  <OptionButton
-                    key={option.id}
-                    mb="16px"
-                    textAlign="left"
-                    variant="secondary"
-                    value={option.text}
-                    selectedColor={option.selected_color}
-                    onClick={() => answerQuestion(option.id)}
-                    selectedIcon={option.selected_icon as any}
-                    isSelected={answers[currentQuestion] === option.id}
-                  />
-                )
-              )}
-            </Container>
-          </Container>
-
-          <Container mt="16px" flexDirection="column">
-            {notes.map(
-              (note: string | undefined, index: number): ReactNode =>
-                currentQuestion === index && (
-                  <TextArea
-                    key={index}
-                    value={note}
-                    onLoadFile={addImage}
-                    onChangeText={(text) => noteQuestion(text)}
+            {data?.questions.map(
+              (_, index) =>
+                index === currentQuestion && (
+                  <OptionsList
+                    onClick={answerQuestion}
+                    selectedOptionId={answers[currentQuestion]}
+                    type={data?.questions[currentQuestion]?.question.type || ""}
+                    options={
+                      data?.questions[currentQuestion]?.question.options || []
+                    }
                   />
                 )
             )}
           </Container>
+
+          {data?.questions[currentQuestion]?.question.type !== "LIST" && (
+            <Container mt="16px" flexDirection="column">
+              {notes.map(
+                (note: string | undefined, index: number): ReactNode =>
+                  currentQuestion === index && (
+                    <TextArea
+                      key={index}
+                      value={note}
+                      onLoadFile={addImage}
+                      onChangeText={(text) => noteQuestion(text)}
+                    />
+                  )
+              )}
+            </Container>
+          )}
 
           <Container mt="16px" mb="100px" flexDirection="column">
             {files.map(
@@ -202,32 +203,33 @@ const Questionnaire: React.FC<{}> = () => {
                 ))
             )}
           </Container>
-
-          <Container
-            left="0"
-            right="0"
-            bottom="0"
-            p="24px 16px"
-            position="fixed"
-          >
-            {currentQuestion + 1 === data?.questions.length ? (
-              <Button
-                mt={3}
-                width="100%"
-                onClick={sendQuestionnaire}
-                value={t("Questionnaire.finish")}
-                isDisabled={answers.includes(undefined)}
-              />
-            ) : (
-              <Button
-                mt={3}
-                width="100%"
-                onClick={goToNextQuestion}
-                value={t("Questionnaire.continue")}
-                isDisabled={!answers[currentQuestion]}
-              />
-            )}
-          </Container>
+          {data?.questions[currentQuestion]?.question.type !== "LIST" && (
+            <Container
+              left="0"
+              right="0"
+              bottom="0"
+              p="24px 16px"
+              position="fixed"
+            >
+              {currentQuestion + 1 === data?.questions.length ? (
+                <Button
+                  mt={3}
+                  width="100%"
+                  onClick={sendQuestionnaire}
+                  value={t("Questionnaire.finish")}
+                  isDisabled={answers.includes(undefined)}
+                />
+              ) : (
+                <Button
+                  mt={3}
+                  width="100%"
+                  onClick={goToNextQuestion}
+                  value={t("Questionnaire.continue")}
+                  isDisabled={!answers[currentQuestion]}
+                />
+              )}
+            </Container>
+          )}
         </>
       )}
     </Container>
