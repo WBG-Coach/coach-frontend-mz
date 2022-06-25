@@ -24,6 +24,7 @@ export type IconProps = {
     | "chevron-right"
     | "clipboard-notes"
     | "comments-outline"
-    | "chevron-bottom";
+    | "chevron-bottom"
+    | string;
 } & SpaceProps &
   PositionProps;

@@ -80,7 +80,7 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
                     borderRadius="8px"
                     flexDirection="column"
                     justifyContent="center"
-                    onClick={() => setCompatence(option.question.competence)}
+                    onClick={() => setCompatence(option?.question?.competence)}
                     border={
                       competence?.id === option.question.competence.id
                         ? "1px solid #3373CC"
@@ -114,9 +114,9 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
                       />
                       <Icon
                         mr="8px"
-                        name={option.selected_icon}
                         size={16}
                         color="#fff"
+                        name={option?.selected_icon || ""}
                       />
                     </Container>
                   </Container>

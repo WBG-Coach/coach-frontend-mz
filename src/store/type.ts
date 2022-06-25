@@ -50,42 +50,56 @@ export type Application = {
 
 export type Option = {
   id: number;
+  question?: Question;
   question_id: number;
   selected_color: string | null;
   selected_icon: string | null;
   text: string;
 };
 
+export type Competence = {
+  id: number;
+  title: string;
+  subtitle: string;
+  matrix_id: number;
+  description: string;
+};
+
 export type Question = {
+  id: number;
+  type: string;
+  competency_id: number;
+  created_at: Date;
+  updated_at: Date;
+  text: string;
+  options: Option[];
+  competence: {
+    id: number;
+    title: string;
+    subtitle: string;
+    description: string;
+    matrix_id: number;
+    created_at: Date;
+    updated_at: Date;
+  };
+};
+
+export type QuestionnaireQuestion = {
   id: number;
   created_at: Date;
   updated_at: Date;
   question_id: number;
   questionnaire_id: number;
-  question: {
-    id: number;
-    type: string;
-    competency_id: number;
-    created_at: Date;
-    updated_at: Date;
-    text: string;
-    options: Option[];
-    competence: {
-      id: number;
-      title: string;
-      subtitle: string;
-      description: string;
-      matrix_id: number;
-      created_at: Date;
-      updated_at: Date;
-    };
-  };
+  questionnaire?: Questionnaire;
+  competence?: Competence;
+  question: Question;
 };
 
 export type Answer = {
   questionnaire_question_id: number;
   notes?: string;
   option_id: number;
+  option?: Option;
   files?: { url: string }[];
 };
 

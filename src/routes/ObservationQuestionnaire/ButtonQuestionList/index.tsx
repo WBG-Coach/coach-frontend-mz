@@ -2,10 +2,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Container } from "../../../components";
 import { QuestionButton } from "../../../components/QuestionButton";
-import { Question } from "../../../store/type";
+import { QuestionnaireQuestion } from "../../../store/type";
 
 type Props = {
-  questions: Question[];
+  questions: QuestionnaireQuestion[];
   currentQuestion: number;
   onClick: (index: number) => void;
 };

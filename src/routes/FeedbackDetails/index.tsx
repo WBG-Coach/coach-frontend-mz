@@ -104,7 +104,7 @@ const FeedbackDetails: React.FC<{}> = () => {
         </Container>
         <Container flex={1}>
           {answersRequest.data && (
-            <Text value={answersRequest.data[0].option.text} />
+            <Text value={answersRequest?.data[0].option?.text} />
           )}
         </Container>
         <Icon name="chevron-right" size={24} color="#94979E" />

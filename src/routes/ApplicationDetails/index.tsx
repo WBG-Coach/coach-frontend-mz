@@ -168,7 +168,7 @@ const ApplicationDetails: React.FC = () => {
                 >
                   {answerRequest.data.map(
                     ({ option }, index) =>
-                      option.question.competence && (
+                      option?.question?.competence && (
                         <Container
                           p="12px"
                           mr="12px"
@@ -190,10 +190,10 @@ const ApplicationDetails: React.FC = () => {
                           <Text
                             color="#191A1B"
                             fontSize={12}
-                            value={option.question.competence.subtitle}
+                            value={option?.question?.competence.subtitle}
                           />
                           <Container
-                            background={option.selected_color}
+                            background={option?.selected_color}
                             position="absolute"
                             p="4px"
                             borderRadius="50%"
@@ -201,7 +201,7 @@ const ApplicationDetails: React.FC = () => {
                             right={-8}
                           >
                             <Icon
-                              name={option.selected_icon}
+                              name={option?.selected_icon || ""}
                               size={16}
                               color="#fff"
                             />

@@ -20,7 +20,7 @@
   },
   "Applications": {
     "title": "Teacher",
-    "sessions": "Sessions",
+    "sessions": "Orientation sessions",
     "item-description": "Session {{value}}",
     "subject": "{{subject}} teacher"
   },

@@ -48,10 +48,10 @@ const ObservationDetails: React.FC<{}> = () => {
 
       <Container flexDirection="column">
         <Text fontSize={18} fontWeight="bold">
-          {data[currentQuestion].option.question.text}
+          {data[currentQuestion].option?.question?.text || ""}
         </Text>
 
-        {data[currentQuestion].option.question?.competence && (
+        {data[currentQuestion].option?.question?.competence && (
           <Container mb="24px">
             <Container
               mt="8px"
@@ -62,7 +62,8 @@ const ObservationDetails: React.FC<{}> = () => {
             >
               <Text
                 value={
-                  data[currentQuestion].option.question?.competence.title || ""
+                  data[currentQuestion].option?.question?.competence?.title ||
+                  ""
                 }
               />
             </Container>
@@ -76,9 +77,9 @@ const ObservationDetails: React.FC<{}> = () => {
             isSelected={true}
             variant="secondary"
             onClick={() => {}}
-            value={data[currentQuestion].option.text}
-            selectedColor={data[currentQuestion].option.selected_color}
-            selectedIcon={data[currentQuestion].option.selected_icon as any}
+            value={data[currentQuestion].option?.text || ""}
+            selectedColor={data[currentQuestion].option?.selected_color}
+            selectedIcon={data[currentQuestion].option?.selected_icon as any}
           />
         </Container>
       </Container>
@@ -100,7 +101,7 @@ const ObservationDetails: React.FC<{}> = () => {
       </Container>
 
       <Container mt="16px" mb="100px" flexDirection="column">
-        {data[currentQuestion].files.map((file: any) => (
+        {data[currentQuestion]?.files?.map((file: any) => (
           <Container
             p="16px"
             mt="16px"
