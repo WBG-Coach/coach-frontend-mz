@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container, Footer, Icon, Image, Text } from "../../components";
+import { AddButton, Container, Footer, ListItem, Text } from "../../components";
 import { LoadingDots } from "../../components/LoadingDots";
 import { useGetTeachersMutation } from "../../service";
 import { selectCurrentUser } from "../../store/auth";
@@ -33,6 +33,7 @@ const TeachersList: React.FC<{}> = () => {
           value={t("Teachers.title")}
         />
         <Text
+          mb="24px"
           fontSize={14}
           fontWeight={400}
           color="#2B363B"
@@ -43,54 +44,25 @@ const TeachersList: React.FC<{}> = () => {
         {isLoading ? (
           <LoadingDots />
         ) : (
-          <Container flexWrap="wrap" my="16px">
+          <Container flexDirection="column">
             {data && data.length > 0 ? (
               data.map((teacher, index) => (
-                <Container
+                <ListItem
                   key={index}
-                  width="100%"
-                  height="88px"
-                  flexDirection="row"
-                  alignItems="center"
-                  justifyContent="center"
-                  borderTop={index !== 0 ? "1px solid #F0F3F5" : ""}
-                  onClick={() => navigate(`/applications/${teacher.id}`)}
-                >
-                  <Container flexDirection="column" justifyContent="center">
-                    <Image
-                      mr="12px"
-                      width={56}
-                      height={56}
-                      borderRadius="50%"
-                      src={teacher?.image_url || ""}
-                    />
-                  </Container>
-                  <Container
-                    flex={1}
-                    flexDirection="column"
-                    justifyContent="center"
-                  >
-                    <Text
-                      fontSize={16}
-                      fontWeight={600}
-                      color="#00121A"
-                      lineHeight="24px"
-                      value={teacher.name}
-                    />
-                    <Text lineHeight="16px" color="#455054" fontSize={12}>
-                      {t("Teachers.teacher_description", {
-                        subject: teacher.subject,
-                      })}
-                    </Text>
-                  </Container>
-                  <Icon size={24} name="chevron-right" />
-                </Container>
+                  title={teacher.name || ""}
+                  imageUrl={teacher?.image_url || ""}
+                  onClick={() => navigate(`/teacher/${teacher.id}`)}
+                  description={t("Teachers.teacher_description", {
+                    subject: teacher.subject,
+                  })}
+                />
               ))
             ) : (
               <Text value={t("Teachers.empty")} />
             )}
           </Container>
         )}
+        <AddButton label={t("Teachers.add-teacher")} onClick={() => {}} />
       </Container>
       <Footer />
     </>

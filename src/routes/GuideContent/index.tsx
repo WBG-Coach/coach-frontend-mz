@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Container } from "../../components";
-import { QuestionnaireHeader } from "../Questionnaire/QuestionnaireHeader";
+import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHeader";
 import { MOCK_GUIDE } from "./mock";
 
 const GuideContent: React.FC<{}> = () => {

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Container, Text, TextArea } from "../../components";
-import { QuestionnaireHeader } from "../Questionnaire/QuestionnaireHeader";
+import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHeader";
 import { useGetNoteMutation, useSaveNoteMutation } from "../../service";
 
-const QuestionnaireReview: React.FC<{}> = () => {
+const ApplicationNotes: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [note, setNote] = useState("");
@@ -61,4 +61,4 @@ const QuestionnaireReview: React.FC<{}> = () => {
   );
 };
 
-export default QuestionnaireReview;
+export default ApplicationNotes;

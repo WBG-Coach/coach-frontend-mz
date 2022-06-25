@@ -11,17 +11,17 @@ import { theme } from "./theme";
 import App from "./app";
 import "./i18n";
 
-import ApplicationsList from "./routes/Applications";
-import Questionnaire from "./routes/Questionnaire";
-import TeachersList from "./routes/Teachers";
-import SchoolsList from "./routes/Schools";
+import TeacherDetails from "./routes/TeacherDetails";
+import ObservationQuestionnaire from "./routes/ObservationQuestionnaire";
+import TeachersList from "./routes/TeacherList";
+import SchoolsList from "./routes/SchoolList";
 import Login from "./routes/Login";
-import ApplicationStatus from "./routes/ApplicationStatus";
-import QuestionnaireReview from "./routes/QuestionnaireReview";
-import QuestionnaireFeedback from "./routes/QuestionnaireFeedback";
+import ApplicationDetails from "./routes/ApplicationDetails";
+import ApplicationNotes from "./routes/ApplicationNotes";
+import FeedbackQuestionnaire from "./routes/FeedbackQuestionnaire";
 import FeedbackList from "./routes/FeedbackList";
 import FeedbackDetails from "./routes/FeedbackDetails";
-import QuestionnaireObservationReview from "./routes/QuestionnaireObservationReview";
+import ObservationDetails from "./routes/ObservationDetails";
 import GuideContent from "./routes/GuideContent";
 
 const root = ReactDOM.createRoot(
@@ -52,18 +52,18 @@ root.render(
               }
             />
             <Route
-              path="applications/:teacherId"
+              path="teacher/:teacherId"
               element={
                 <ProtectedRoute>
-                  <ApplicationsList />
+                  <TeacherDetails />
                 </ProtectedRoute>
               }
             />
             <Route
-              path="application-status/:applicationId/:questionnaireId"
+              path="application-details/:applicationId/:questionnaireId"
               element={
                 <ProtectedRoute>
-                  <ApplicationStatus />
+                  <ApplicationDetails />
                 </ProtectedRoute>
               }
             />
@@ -71,7 +71,7 @@ root.render(
               path="questionnaire/:applicationId/:questionnaireId"
               element={
                 <ProtectedRoute>
-                  <Questionnaire />
+                  <ObservationQuestionnaire />
                 </ProtectedRoute>
               }
             />
@@ -79,7 +79,7 @@ root.render(
               path="questionnaire-observation-review/:applicationId"
               element={
                 <ProtectedRoute>
-                  <QuestionnaireObservationReview />
+                  <ObservationDetails />
                 </ProtectedRoute>
               }
             />
@@ -111,7 +111,7 @@ root.render(
               path="questionnaire-feedback/:applicationId/:questionnaireId"
               element={
                 <ProtectedRoute>
-                  <QuestionnaireFeedback />
+                  <FeedbackQuestionnaire />
                 </ProtectedRoute>
               }
             />
@@ -119,7 +119,7 @@ root.render(
               path="questionnaire-review/:applicationId"
               element={
                 <ProtectedRoute>
-                  <QuestionnaireReview />
+                  <ApplicationNotes />
                 </ProtectedRoute>
               }
             />
@@ -127,7 +127,7 @@ root.render(
               path="questionnaire-review-details/:id"
               element={
                 <ProtectedRoute>
-                  <QuestionnaireReview />
+                  <ApplicationNotes />
                 </ProtectedRoute>
               }
             />

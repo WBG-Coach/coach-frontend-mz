@@ -14,13 +14,13 @@ import {
 } from "../../components";
 import { useTheme } from "styled-components";
 
-const QuestionnaireObservationReview: React.FC<{}> = () => {
+const ObservationDetails: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const theme: any = useTheme();
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [getAnswers, { data, isLoading }] = useGetAnswersMutation();
   const { applicationId } = useParams<{ applicationId: string }>();
+  const [getAnswers, { data, isLoading }] = useGetAnswersMutation();
 
   useEffect(() => {
     if (applicationId) getAnswers(parseInt(applicationId, 10));
@@ -150,4 +150,4 @@ const QuestionnaireObservationReview: React.FC<{}> = () => {
   );
 };
 
-export default QuestionnaireObservationReview;
+export default ObservationDetails;

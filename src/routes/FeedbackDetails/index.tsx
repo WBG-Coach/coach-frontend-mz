@@ -7,8 +7,8 @@ import {
   useGetApplicationMutation,
 } from "../../service";
 import { getLocalFeedbacks } from "../../storage";
-import { TeacherInfo } from "../Applications/TeacherInfo";
-import { QuestionnaireHeader } from "../Questionnaire/QuestionnaireHeader";
+import { TeacherInfo } from "../TeacherDetails/TeacherInfo";
+import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHeader";
 
 const questions = [
   {

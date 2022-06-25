@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Container, Icon, Text, TextArea } from "../../components";
-import { QuestionnaireHeader } from "../Questionnaire/QuestionnaireHeader";
+import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHeader";
 import { getLocalFeedbacks, setLocalFeedbacks } from "../../storage";
 import { useGetAnswersMutation } from "../../service";
 
@@ -27,7 +27,7 @@ const questions = [
   },
 ];
 
-const QuestionnaireFeedback: React.FC<{}> = () => {
+const FeedbackQuestionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [competence, setCompatence] = useState<any>();
@@ -208,4 +208,4 @@ const QuestionnaireFeedback: React.FC<{}> = () => {
   );
 };
 
-export default QuestionnaireFeedback;
+export default FeedbackQuestionnaire;

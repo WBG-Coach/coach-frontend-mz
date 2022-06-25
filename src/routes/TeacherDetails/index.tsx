@@ -11,7 +11,7 @@ import {
   useGetTeacherByIdMutation,
 } from "../../service";
 
-const ApplicationList: React.FC<{}> = () => {
+const TeacherDetails: React.FC<{}> = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const user = useSelector(selectCurrentUser);
@@ -57,7 +57,7 @@ const ApplicationList: React.FC<{}> = () => {
             applications={data}
             onClick={(applicationId, questionnaireId) =>
               navigate(
-                `/application-status/${applicationId}/${questionnaireId}`
+                `/application-details/${applicationId}/${questionnaireId}`
               )
             }
           />
@@ -69,4 +69,4 @@ const ApplicationList: React.FC<{}> = () => {
   );
 };
 
-export default ApplicationList;
+export default TeacherDetails;

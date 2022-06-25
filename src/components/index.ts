@@ -11,19 +11,23 @@ import { TextArea } from "./TextArea";
 import { LoadingDots } from "./LoadingDots";
 import { FabButton } from "./FabButton";
 import { Modal } from "./Modal";
+import { ListItem } from "./ListItem";
+import { AddButton } from "./AddButton";
 
 export {
   Icon,
   Text,
   Card,
+  Modal,
   Image,
   Button,
   Footer,
   TextArea,
+  ListItem,
   Container,
+  AddButton,
+  FabButton,
   LoadingDots,
   OptionButton,
   ProtectedRoute,
-  FabButton,
-  Modal,
 };

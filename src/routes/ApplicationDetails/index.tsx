@@ -8,7 +8,7 @@ import {
   useGetApplicationMutation,
 } from "../../service";
 
-const ApplicationStatus: React.FC = () => {
+const ApplicationDetails: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [getApplication, { data, isLoading }] = useGetApplicationMutation();
@@ -283,4 +283,4 @@ const ApplicationStatus: React.FC = () => {
   );
 };
 
-export default ApplicationStatus;
+export default ApplicationDetails;

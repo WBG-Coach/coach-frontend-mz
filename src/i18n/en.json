@@ -5,13 +5,16 @@
     "guide": "Guide"
   },
   "Schools": {
+    "schools": "Schools",
     "title": "Choose a school",
     "empty": "Without schools",
+    "new-school": "Add school",
     "school_description": "{{value}} Teachers allocated to you"
   },
   "Teachers": {
     "title": "Teachers",
     "empty": "Without Teachers",
+    "add-teacher": "Add teacher",
     "teacher_description": "{{subject}} teacher",
     "description": "These are the teachers allocated to you."
   },

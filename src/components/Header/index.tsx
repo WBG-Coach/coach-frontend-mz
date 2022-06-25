@@ -9,10 +9,12 @@ import { School, User } from "../../store/type";
 import { useTranslation } from "react-i18next";
 import { LoadingDots } from "../LoadingDots";
 import { Container } from "../Container";
+import { ListItem } from "../ListItem";
 import { HeaderProps } from "./types";
 import { Image } from "../Image";
 import { Icon } from "../Icon";
 import { Text } from "../Text";
+import { AddButton } from "../AddButton";
 
 export const Header: React.FC<HeaderProps> = (props) => {
   const [open, setOpen] = useState(false);
@@ -66,61 +68,45 @@ export const Header: React.FC<HeaderProps> = (props) => {
         </Container>
         <BottomSheet open={open} onDismiss={() => setOpen(false)}>
           <Container flexDirection="column" p="16px">
+            <Text
+              mb="8px"
+              fontSize="20px"
+              color="#191A1B"
+              fontWeight={600}
+              lineHeight="32px"
+              value={t("Schools.schools")}
+            />
+
             {isLoading ? (
               <LoadingDots />
             ) : (
               data?.map((school, index) => (
-                <Container
-                  p="16px 0"
+                <ListItem
                   key={index}
-                  width="100%"
-                  alignItems="center"
+                  title={school.name}
+                  imageUrl={school.image_url}
                   onClick={() => chooseSchool(school)}
-                  borderTop={index === 0 ? "none" : "1px solid #F0F2F5"}
-                >
-                  <Image
-                    width={48}
-                    height={48}
-                    borderRadius="50%"
-                    src={school.image_url}
-                    border="1px solid #E3E5E8"
-                  />
-                  <Container
-                    ml="8px"
-                    flex={1}
-                    flexDirection="column"
-                    justifyContent="space-between"
-                  >
-                    <Text
-                      fontSize="16px"
-                      fontWeight={600}
-                      lineHeight="24px"
-                      color="#000000"
-                      value={school.name}
-                    />
-                    <Text
-                      fontSize="14px"
-                      fontWeight={400}
-                      lineHeight="18px"
-                      color="#494B50"
-                      value={t("Schools.school_description", { value: 1 })}
-                    />
-                  </Container>
-                  {user.selectedSchool?.id === school.id && (
-                    <Container
-                      width="24px"
-                      height="24px"
-                      alignItems="center"
-                      borderRadius="12px"
-                      background="#3373CC"
-                      justifyContent="center"
-                    >
-                      <Icon name="check" size={18} color="#fff" />
-                    </Container>
-                  )}
-                </Container>
+                  description={t("Schools.school_description", { value: 1 })}
+                  rigthContent={
+                    <>
+                      {user.selectedSchool?.id === school.id && (
+                        <Container
+                          width="24px"
+                          height="24px"
+                          alignItems="center"
+                          borderRadius="12px"
+                          background="#3373CC"
+                          justifyContent="center"
+                        >
+                          <Icon name="check" size={18} color="#fff" />
+                        </Container>
+                      )}
+                    </>
+                  }
+                />
               ))
             )}
+            <AddButton onClick={() => {}} label={t("Schools.new-school")} />
           </Container>
         </BottomSheet>
       </>

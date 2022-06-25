@@ -22,7 +22,7 @@ import {
   useGetQuestionsMutation,
 } from "../../service";
 
-const Questionnaire: React.FC<{}> = () => {
+const ObservationQuestionnaire: React.FC<{}> = () => {
   const theme: any = useTheme();
   const { t } = useTranslation();
   const [isFinish, setFinish] = useState(false);
@@ -236,4 +236,4 @@ const Questionnaire: React.FC<{}> = () => {
   );
 };
 
-export default Questionnaire;
+export default ObservationQuestionnaire;
