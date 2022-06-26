@@ -2,22 +2,30 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { TeacherInfo } from "./TeacherInfo";
 import { useTranslation } from "react-i18next";
+import { CompetenceList } from "./CompetenceList";
 import { selectCurrentUser } from "../../store/auth";
 import { ApplicationsList } from "./ApplicationsList";
 import { useNavigate, useParams } from "react-router-dom";
 import { LoadingDots, Container, Footer, Icon, Text } from "../../components";
 import {
   useGetApplicationsMutation,
+  useGetLastAnswersMutation,
   useGetTeacherByIdMutation,
 } from "../../service";
+import { FeedbackList } from "./FeedbackList";
 
-const TeacherDetails: React.FC<{}> = () => {
+const TeacherDetails: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const user = useSelector(selectCurrentUser);
   const { teacherId } = useParams<{ teacherId: string }>();
   const [getTeacherById, teacherRequest] = useGetTeacherByIdMutation();
   const [getApplications, { data, isLoading }] = useGetApplicationsMutation();
+  const [getLastAnswers, ansewersRequest] = useGetLastAnswersMutation();
+
+  useEffect(() => {
+    getLastAnswers(parseInt(teacherId || "", 10));
+  }, [getLastAnswers, teacherId]);
 
   useEffect(() => {
     if (user.id && user.selectedSchool?.id && teacherId) {
@@ -42,7 +50,7 @@ const TeacherDetails: React.FC<{}> = () => {
             color="#191A1B"
             fontWeight={600}
             lineHeight="24px"
-            value={t("Applications.title")}
+            value={t("TeacherDetails.title")}
           />
         </Container>
         <Container width="24px" />
@@ -53,6 +61,11 @@ const TeacherDetails: React.FC<{}> = () => {
       ) : (
         <>
           <TeacherInfo teacher={teacherRequest.data} />
+
+          <CompetenceList data={ansewersRequest.data || []} />
+
+          <FeedbackList data={[]} />
+
           <ApplicationsList
             applications={data}
             onClick={(applicationId, questionnaireId) =>

@@ -16,9 +16,15 @@ export const StyledContainer = styled.div<ContainerProps>`
   ${position}
   ${border}
   ${background}
-  
+
   transition: all 300ms;
   display: flex;
+
+  ${(props) =>
+    props.rotate &&
+    css`
+      transform: rotate(${props.rotate}deg);
+    `}
 
   ${(props) =>
     props.onClick &&

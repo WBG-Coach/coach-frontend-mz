@@ -15,7 +15,7 @@
     "teacher_description": "Professor de {{subject}}",
     "description": "Esses são os professores alocados a você."
   },
-  "Applications": {
+  "TeacherDetails": {
     "title": "Professor",
     "sessions": "Sessões de orientação",
     "item-description": "Sessão {{value}}",

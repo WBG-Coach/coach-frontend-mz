@@ -142,5 +142,6 @@ export const {
   useGetTeacherByIdMutation,
   useGetApplicationMutation,
   useGetApplicationsMutation,
+  useGetLastAnswersMutation,
   useAnswerQuestionnaireMutation,
 } = api;

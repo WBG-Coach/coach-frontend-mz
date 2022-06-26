@@ -33,7 +33,7 @@ export const TeacherInfo: React.FC<Props> = ({ teacher }) => {
           value={teacher?.name}
         />
         <Text color="#2B363B" fontSize="14px">
-          {t("Applications.subject", { subject: teacher?.subject })}
+          {t("TeacherDetails.subject", { subject: teacher?.subject })}
         </Text>
       </Container>
     </Container>

@@ -12,6 +12,7 @@ export type ContainerProps = {
   children?: ReactNode;
   onClick?: () => void;
   hoverColor?: string;
+  rotate?: number;
 } & LayoutProps &
   SpaceProps &
   FlexboxProps &

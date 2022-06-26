@@ -18,11 +18,14 @@
     "teacher_description": "{{subject}} teacher",
     "description": "These are the teachers allocated to you."
   },
-  "Applications": {
+  "TeacherDetails": {
     "title": "Teacher",
     "sessions": "Orientation sessions",
     "item-description": "Session {{value}}",
-    "subject": "{{subject}} teacher"
+    "subject": "{{subject}} teacher",
+    "competences": "Competences",
+    "feedbacks": "Feedbacks",
+    "see-feedback": "See feedback"
   },
   "ApplicationStatus": {
     "title": "Session {{value}}",

@@ -3,16 +3,12 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { OnboardingApplicationModal } from "./OnboardingApplicationModal";
 import { Container, Footer, Icon, LoadingDots, Text } from "../../components";
-import {
-  useGetAnswersMutation,
-  useGetApplicationMutation,
-} from "../../service";
+import { useGetApplicationMutation } from "../../service";
 
 const ApplicationDetails: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [getApplication, { data, isLoading }] = useGetApplicationMutation();
-  const [getAnswers, answerRequest] = useGetAnswersMutation();
   const { applicationId } = useParams<{
     applicationId: string;
   }>();
@@ -22,12 +18,6 @@ const ApplicationDetails: React.FC = () => {
       getApplication({ id: parseInt(applicationId, 10) });
     }
   }, [applicationId, getApplication]);
-
-  useEffect(() => {
-    if (data?.id && data?.status !== "PENDING_RESPONSE") {
-      getAnswers(data?.id);
-    }
-  }, [data, getAnswers]);
 
   useEffect(() => {
     if (applicationId) {
@@ -148,70 +138,6 @@ const ApplicationDetails: React.FC = () => {
                 </Container>
               )}
             </Container>
-
-            {answerRequest?.isSuccess && !!answerRequest.data.length && (
-              <>
-                <Text
-                  mb="12px"
-                  fontSize="20px"
-                  color="#191A1B"
-                  fontWeight={600}
-                  lineHeight="24px"
-                  value={t("ApplicationStatus.competences")}
-                />
-
-                <Container
-                  flexDirection="row"
-                  pt="12px"
-                  overflowX="scroll"
-                  mb="40px"
-                >
-                  {answerRequest.data.map(
-                    ({ option }, index) =>
-                      option?.question?.competence && (
-                        <Container
-                          p="12px"
-                          mr="12px"
-                          key={index}
-                          overflow="visible"
-                          position="relative"
-                          minWidth="100px"
-                          minHeight="100px"
-                          borderRadius="8px"
-                          flexDirection="column"
-                          justifyContent="space-between"
-                          border="1px solid #E3E5E8"
-                        >
-                          <Text
-                            mb="8px"
-                            fontWeight={600}
-                            value={index.toString()}
-                          />
-                          <Text
-                            color="#191A1B"
-                            fontSize={12}
-                            value={option?.question?.competence.subtitle}
-                          />
-                          <Container
-                            background={option?.selected_color}
-                            position="absolute"
-                            p="4px"
-                            borderRadius="50%"
-                            top={-8}
-                            right={-8}
-                          >
-                            <Icon
-                              name={option?.selected_icon || ""}
-                              size={16}
-                              color="#fff"
-                            />
-                          </Container>
-                        </Container>
-                      )
-                  )}
-                </Container>
-              </>
-            )}
 
             <Text
               mb="24px"
