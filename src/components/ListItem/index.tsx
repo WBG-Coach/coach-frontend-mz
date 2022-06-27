@@ -12,12 +12,10 @@ export const ListItem: React.FC<ListItemProps> = ({
   title,
   children,
   rigthContent,
-  key,
 }) => {
   return (
     <Container
       p="16px 0"
-      key={key}
       width="100%"
       onClick={onClick}
       alignItems="center"

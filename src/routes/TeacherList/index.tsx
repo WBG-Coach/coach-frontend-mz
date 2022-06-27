@@ -1,5 +1,13 @@
 import React, { useEffect } from "react";
-import { AddButton, Container, Footer, ListItem, Text } from "../../components";
+import {
+  AddButton,
+  Container,
+  Footer,
+  Icon,
+  Image,
+  ListItem,
+  Text,
+} from "../../components";
 import { LoadingDots } from "../../components/LoadingDots";
 import { useGetTeachersMutation } from "../../service";
 import { selectCurrentUser } from "../../store/auth";
@@ -23,6 +31,57 @@ const TeachersList: React.FC<{}> = () => {
     <>
       <Header />
       <Container width="100%" height="100%" mb="100px" flexDirection="column">
+        <Text
+          mb="16px"
+          mt="32px"
+          fontSize={20}
+          lineHeight="24px"
+          fontWeight={600}
+          color="#00121A"
+          value={t("Teachers.last-seasons")}
+        />
+
+        <Container flexDirection="row">
+          {data &&
+            data.length > 0 &&
+            data.map((teacher, index) => (
+              <Container
+                key={index}
+                p="12px"
+                mr="16px"
+                width="120px"
+                height="120px"
+                borderRadius="12px"
+                flexDirection="column"
+                border="1px solid #E3E5E8"
+                justifyContent="space-between"
+              >
+                <Image
+                  src={teacher.image_url || ""}
+                  width="24px"
+                  height="24px"
+                  borderRadius="12px"
+                />
+                <Container flexDirection="column">
+                  <Text
+                    color="#494B50"
+                    fontSize="12px"
+                    lineHeight="16px"
+                    value={teacher.name?.split(" ")[0]}
+                  />
+                  <Text
+                    fontSize="16px"
+                    fontWeight={600}
+                    lineHeight="24px"
+                    value={t("TeacherDetails.item-description", {
+                      value: index + 1,
+                    })}
+                  />
+                </Container>
+              </Container>
+            ))}
+        </Container>
+
         <Text
           mb="4px"
           mt="32px"
@@ -55,6 +114,45 @@ const TeachersList: React.FC<{}> = () => {
                   description={t("Teachers.teacher_description", {
                     subject: teacher.subject,
                   })}
+                  children={
+                    <Container mt="8px" flexDirection="row">
+                      <Container
+                        mr="8px"
+                        px="8px"
+                        height="24px"
+                        alignItems="center"
+                        borderRadius="24px"
+                        justifyContent="center"
+                        background="#33CC5A"
+                      >
+                        <Icon size={16} color="#fff" name="thumbs-up" />
+                        <Text
+                          ml="4px"
+                          value="3"
+                          fontSize="12px"
+                          color="#ffffff"
+                        />
+                      </Container>
+
+                      <Container
+                        mr="8px"
+                        px="8px"
+                        height="24px"
+                        alignItems="center"
+                        borderRadius="24px"
+                        justifyContent="center"
+                        background="#FF3333"
+                      >
+                        <Icon size={16} color="#fff" name="thumbs-down" />
+                        <Text
+                          ml="4px"
+                          value="2"
+                          fontSize="12px"
+                          color="#ffffff"
+                        />
+                      </Container>
+                    </Container>
+                  }
                 />
               ))
             ) : (
@@ -62,6 +160,7 @@ const TeachersList: React.FC<{}> = () => {
             )}
           </Container>
         )}
+
         <AddButton label={t("Teachers.add-teacher")} onClick={() => {}} />
       </Container>
       <Footer />
