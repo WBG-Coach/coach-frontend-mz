@@ -18,7 +18,7 @@ const App = () => {
         if (localUser.selectedSchool) {
           navigate("/teachers");
         } else {
-          navigate("/choose-school");
+          navigate("/select-school");
         }
       }
       setLoaded(true);

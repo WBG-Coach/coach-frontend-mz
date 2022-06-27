@@ -36,7 +36,7 @@ root.render(
           <Route path="/" element={<App />}>
             <Route index element={<Login />} />
             <Route
-              path="choose-school"
+              path="select-school"
               element={
                 <ProtectedRoute>
                   <SchoolsList />

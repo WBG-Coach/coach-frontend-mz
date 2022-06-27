@@ -15,7 +15,7 @@ const Login: React.FC = () => {
   }, [getCoaches]);
 
   useEffect(() => {
-    if (isSuccess) navigate("/choose-school");
+    if (isSuccess) navigate("/select-school");
   }, [isSuccess, navigate]);
 
   return (
