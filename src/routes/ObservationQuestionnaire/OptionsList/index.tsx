@@ -23,8 +23,12 @@ export const OptionsList: React.FC<Props> = ({
     const timeout = setTimeout(
       () =>
         setFiltedOptions(
-          options.filter((option) =>
-            option.text.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+          options.filter(
+            (option, index) =>
+              (index + 1).toString() === filter ||
+              option.text
+                .toLocaleLowerCase()
+                .includes(filter.toLocaleLowerCase())
           )
         ),
       500
@@ -60,7 +64,7 @@ export const OptionsList: React.FC<Props> = ({
             alignItems="center"
           >
             <Text
-              value={(index + 1).toString()}
+              value={(options.indexOf(option) + 1).toString()}
               color="#94979E"
               fontSize="16px"
             />
