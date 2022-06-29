@@ -15,7 +15,7 @@
     "title": "Professores",
     "empty": "Sem professores",
     "add-teacher": "Adicionar professor",
-    "last-seasons": "Ultimas sessões",
+    "previous-sessions": "Ultimas sessões",
     "teacher_description": "Professor de {{subject}}",
     "description": "Esses são os professores alocados a você."
   },

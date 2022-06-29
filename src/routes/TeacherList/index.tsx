@@ -38,7 +38,7 @@ const TeachersList: React.FC<{}> = () => {
           lineHeight="24px"
           fontWeight={600}
           color="#00121A"
-          value={t("Teachers.last-seasons")}
+          value={t("Teachers.previous-sessions")}
         />
 
         <Container flexDirection="row">

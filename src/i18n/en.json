@@ -15,7 +15,7 @@
     "title": "Teachers",
     "empty": "Without Teachers",
     "add-teacher": "Add teacher",
-    "last-seasons": "Last seasons",
+    "previous-sessions": "Last seasons",
     "teacher_description": "{{subject}} teacher",
     "description": "These are the teachers allocated to you."
   },
