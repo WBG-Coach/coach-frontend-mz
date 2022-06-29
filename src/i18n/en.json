@@ -6,16 +6,17 @@
   },
   "Schools": {
     "schools": "Schools",
-    "title": "Choose a school",
-    "empty": "Without schools",
-    "new-school": "Add school",
-    "school_description": "{{value}} Teachers allocated to you"
+    "title": "Select a school",
+    "empty": "No schools to display",
+    "new-school": "Add a school",
+    "school_description": "{{value}} teachers assigned to you"
   },
   "Teachers": {
     "title": "Teachers",
-    "empty": "Without Teachers",
-    "add-teacher": "Add teacher",
-    "last-seasons": "Last seasons",
+    "empty": "No teachers",
+    "add-teacher": "Add a teacher",
+    "last-seasons": "Previous sessions",
+    "previous-sessions": "Previous sessions",
     "teacher_description": "{{subject}} teacher",
     "description": "These are the teachers allocated to you."
   },
@@ -24,9 +25,9 @@
     "sessions": "Orientation sessions",
     "item-description": "Session {{value}}",
     "subject": "{{subject}} teacher",
-    "competences": "Competences",
-    "feedbacks": "Feedbacks",
-    "see-feedback": "See feedback"
+    "competences": "Competencies",
+    "feedbacks": "Feedback",
+    "see-feedback": "Review feedback"
   },
   "ApplicationStatus": {
     "title": "Session {{value}}",
