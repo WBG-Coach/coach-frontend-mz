@@ -5,13 +5,17 @@
     "guide": "Guião"
   },
   "Schools": {
+    "schools": "Escolas",
     "title": "Escolha a escola",
     "empty": "Sem escolas",
+    "new-school": "Adicionar escola",
     "school_description": "{{value}} Professores alocados a você"
   },
   "Teachers": {
     "title": "Professores",
     "empty": "Sem professores",
+    "add-teacher": "Adicionar professor",
+    "last-seasons": "Ultimas sessões",
     "teacher_description": "Professor de {{subject}}",
     "description": "Esses são os professores alocados a você."
   },
@@ -19,10 +23,14 @@
     "title": "Professor",
     "sessions": "Sessões de orientação",
     "item-description": "Sessão {{value}}",
-    "subject": "Professor de {{subject}}"
+    "subject": "Professor de {{subject}}",
+    "competences": "Competências",
+    "feedbacks": "Feedbacks",
+    "see-feedback": "Ver feedbacks"
   },
   "ApplicationStatus": {
     "title": "Sessão {{value}}",
+    "steps": "Etapas",
     "label-observation": "Ficha de observação",
     "label-feedback": "Feedbacks",
     "label-review": "Documentação",
@@ -32,22 +40,29 @@
     "onboarding-modal-title": "Sessão de orientação"
   },
   "Questionnaire": {
-    "title": "Ficha de observação",
-    "title-feedback": "Feedback",
+    "title": "Sessão",
+    "feedback": "Feedback",
+    "session-title": "Sessão {{value}}",
+    "title-feedback": "Preparação do feedback",
     "title-review": "Documentação",
     "save": "Salvar",
     "finish": "Concluir",
     "continue": "Continuar",
+    "see-summary": "Ver resumo",
     "finish-title": "Bom trabalho, Coach!",
     "question-number": "Questão {{value}}",
     "finish-description": "A competência pedagógica foi selecionada!",
     "annotation": "Annotation",
-    "return": "Voltar"
+    "return": "Voltar",
+    "teacher": "Professor",
+    "class-plan": "Plano de aula"
   },
   "FeedbackList": {
     "title": "Feedbacks",
     "new": "Criar novo feedback",
-    "empty-text": "Ainda não tem nenhum feedback aqui"
+    "empty-text": "Ainda não tem nenhum feedback aqui",
+    "continue": "Continuar",
+    "finish": "Preparar feedback"
   },
   "Profile": {
     "logout": "Sair"

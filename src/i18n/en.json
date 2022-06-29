@@ -36,7 +36,8 @@
     "label-review": "Documentation",
     "new-review": "New note",
     "info": "To access the Feedback page, you must first fill in the Observation Form",
-    "competences": "Competences"
+    "competences": "Competences",
+    "onboarding-modal-title": "Orientation sessions"
   },
   "Questionnaire": {
     "title": "Session",
@@ -60,8 +61,8 @@
     "title": "Feedbacks",
     "new": "Create new feedback",
     "empty-text": "No feedback here yet",
-    "continue": "Continuar",
-    "finish": "Preparar feedback"
+    "continue": "Continue",
+    "finish": "Prepare feedback"
   },
   "Profile": {
     "logout": "Logout"
