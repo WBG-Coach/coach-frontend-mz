@@ -36,8 +36,8 @@
     "label-feedback": "Feedback",
     "label-review": "Documentation",
     "new-review": "New note",
-    "info": "To access the Feedback page, you must first fill in the Observation Form",
-    "competences": "Competences",
+    "info": "To access the Feedback page, you must first complete the Observation Form",
+    "competences": "Competencies",
     "onboarding-modal-title": "Orientation sessions"
   },
   "Questionnaire": {
@@ -59,9 +59,9 @@
     "class-plan": "Class plan"
   },
   "FeedbackList": {
-    "title": "Feedbacks",
+    "title": "Feedback",
     "new": "Create new feedback",
-    "empty-text": "No feedback here yet",
+    "empty-text": "No feedback recorded yet",
     "continue": "Continue",
     "finish": "Prepare feedback"
   },
