@@ -12,6 +12,7 @@ export const TeacherInfo: React.FC<Props> = ({ teacher }) => {
 
   return (
     <Container
+      mt="24px"
       mb="34px"
       width="100%"
       flexDirection="row"

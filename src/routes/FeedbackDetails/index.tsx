@@ -67,47 +67,52 @@ const FeedbackDetails: React.FC<{}> = () => {
         value={t("Questionnaire.session-title", { value: data?.id })}
       />
 
-      <Text
-        mb="16px"
-        fontSize="14px"
-        color="#494B50"
-        lineHeight="18px"
-        value={t("Questionnaire.teacher")}
-      />
-
       <TeacherInfo teacher={data?.teacher} />
 
-      <Text
-        mb="16px"
-        fontSize="14px"
-        color="#494B50"
-        lineHeight="18px"
-        value={t("Questionnaire.class-plan")}
-      />
-
       <Container
-        flexDirection="row"
+        p="12px"
         mb="40px"
-        alignItems="center"
+        borderRadius="12px"
+        background="#F0F2F5"
+        flexDirection="column"
         onClick={() => navigate("/guide-content")}
       >
-        <Container
-          mr="8px"
-          width="40px"
-          height="40px"
-          borderRadius="20px"
-          alignItems="center"
-          background="#F0F2F5"
-          justifyContent="center"
-        >
-          <Icon name="graduation" size={24} />
-        </Container>
-        <Container flex={1}>
-          {answersRequest.data && (
-            <Text value={answersRequest?.data[0].option?.text} />
-          )}
-        </Container>
-        <Icon name="chevron-right" size={24} color="#94979E" />
+        <Text
+          fontSize="14px"
+          color="#494B50"
+          lineHeight="18px"
+          value={t("Questionnaire.class-plan")}
+        />
+
+        {answersRequest.data && (
+          <Text mt="12px" value={answersRequest?.data[0].option?.text} />
+        )}
+
+        <Container my="12px" height="1px" background="#E3E5E8" width="100%" />
+
+        <Text color="primary" value={t("Questionnaire.see-class-plan")} />
+      </Container>
+
+      <Container
+        p="12px"
+        mb="40px"
+        borderRadius="12px"
+        background="#F0F2F5"
+        flexDirection="column"
+        onClick={() => navigate("/guide-content")}
+      >
+        <Text
+          fontSize="14px"
+          color="#494B50"
+          lineHeight="18px"
+          value={t("Questionnaire.competence-to-work")}
+        />
+
+        <Text mt="12px" value={feedback?.competence?.subtitle} />
+
+        <Container my="12px" height="1px" background="#E3E5E8" width="100%" />
+
+        <Text color="primary" value={t("Questionnaire.see-competence")} />
       </Container>
 
       <Text
@@ -117,30 +122,6 @@ const FeedbackDetails: React.FC<{}> = () => {
         lineHeight="24px"
         value={t("Questionnaire.title-feedback")}
       />
-
-      <Container
-        p="12px"
-        mb="40px"
-        borderRadius="8px"
-        background="#F0F2F5"
-        flexDirection="column"
-        onClick={() => navigate("/guide-content")}
-      >
-        <Text
-          mb="8px"
-          fontSize="12px"
-          color="#494B50"
-          lineHeight="12px"
-          value={feedback?.competence?.title}
-        />
-        <Text
-          fontSize="14px"
-          color="#191A1B"
-          lineHeight="16px"
-          fontWeight={600}
-          value={feedback?.competence?.subtitle}
-        />
-      </Container>
 
       {questions.map(
         (question, index) =>

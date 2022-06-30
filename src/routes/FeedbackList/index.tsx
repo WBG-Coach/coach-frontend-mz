@@ -90,7 +90,7 @@ const FeedbackList: React.FC<{}> = () => {
                     navigate(`/feedback-details/${applicationId}/${index}`)
                   }
                 >
-                  <Icon size={24} name="notes" mr="12px" />
+                  <Icon size={24} name="comments" mr="12px" color="#C7CAD1" />
 
                   <Container
                     flex={1}
@@ -98,14 +98,19 @@ const FeedbackList: React.FC<{}> = () => {
                     justifyContent="center"
                   >
                     <Text
-                      fontSize={16}
-                      color="#00121A"
-                      fontWeight={600}
+                      fontSize={14}
+                      fontWeight={400}
                       lineHeight="24px"
+                      value={feedback?.competence?.subtitle}
+                    />
+                    <Text
+                      fontSize={12}
+                      color="#494B50"
+                      lineHeight="18px"
                       value={feedback?.competence?.title}
                     />
                   </Container>
-                  <Icon size={24} name="chevron-right" />
+                  <Icon size={24} name="chevron-right" color="#C7CAD1" />
                 </Container>
               ))}
             </>

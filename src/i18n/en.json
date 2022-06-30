@@ -56,7 +56,10 @@
     "annotation": "Annotation",
     "return": "Return",
     "teacher": "Teacher",
-    "class-plan": "Class plan"
+    "class-plan": "Class plan",
+    "see-class-plan": "See class plan",
+    "competence-to-work": "Competence to work",
+    "see-competence": "See competence"
   },
   "FeedbackList": {
     "title": "Feedback",
