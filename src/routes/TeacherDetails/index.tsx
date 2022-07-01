@@ -69,7 +69,7 @@ const TeacherDetails: React.FC = () => {
             <CompetenceList data={ansewersRequest.data} />
           )}
 
-          {requestFeedbacks.data && (
+          {!!requestFeedbacks.data?.length && (
             <FeedbackList data={requestFeedbacks.data} />
           )}
 

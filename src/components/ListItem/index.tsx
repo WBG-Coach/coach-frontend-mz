@@ -11,6 +11,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   onClick,
   title,
   children,
+  leftContent,
   rigthContent,
 }) => {
   return (
@@ -21,13 +22,17 @@ export const ListItem: React.FC<ListItemProps> = ({
       alignItems="center"
       borderBottom={"1px solid #F0F2F5"}
     >
-      <Image
-        width={48}
-        height={48}
-        src={imageUrl}
-        borderRadius="50%"
-        border="1px solid #E3E5E8"
-      />
+      {imageUrl && (
+        <Image
+          width={48}
+          height={48}
+          src={imageUrl}
+          borderRadius="50%"
+          border="1px solid #E3E5E8"
+        />
+      )}
+      {leftContent}
+
       <Container
         ml="8px"
         flex={1}

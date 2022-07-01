@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Container, Icon, Text } from "../../../components";
+import { Container, Icon, ListItem, Text } from "../../../components";
 import { Answer } from "../../../store/type";
 
 type Props = {
@@ -38,53 +38,32 @@ export const CompetenceList: React.FC<Props> = ({ data }) => {
         {data.map(
           (answer, index) =>
             answer?.option?.question?.competence && (
-              <Container
-                p="12px"
-                mb="12px"
+              <ListItem
                 key={index}
-                overflow="visible"
-                position="relative"
-                borderRadius="8px"
-                flexDirection="column"
-                border="1px solid #E3E5E8"
-                justifyContent="space-between"
-                onClick={() =>
+                title={answer?.option?.question?.competence.title}
+                description={answer?.option?.question?.competence.subtitle}
+                onClick={() => {
                   navigate(
                     `/guide-content/${answer?.option?.question?.competence.content_guide_id}`
-                  )
+                  );
+                }}
+                leftContent={
+                  <Container
+                    width="24px"
+                    height="24px"
+                    alignItems="center"
+                    borderRadius="24px"
+                    justifyContent="center"
+                    background={answer?.option?.selected_color}
+                  >
+                    <Icon
+                      size={16}
+                      color="#fff"
+                      name={answer?.option?.selected_icon || ""}
+                    />
+                  </Container>
                 }
-              >
-                <Text
-                  mb="8px"
-                  color="#494B50"
-                  fontSize="14px"
-                  lineHeight="18px"
-                  fontWeight={500}
-                  value={answer?.option?.question?.competence?.title}
-                />
-                <Text
-                  mb="8px"
-                  color="#000000"
-                  fontSize="16px"
-                  lineHeight="24px"
-                  fontWeight={500}
-                  value={answer?.option?.question?.competence?.subtitle}
-                />
-                <Container
-                  width="32px"
-                  height="24px"
-                  alignItems="center"
-                  borderRadius="24px"
-                  justifyContent="center"
-                  background={answer?.option?.selected_color}
-                >
-                  <Icon
-                    size={16}
-                    color="#fff"
-                    name={answer?.option?.selected_icon || ""}
-                  />
-                </Container>
-              </Container>
+              />
             )
         )}
       </Container>
