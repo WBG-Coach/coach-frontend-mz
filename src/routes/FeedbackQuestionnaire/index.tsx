@@ -166,24 +166,23 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
             />
           </Container>
 
-          {questionsRequest?.data?.questions.map(
-            (questionnaireQuestion, index) =>
-              index !== 0 && (
-                <Container key={index} flexDirection="column">
-                  <Text
-                    mb="8px"
-                    color="#494B50"
-                    fontSize="14px"
-                    lineHeight="18px"
-                    value={questionnaireQuestion.question.text}
-                  />
-                  <TextArea
-                    mb="20px"
-                    value={notes[index]}
-                    onChangeText={(text) => noteQuestion(text, index)}
-                  />
-                </Container>
-              )
+          {questionsRequest?.data?.questions?.map(
+            (questionnaireQuestion, index) => (
+              <Container key={index} flexDirection="column">
+                <Text
+                  mb="8px"
+                  color="#494B50"
+                  fontSize="14px"
+                  lineHeight="18px"
+                  value={questionnaireQuestion.question.text}
+                />
+                <TextArea
+                  mb="20px"
+                  value={notes[index]}
+                  onChangeText={(text) => noteQuestion(text, index)}
+                />
+              </Container>
+            )
           )}
 
           <Container mb="100px" />

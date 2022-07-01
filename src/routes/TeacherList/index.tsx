@@ -9,7 +9,10 @@ import {
   Text,
 } from "../../components";
 import { LoadingDots } from "../../components/LoadingDots";
-import { useGetTeachersMutation } from "../../service";
+import {
+  useGetLastApplicationsMutation,
+  useGetTeachersMutation,
+} from "../../service";
 import { selectCurrentUser } from "../../store/auth";
 import { Header } from "../../components/Header";
 import { useTranslation } from "react-i18next";
@@ -21,11 +24,18 @@ const TeachersList: React.FC<{}> = () => {
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   const [getTeachers, { data, isLoading }] = useGetTeachersMutation();
+  const [getLastApplications, lastApplicationsRequest] =
+    useGetLastApplicationsMutation();
 
   useEffect(() => {
-    if (user.id && user.selectedSchool?.id)
-      getTeachers({ coach_id: user.id, school_id: user.selectedSchool?.id });
-  }, [user, getTeachers]);
+    if (user.selectedSchool?.id) {
+      getTeachers(user.selectedSchool?.id);
+      getLastApplications({
+        coach_id: user.id,
+        school_id: user.selectedSchool?.id,
+      });
+    }
+  }, [user, getTeachers, getLastApplications]);
 
   return (
     <>
@@ -42,9 +52,9 @@ const TeachersList: React.FC<{}> = () => {
         />
 
         <Container flexDirection="row">
-          {data &&
-            data.length > 0 &&
-            data.map((teacher, index) => (
+          {lastApplicationsRequest?.data?.data &&
+            lastApplicationsRequest.data.data.length > 0 &&
+            lastApplicationsRequest.data.data.map((application, index) => (
               <Container
                 key={index}
                 p="12px"
@@ -55,9 +65,14 @@ const TeachersList: React.FC<{}> = () => {
                 flexDirection="column"
                 border="1px solid #E3E5E8"
                 justifyContent="space-between"
+                onClick={() =>
+                  navigate(
+                    `/application-details/${application.id}/${application.questionnaire_id}`
+                  )
+                }
               >
                 <Image
-                  src={teacher.image_url || ""}
+                  src={application.teacher.image_url || ""}
                   width="24px"
                   height="24px"
                   borderRadius="12px"
@@ -67,14 +82,14 @@ const TeachersList: React.FC<{}> = () => {
                     color="#494B50"
                     fontSize="12px"
                     lineHeight="16px"
-                    value={teacher.name?.split(" ")[0]}
+                    value={application.teacher.name?.split(" ")[0]}
                   />
                   <Text
                     fontSize="16px"
                     fontWeight={600}
                     lineHeight="24px"
                     value={t("TeacherDetails.item-description", {
-                      value: index + 1,
+                      value: application.id,
                     })}
                   />
                 </Container>
@@ -104,54 +119,66 @@ const TeachersList: React.FC<{}> = () => {
           <LoadingDots />
         ) : (
           <Container flexDirection="column">
-            {data && data.length > 0 ? (
-              data.map((teacher, index) => (
+            {data?.users && data.users.length > 0 ? (
+              data.users.map((teacher, index) => (
                 <ListItem
                   key={index}
-                  title={teacher.name || ""}
-                  imageUrl={teacher?.image_url || ""}
-                  onClick={() => navigate(`/teacher/${teacher.id}`)}
+                  title={teacher.user.name || ""}
+                  imageUrl={teacher?.user.image_url || ""}
+                  onClick={() => navigate(`/teacher/${teacher.user.id}`)}
                   description={t("Teachers.teacher_description", {
-                    subject: teacher.subject,
+                    subject: teacher.user.subject,
                   })}
                   children={
-                    <Container mt="8px" flexDirection="row">
-                      <Container
-                        mr="8px"
-                        px="8px"
-                        height="24px"
-                        alignItems="center"
-                        borderRadius="24px"
-                        justifyContent="center"
-                        background="#33CC5A"
-                      >
-                        <Icon size={16} color="#fff" name="thumbs-up" />
-                        <Text
-                          ml="4px"
-                          value="3"
-                          fontSize="12px"
-                          color="#ffffff"
-                        />
-                      </Container>
+                    teacher.user.answers && (
+                      <Container mt="8px" flexDirection="row">
+                        <Container
+                          mr="8px"
+                          px="8px"
+                          height="24px"
+                          alignItems="center"
+                          borderRadius="24px"
+                          justifyContent="center"
+                          background="#33CC5A"
+                        >
+                          <Icon size={16} color="#fff" name="thumbs-up" />
+                          <Text
+                            ml="4px"
+                            value={teacher.user.answers
+                              .filter(
+                                (answer) =>
+                                  answer.option?.selected_icon === "thumbs-up"
+                              )
+                              .length.toString()}
+                            fontSize="12px"
+                            color="#ffffff"
+                          />
+                        </Container>
 
-                      <Container
-                        mr="8px"
-                        px="8px"
-                        height="24px"
-                        alignItems="center"
-                        borderRadius="24px"
-                        justifyContent="center"
-                        background="#FF3333"
-                      >
-                        <Icon size={16} color="#fff" name="thumbs-down" />
-                        <Text
-                          ml="4px"
-                          value="2"
-                          fontSize="12px"
-                          color="#ffffff"
-                        />
+                        <Container
+                          mr="8px"
+                          px="8px"
+                          height="24px"
+                          alignItems="center"
+                          borderRadius="24px"
+                          justifyContent="center"
+                          background="#FF3333"
+                        >
+                          <Icon size={16} color="#fff" name="thumbs-down" />
+                          <Text
+                            ml="4px"
+                            value={teacher.user.answers
+                              .filter(
+                                (answer) =>
+                                  answer.option?.selected_icon === "thumbs-down"
+                              )
+                              .length.toString()}
+                            fontSize="12px"
+                            color="#ffffff"
+                          />
+                        </Container>
                       </Container>
-                    </Container>
+                    )
                   }
                 />
               ))

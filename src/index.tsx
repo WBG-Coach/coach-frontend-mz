@@ -100,7 +100,7 @@ root.render(
               }
             />
             <Route
-              path="guide-content"
+              path="guide-content/:id"
               element={
                 <ProtectedRoute>
                   <GuideContent />

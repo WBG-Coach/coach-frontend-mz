@@ -33,3 +33,5 @@ export const uploadFileToS3 = (file: File): Promise<AnswerFile> => {
       });
   });
 };
+
+export const groupAndSumAnswers = () => {};

@@ -10,6 +10,7 @@ import { LoadingDots, Container, Footer, Icon, Text } from "../../components";
 import {
   useGetApplicationsMutation,
   useGetLastAnswersMutation,
+  useGetLastFeedbacksMutation,
   useGetTeacherByIdMutation,
 } from "../../service";
 import { FeedbackList } from "./FeedbackList";
@@ -22,10 +23,12 @@ const TeacherDetails: React.FC = () => {
   const [getTeacherById, teacherRequest] = useGetTeacherByIdMutation();
   const [getApplications, { data, isLoading }] = useGetApplicationsMutation();
   const [getLastAnswers, ansewersRequest] = useGetLastAnswersMutation();
+  const [getLastFeedbacks, requestFeedbacks] = useGetLastFeedbacksMutation();
 
   useEffect(() => {
     getLastAnswers(parseInt(teacherId || "", 10));
-  }, [getLastAnswers, teacherId]);
+    getLastFeedbacks(parseInt(teacherId || "", 10));
+  }, [getLastAnswers, getLastFeedbacks, teacherId]);
 
   useEffect(() => {
     if (user.id && user.selectedSchool?.id && teacherId) {
@@ -62,9 +65,13 @@ const TeacherDetails: React.FC = () => {
         <>
           <TeacherInfo teacher={teacherRequest.data} />
 
-          <CompetenceList data={ansewersRequest.data || []} />
+          {ansewersRequest.data && (
+            <CompetenceList data={ansewersRequest.data} />
+          )}
 
-          <FeedbackList data={[]} />
+          {requestFeedbacks.data && (
+            <FeedbackList data={requestFeedbacks.data} />
+          )}
 
           <ApplicationsList
             applications={data}

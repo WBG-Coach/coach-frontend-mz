@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { Button, Container, Icon, Text } from "../../../components";
-import { Answer } from "../../../store/type";
+import { Feedback } from "../../../store/type";
 
 type Props = {
-  data: Answer[];
+  data: Feedback[];
 };
 
 export const FeedbackList: React.FC<Props> = ({ data }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -34,8 +36,8 @@ export const FeedbackList: React.FC<Props> = ({ data }) => {
         maxHeight={isOpen ? "1000px" : "0px"}
       >
         {data.map(
-          (answer, index) =>
-            answer?.option?.question?.competence && (
+          (feedback, index) =>
+            feedback?.competence && (
               <Container
                 p="16px"
                 mb="16px"
@@ -54,18 +56,20 @@ export const FeedbackList: React.FC<Props> = ({ data }) => {
                   fontSize="14px"
                   lineHeight="18px"
                   fontWeight={400}
-                  value={answer?.option?.question?.competence?.title}
+                  value={feedback?.competence?.title}
                 />
                 <Text
                   color="#000000"
                   fontSize="16px"
                   lineHeight="24px"
                   fontWeight={500}
-                  value={answer?.option?.question?.competence?.subtitle}
+                  value={feedback?.competence?.subtitle}
                 />
                 <Button
                   mt="24px"
-                  onClick={() => {}}
+                  onClick={() => {
+                    navigate(`/feedback-details/${feedback.id}`);
+                  }}
                   value={t("TeacherDetails.see-feedback")}
                 />
               </Container>

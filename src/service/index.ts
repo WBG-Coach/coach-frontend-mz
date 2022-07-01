@@ -9,6 +9,7 @@ import {
   School,
   User,
   Feedback,
+  ContentGuide,
 } from "../store/type";
 
 export const api = createApi({
@@ -42,14 +43,11 @@ export const api = createApi({
         },
       }),
     }),
-    getTeachers: builder.mutation<
-      User[],
-      { coach_id: number; school_id: number }
-    >({
-      query: (body) => ({
+    getTeachers: builder.mutation<School, number>({
+      query: (id) => ({
         method: "POST",
-        url: "/api/coaches/questionnaire-applications/teachers",
-        body,
+        url: "/api/schools/search",
+        body: { id },
       }),
     }),
     getTeacherById: builder.mutation<User, number>({
@@ -153,6 +151,30 @@ export const api = createApi({
         body,
       }),
     }),
+    getLastFeedbacks: builder.mutation<Feedback[], number>({
+      query: (teacher_id) => ({
+        method: "POST",
+        url: "/api/users/lastFeedbacks",
+        body: { teacher_id },
+      }),
+    }),
+    getLastApplications: builder.mutation<
+      { data: Application[] },
+      { coach_id: number; school_id: number }
+    >({
+      query: (body) => ({
+        method: "POST",
+        url: "/api/questionnaire-applications/search",
+        body: { ...body, pagination: 5 },
+      }),
+    }),
+    getContentGuide: builder.mutation<ContentGuide, number>({
+      query: (id) => ({
+        method: "POST",
+        url: "/api/content-guides/search",
+        body: { id },
+      }),
+    }),
   }),
 });
 
@@ -171,6 +193,9 @@ export const {
   useGetFeedbacksMutation,
   useGetApplicationsMutation,
   useGetLastAnswersMutation,
+  useGetLastApplicationsMutation,
+  useGetLastFeedbacksMutation,
   useAnswerQuestionnaireMutation,
   useAnswerFeedbackMutation,
+  useGetContentGuideMutation,
 } = api;

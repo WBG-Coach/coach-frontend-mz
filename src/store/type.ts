@@ -8,6 +8,7 @@ export type User = {
   image_url?: string;
   selectedSchool?: School;
   subject?: string;
+  answers?: Answer[];
 };
 
 export type School = {
@@ -16,6 +17,7 @@ export type School = {
   created_at: Date;
   updated_at: Date;
   image_url: string;
+  users: { user: User }[];
 };
 
 export type Questionnaire = {
@@ -55,6 +57,7 @@ export type Option = {
   question_id: number;
   selected_color: string | null;
   selected_icon: string | null;
+  content_guide_id?: number;
   text: string;
 };
 
@@ -64,6 +67,7 @@ export type Competence = {
   subtitle: string;
   matrix_id: number;
   description: string;
+  content_guide_id?: number;
 };
 
 export type Question = {
@@ -127,4 +131,9 @@ export type Feedback = {
     questionnaire_question_id: number;
     questionnaire_question?: { question: Question };
   }[];
+};
+
+export type ContentGuide = {
+  id: number;
+  text: string;
 };

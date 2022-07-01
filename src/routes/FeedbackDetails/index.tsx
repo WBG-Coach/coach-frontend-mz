@@ -49,7 +49,12 @@ const FeedbackDetails: React.FC<{}> = () => {
         borderRadius="12px"
         background="#F0F2F5"
         flexDirection="column"
-        onClick={() => navigate("/guide-content")}
+        onClick={() =>
+          answersRequest?.data &&
+          navigate(
+            `/guide-content/${answersRequest?.data[0].option?.content_guide_id}`
+          )
+        }
       >
         <Text
           fontSize="14px"
@@ -73,7 +78,9 @@ const FeedbackDetails: React.FC<{}> = () => {
         borderRadius="12px"
         background="#F0F2F5"
         flexDirection="column"
-        onClick={() => navigate("/guide-content")}
+        onClick={() =>
+          navigate(`/guide-content/${data?.competence?.content_guide_id}`)
+        }
       >
         <Text
           fontSize="14px"
