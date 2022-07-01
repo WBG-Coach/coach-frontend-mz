@@ -78,15 +78,7 @@ export type Question = {
   updated_at: Date;
   text: string;
   options: Option[];
-  competence: {
-    id: number;
-    title: string;
-    subtitle: string;
-    description: string;
-    matrix_id: number;
-    created_at: Date;
-    updated_at: Date;
-  };
+  competence: Competence;
 };
 
 export type QuestionnaireQuestion = {

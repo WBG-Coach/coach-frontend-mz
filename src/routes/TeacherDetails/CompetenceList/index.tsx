@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { Container, Icon, Text } from "../../../components";
 import { Answer } from "../../../store/type";
 
@@ -9,6 +10,7 @@ type Props = {
 
 export const CompetenceList: React.FC<Props> = ({ data }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -46,6 +48,11 @@ export const CompetenceList: React.FC<Props> = ({ data }) => {
                 flexDirection="column"
                 border="1px solid #E3E5E8"
                 justifyContent="space-between"
+                onClick={() =>
+                  navigate(
+                    `/guide-content/${answer?.option?.question?.competence.content_guide_id}`
+                  )
+                }
               >
                 <Text
                   mb="8px"
