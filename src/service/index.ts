@@ -8,6 +8,7 @@ import {
   Questionnaire,
   School,
   User,
+  Feedback,
 } from "../store/type";
 
 export const api = createApi({
@@ -127,6 +128,31 @@ export const api = createApi({
         body: { id },
       }),
     }),
+    getFeedbacks: builder.mutation<Feedback[], number>({
+      query: (id) => ({
+        method: "POST",
+        url: "/api/feedbacks/search",
+        body: {
+          questionnaire_application_id: id,
+        },
+      }),
+    }),
+    getFeedback: builder.mutation<Feedback, number>({
+      query: (id) => ({
+        method: "POST",
+        url: "/api/feedbacks/search",
+        body: {
+          id,
+        },
+      }),
+    }),
+    answerFeedback: builder.mutation<Note, Feedback>({
+      query: (body) => ({
+        method: "POST",
+        url: "/api/feedbacks",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -141,7 +167,10 @@ export const {
   useGetQuestionsMutation,
   useGetTeacherByIdMutation,
   useGetApplicationMutation,
+  useGetFeedbackMutation,
+  useGetFeedbacksMutation,
   useGetApplicationsMutation,
   useGetLastAnswersMutation,
   useAnswerQuestionnaireMutation,
+  useAnswerFeedbackMutation,
 } = api;

@@ -92,7 +92,7 @@ root.render(
               }
             />
             <Route
-              path="feedback-details/:applicationId/:feedbackId"
+              path="feedback-details/:feedbackId"
               element={
                 <ProtectedRoute>
                   <FeedbackDetails />

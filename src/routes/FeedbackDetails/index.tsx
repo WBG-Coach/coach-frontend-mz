@@ -1,61 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container, Icon, Text } from "../../components";
-import {
-  useGetAnswersMutation,
-  useGetApplicationMutation,
-} from "../../service";
-import { getLocalFeedbacks } from "../../storage";
+import { Container, LoadingDots, Text } from "../../components";
+import { useGetAnswersMutation, useGetFeedbackMutation } from "../../service";
 import { TeacherInfo } from "../TeacherDetails/TeacherInfo";
 import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHeader";
-
-const questions = [
-  {
-    text: "Selecione uma competência pedagógica a melhorar",
-  },
-  {
-    text: "Pergunta de acolhimento",
-  },
-  {
-    text: "Aspecto positivo 1",
-  },
-  {
-    text: "Aspecto positivo 2",
-  },
-  {
-    text: "Aspecto positivo 3",
-  },
-  {
-    text: "Por que escolheu essa Competência Pedagógica?",
-  },
-];
 
 const FeedbackDetails: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [feedback, setFeedback] = useState<any>();
-  const [getApplication, { data }] = useGetApplicationMutation();
+  const [getFeedback, { data, isLoading }] = useGetFeedbackMutation();
   const [getAnswers, answersRequest] = useGetAnswersMutation();
-  const { feedbackId, applicationId } = useParams<{
+  const { feedbackId } = useParams<{
     feedbackId: string;
-    applicationId: string;
   }>();
 
   useEffect(() => {
     if (feedbackId) {
-      setFeedback(getLocalFeedbacks()[parseInt(feedbackId, 10)]);
+      getFeedback(parseInt(feedbackId, 10));
     }
-  }, [feedbackId]);
+  }, [feedbackId, getFeedback]);
 
   useEffect(() => {
-    if (applicationId) {
-      getApplication({ id: parseInt(applicationId, 10) });
-      getAnswers(parseInt(applicationId, 10));
+    if (data?.questionnaire_application_id) {
+      getAnswers(data.questionnaire_application_id);
     }
-  }, [applicationId, getApplication, getAnswers]);
+  }, [data, getAnswers]);
 
-  return feedback ? (
+  return isLoading ? (
+    <LoadingDots />
+  ) : (
     <Container flex={1} flexDirection="column">
       <QuestionnaireHeader title={t("Questionnaire.feedback")} />
 
@@ -67,7 +41,7 @@ const FeedbackDetails: React.FC<{}> = () => {
         value={t("Questionnaire.session-title", { value: data?.id })}
       />
 
-      <TeacherInfo teacher={data?.teacher} />
+      <TeacherInfo teacher={data?.questionnaire_application?.teacher} />
 
       <Container
         p="12px"
@@ -84,8 +58,8 @@ const FeedbackDetails: React.FC<{}> = () => {
           value={t("Questionnaire.class-plan")}
         />
 
-        {answersRequest.data && (
-          <Text mt="12px" value={answersRequest?.data[0].option?.text} />
+        {answersRequest?.data && (
+          <Text mt="12px" value={answersRequest.data[0].option?.text} />
         )}
 
         <Container my="12px" height="1px" background="#E3E5E8" width="100%" />
@@ -108,7 +82,7 @@ const FeedbackDetails: React.FC<{}> = () => {
           value={t("Questionnaire.competence-to-work")}
         />
 
-        <Text mt="12px" value={feedback?.competence?.subtitle} />
+        <Text mt="12px" value={data?.competence?.subtitle} />
 
         <Container my="12px" height="1px" background="#E3E5E8" width="100%" />
 
@@ -123,7 +97,7 @@ const FeedbackDetails: React.FC<{}> = () => {
         value={t("Questionnaire.title-feedback")}
       />
 
-      {questions.map(
+      {data?.feedback_answers.map(
         (question, index) =>
           index !== 0 && (
             <Container
@@ -137,15 +111,13 @@ const FeedbackDetails: React.FC<{}> = () => {
                 color="#494B50"
                 fontSize="14px"
                 lineHeight="18px"
-                value={question.text}
+                value={question?.questionnaire_question?.question.text}
               />
-              <Text mb="20px" value={feedback?.notes[index]} />
+              <Text mb="20px" value={question.notes} />
             </Container>
           )
       )}
     </Container>
-  ) : (
-    <></>
   );
 };
 

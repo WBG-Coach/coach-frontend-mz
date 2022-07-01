@@ -37,6 +37,7 @@ export type Application = {
   id: number;
   status: string;
   questionnaire_id: number;
+  feedback_questionnaire_id: number;
   coach_id: number;
   teacher_id: number;
   created_at: Date;
@@ -96,6 +97,7 @@ export type QuestionnaireQuestion = {
 };
 
 export type Answer = {
+  id?: number;
   questionnaire_question_id: number;
   notes?: string;
   option_id: number;
@@ -111,4 +113,18 @@ export type AnswerQuestionnaire = {
 export type AnswerFile = {
   url: string;
   name: string;
+};
+
+export type Feedback = {
+  id?: number;
+  questionnaire_application_id?: number;
+  questionnaire_application?: Application;
+  competence_id?: number;
+  competence?: Competence;
+  answer_id: number;
+  feedback_answers: {
+    notes: string;
+    questionnaire_question_id: number;
+    questionnaire_question?: { question: Question };
+  }[];
 };

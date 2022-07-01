@@ -3,43 +3,33 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Container, Icon, Text, TextArea } from "../../components";
 import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHeader";
-import { getLocalFeedbacks, setLocalFeedbacks } from "../../storage";
-import { useGetAnswersMutation } from "../../service";
-
-const questions = [
-  {
-    text: "Selecione uma competência pedagógica a melhorar",
-  },
-  {
-    text: "Pergunta de acolhimento",
-  },
-  {
-    text: "Aspecto positivo 1",
-  },
-  {
-    text: "Aspecto positivo 2",
-  },
-  {
-    text: "Aspecto positivo 3",
-  },
-  {
-    text: "Por que escolheu essa Competência Pedagógica?",
-  },
-];
+import {
+  useAnswerFeedbackMutation,
+  useGetAnswersMutation,
+  useGetQuestionsMutation,
+} from "../../service";
+import { Answer } from "../../store/type";
 
 const FeedbackQuestionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [competence, setCompatence] = useState<any>();
+  const [answer, setAnswer] = useState<Answer>();
   const [currentStep, setCurrentStep] = useState(0);
   const [getAnswer, { data }] = useGetAnswersMutation();
-  const [notes, setNotes] = useState<string[]>(
-    new Array(questions.length).fill("")
-  );
-  const { applicationId } = useParams<{
+  const [getQuestions, questionsRequest] = useGetQuestionsMutation();
+  const [answerFeedback] = useAnswerFeedbackMutation();
+  const [notes, setNotes] = useState<string[]>([]);
+  const { applicationId, questionnaireId } = useParams<{
     applicationId: string;
     questionnaireId: string;
   }>();
+
+  useEffect(() => {
+    if (questionnaireId)
+      getQuestions(parseInt(questionnaireId, 10)).then((response: any) =>
+        setNotes(new Array(response?.data?.questions.length).fill(""))
+      );
+  }, [getQuestions, questionnaireId]);
 
   useEffect(() => {
     if (applicationId) getAnswer(parseInt(applicationId, 10));
@@ -54,8 +44,18 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
   };
 
   const sendQuestionnaire = () => {
-    setLocalFeedbacks([...getLocalFeedbacks(), { competence, notes }]);
-    navigate(-1);
+    if (answer?.id) {
+      answerFeedback({
+        answer_id: answer.id,
+        feedback_answers: notes.map((note, index) => ({
+          notes: note,
+          questionnaire_question_id:
+            questionsRequest?.data?.questions[index].id || 0,
+        })),
+      }).then(() => {
+        navigate(-1);
+      });
+    }
   };
 
   return (
@@ -68,21 +68,21 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
             mb="24px"
             fontSize={18}
             fontWeight="bold"
-            value={questions[0]?.text}
+            value={"Selecione uma competência para dar o feedback"}
           />
           <Container mt="24px" mb="100px" flexDirection="column">
             {data?.map(
-              ({ option }) =>
-                option?.question?.competence && (
+              (currentAnswer) =>
+                currentAnswer.option?.question?.competence && (
                   <Container
                     p="16px"
                     mb="12px"
                     borderRadius="8px"
                     flexDirection="column"
                     justifyContent="center"
-                    onClick={() => setCompatence(option?.question?.competence)}
+                    onClick={() => setAnswer(currentAnswer)}
                     border={
-                      competence?.id === option.question.competence.id
+                      answer?.id === currentAnswer?.id
                         ? "1px solid #3373CC"
                         : "1px solid #E3E5E8"
                     }
@@ -90,24 +90,24 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
                     <Text
                       color="#494B50"
                       fontSize={"14px"}
-                      value={option.question.competence.title}
+                      value={currentAnswer?.option.question.competence.title}
                     />
                     <Text
                       my="8px"
                       fontSize={"16px"}
-                      value={option.question.competence.subtitle}
+                      value={currentAnswer?.option.question.competence.subtitle}
                     />
                     <Container
                       justifyContent="center"
                       alignItems="center"
                       width="70px"
                       border="1px solid"
-                      borderColor={option.selected_color}
-                      background={option.selected_color}
+                      borderColor={currentAnswer?.option.selected_color}
+                      background={currentAnswer?.option.selected_color}
                       borderRadius="12px"
                     >
                       <Text
-                        value={option.text}
+                        value={currentAnswer?.option.text}
                         color="#fff"
                         m="auto"
                         mr="4px"
@@ -116,7 +116,7 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
                         mr="8px"
                         size={16}
                         color="#fff"
-                        name={option?.selected_icon || ""}
+                        name={currentAnswer?.option?.selected_icon || ""}
                       />
                     </Container>
                   </Container>
@@ -136,7 +136,7 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
               width="100%"
               onClick={goToFeedbackQuestions}
               value={t("Questionnaire.continue")}
-              isDisabled={!competence?.id}
+              isDisabled={!answer?.id}
             />
           </Container>
         </Container>
@@ -155,19 +155,19 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
               color="#494B50"
               lineHeight="16px"
               fontWeight={400}
-              value={competence.title}
+              value={answer?.option?.question?.competence.title}
             />
             <Text
               fontSize="14px"
               color="#191A1B"
               lineHeight="16px"
               fontWeight={600}
-              value={competence.subtitle}
+              value={answer?.option?.question?.competence.subtitle}
             />
           </Container>
 
-          {questions.map(
-            (question, index) =>
+          {questionsRequest?.data?.questions.map(
+            (questionnaireQuestion, index) =>
               index !== 0 && (
                 <Container key={index} flexDirection="column">
                   <Text
@@ -175,7 +175,7 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
                     color="#494B50"
                     fontSize="14px"
                     lineHeight="18px"
-                    value={question.text}
+                    value={questionnaireQuestion.question.text}
                   />
                   <TextArea
                     mb="20px"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -9,29 +9,28 @@ import {
   LoadingDots,
   Text,
 } from "../../components";
-import { useGetApplicationMutation } from "../../service";
-import { getLocalFeedbacks } from "../../storage";
+import {
+  useGetApplicationMutation,
+  useGetFeedbacksMutation,
+} from "../../service";
 import EmptyStateImage from "../../assets/images/empty-state.svg";
 import { FeedbackOnboardingModal } from "./FeedbackOnboardingModal";
 
 const FeedbackList: React.FC<{}> = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [feedbacks, setFeedbacks] = useState<any[]>([]);
   const [getApplication, { data, isLoading }] = useGetApplicationMutation();
+  const [getFeedbacks, feedbacksRequest] = useGetFeedbacksMutation();
   const { applicationId } = useParams<{
     applicationId: string;
   }>();
 
   useEffect(() => {
-    setFeedbacks(getLocalFeedbacks());
-  }, []);
-
-  useEffect(() => {
     if (applicationId) {
       getApplication({ id: parseInt(applicationId, 10) });
+      getFeedbacks(parseInt(applicationId, 10));
     }
-  }, [applicationId, getApplication]);
+  }, [applicationId, getApplication, getFeedbacks]);
 
   useEffect(() => {
     if (applicationId) {
@@ -41,7 +40,7 @@ const FeedbackList: React.FC<{}> = () => {
 
   return (
     <Container width="100%" height="100%" mb="100px" flexDirection="column">
-      {isLoading ? (
+      {isLoading || feedbacksRequest.isLoading ? (
         <LoadingDots />
       ) : (
         <>
@@ -50,7 +49,7 @@ const FeedbackList: React.FC<{}> = () => {
               <Icon name="arrow-left" size={24} />
             </Container>
           </Container>
-          {feedbacks.length === 0 ? (
+          {feedbacksRequest?.data?.length === 0 ? (
             <Container
               flex={1}
               alignItems="center"
@@ -77,7 +76,7 @@ const FeedbackList: React.FC<{}> = () => {
                 lineHeight="32px"
                 value={t("FeedbackList.title")}
               />
-              {feedbacks.map((feedback, index) => (
+              {feedbacksRequest?.data?.map((feedback, index) => (
                 <Container
                   key={index}
                   width="100%"
@@ -86,9 +85,7 @@ const FeedbackList: React.FC<{}> = () => {
                   flexDirection="row"
                   justifyContent="center"
                   borderTop={index !== 0 ? "1px solid #F0F3F5" : ""}
-                  onClick={() =>
-                    navigate(`/feedback-details/${applicationId}/${index}`)
-                  }
+                  onClick={() => navigate(`/feedback-details/${feedback.id}`)}
                 >
                   <Icon size={24} name="comments" mr="12px" color="#C7CAD1" />
 
@@ -128,7 +125,7 @@ const FeedbackList: React.FC<{}> = () => {
               value={t("FeedbackList.new")}
               onClick={() =>
                 navigate(
-                  `/questionnaire-feedback/${applicationId}/${data?.questionnaire_id}`
+                  `/questionnaire-feedback/${applicationId}/${data?.feedback_questionnaire_id}`
                 )
               }
             />
