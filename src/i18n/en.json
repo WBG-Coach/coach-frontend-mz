@@ -1,5 +1,20 @@
 {
-  "Login": {},
+  "Login": {
+    "email": "Email",
+    "password": "Password",
+    "enter": "Enter",
+    "dont-you-have-account": "Don't have an account?",
+    "register": "Register"
+  },
+  "SignUp": {
+    "title": "Register",
+    "name": "Name",
+    "lastname": "Lastname",
+    "email": "Email",
+    "password": "Password",
+    "description": "Register your account",
+    "create-account": "Create account"
+  },
   "Menu": {
     "home": "Home",
     "guide": "Guide"

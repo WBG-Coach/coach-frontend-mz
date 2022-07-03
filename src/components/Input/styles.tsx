@@ -20,3 +20,12 @@ export const StyledInput = styled.input`
   background: transparent;
   width: calc(100% - 32px);
 `;
+
+export const StyledErrorMessage = styled.span`
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  margin-top: 4px;
+  font-size: 12px;
+  border: none;
+  color: #e53935;
+`;

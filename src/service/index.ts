@@ -1,4 +1,7 @@
+import { BaseQueryApi } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
+import { MaybePromise } from "@reduxjs/toolkit/dist/query/tsHelpers";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { RootState } from "../store";
 import {
   Answer,
   AnswerQuestionnaire,
@@ -12,25 +15,35 @@ import {
   ContentGuide,
 } from "../store/type";
 
+type Prepare = {
+  prepareHeaders?: (
+    headers: Headers,
+    api: Pick<BaseQueryApi, "getState" | "endpoint" | "type" | "forced">
+  ) => MaybePromise<Headers>;
+};
+
+const prepareHeaders: Prepare["prepareHeaders"] = (headers, { getState }) => {
+  const token = (getState() as RootState)?.auth?.api_token;
+  headers.set("Content-Type", "application/json");
+  if (token) {
+    headers.set("authorization", `Bearer ${token}`);
+  }
+  return headers;
+};
+
 export const api = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_API_URL }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://173.255.230.140:81",
+    prepareHeaders,
+  }),
   endpoints: (builder) => ({
-    getCoaches: builder.mutation<User[], void>({
-      query: () => ({
+    login: builder.mutation<User, { email: string; password: string }>({
+      query: ({ email }) => ({
         method: "POST",
-        url: "/api/users/search",
+        url: "http://173.255.230.140:81/api/auth",
         body: {
-          profile_id: 2,
-        },
-      }),
-    }),
-    login: builder.mutation<User, number>({
-      query: (id) => ({
-        method: "POST",
-        url: "/api/users/search",
-        body: {
-          id,
+          email,
         },
       }),
     }),
@@ -183,7 +196,6 @@ export const {
   useGetNoteMutation,
   useSaveNoteMutation,
   useGetAnswersMutation,
-  useGetCoachesMutation,
   useGetSchoolsMutation,
   useGetTeachersMutation,
   useGetQuestionsMutation,

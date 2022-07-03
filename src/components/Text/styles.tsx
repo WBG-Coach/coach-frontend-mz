@@ -10,6 +10,8 @@ import {
 
 export const StyledText = styled.span<any>`
   font-family: "Inter", sans-serif;
+  display: flex;
+
   ${space}
   ${color}
   ${fontSize}

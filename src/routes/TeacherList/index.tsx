@@ -28,7 +28,7 @@ const TeachersList: React.FC<{}> = () => {
     useGetLastApplicationsMutation();
 
   useEffect(() => {
-    if (user.selectedSchool?.id) {
+    if (user.id && user.selectedSchool?.id) {
       getTeachers(user.selectedSchool?.id);
       getLastApplications({
         coach_id: user.id,

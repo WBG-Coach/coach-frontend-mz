@@ -16,6 +16,7 @@ export type IconProps = {
     | "camera"
     | "search"
     | "comments"
+    | "internet"
     | "edit-file"
     | "thumbs-up"
     | "file-blank"

@@ -14,16 +14,6 @@ export const getLocalUser = (): User | null => {
   return JSON.parse(localUser);
 };
 
-// @coach:feedbacks
-export const setLocalFeedbacks = (feedbacks: any[]): void => {
-  localStorage.setItem("@coach:feedbacks", JSON.stringify(feedbacks));
-};
-export const getLocalFeedbacks = (): any[] => {
-  const feedbacks = localStorage.getItem("@coach:feedbacks");
-  if (!feedbacks) return [];
-  return JSON.parse(feedbacks);
-};
-
 // @coach:hide-onboarding-application
 export const setLocalHideOnboardingApplication = (
   onboarding: boolean
@@ -46,7 +36,6 @@ export const setLocalHideOnboardingFeedback = (onboarding: boolean): void => {
     JSON.stringify(onboarding)
   );
 };
-
 export const getLocalHideOnBoardingFeedback = (): boolean => {
   const onboarding = localStorage.getItem("@coach:hide-onboarding-feedback");
   if (!onboarding) return false;

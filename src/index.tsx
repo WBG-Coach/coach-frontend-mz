@@ -23,6 +23,7 @@ import FeedbackList from "./routes/FeedbackList";
 import FeedbackDetails from "./routes/FeedbackDetails";
 import ObservationDetails from "./routes/ObservationDetails";
 import GuideContent from "./routes/GuideContent";
+import SignUp from "./routes/SignUp";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -35,6 +36,7 @@ root.render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Login />} />
+            <Route path="sign-up" element={<SignUp />} />
             <Route
               path="select-school"
               element={

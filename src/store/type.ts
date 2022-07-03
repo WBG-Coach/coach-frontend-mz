@@ -9,6 +9,7 @@ export type User = {
   selectedSchool?: School;
   subject?: string;
   answers?: Answer[];
+  api_token?: string;
 };
 
 export type School = {
