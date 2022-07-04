@@ -14,6 +14,16 @@ export const getLocalUser = (): User | null => {
   return JSON.parse(localUser);
 };
 
+// @coach:language
+export const setLocalLanguage = (language: string): void => {
+  localStorage.setItem("@coach:language", language);
+};
+export const getLocalLanguage = (): string => {
+  const localLanguage = localStorage.getItem("@coach:language");
+  if (!localLanguage) return "en-US";
+  return localLanguage;
+};
+
 // @coach:hide-onboarding-application
 export const setLocalHideOnboardingApplication = (
   onboarding: boolean

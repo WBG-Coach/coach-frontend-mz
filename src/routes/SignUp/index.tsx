@@ -16,14 +16,14 @@ const SignUp: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isSuccess) navigate("/select-school");
+    if (isSuccess) navigate("/");
   }, [isSuccess, navigate]);
 
   const signInSchema = Yup.object().shape({
-    name: Yup.string().required("Required"),
-    lastname: Yup.string().required("Required"),
-    email: Yup.string().email("invalid email address").required("Required"),
-    password: Yup.string().required("Required"),
+    name: Yup.string().required(),
+    lastname: Yup.string().required(),
+    email: Yup.string().email().required(),
+    password: Yup.string().required(),
   });
 
   const handlerLogin = (values: { email: string; password: string }) => {
@@ -77,7 +77,7 @@ const SignUp: React.FC = () => {
         validationSchema={signInSchema}
         onSubmit={handlerLogin}
       >
-        {({ handleSubmit, setFieldValue, errors }) => (
+        {({ handleSubmit, setFieldValue, errors, submitCount }) => (
           <Container
             width="100%"
             height="calc(100vh - 160px)"
@@ -92,7 +92,7 @@ const SignUp: React.FC = () => {
             />
             <Input
               mb="16px"
-              errorMessage={errors.name}
+              errorMessage={(!!submitCount && errors.name) || ""}
               onChangeText={(text) => setFieldValue("name", text)}
             />
 
@@ -105,7 +105,7 @@ const SignUp: React.FC = () => {
             />
             <Input
               mb="16px"
-              errorMessage={errors.lastname}
+              errorMessage={(!!submitCount && errors.lastname) || ""}
               onChangeText={(text) => setFieldValue("lastname", text)}
             />
 
@@ -119,7 +119,7 @@ const SignUp: React.FC = () => {
             <Input
               mb="16px"
               type="email"
-              errorMessage={errors.email}
+              errorMessage={(!!submitCount && errors.email) || ""}
               onChangeText={(text) => setFieldValue("email", text)}
             />
 
@@ -132,7 +132,7 @@ const SignUp: React.FC = () => {
             />
             <Input
               type="password"
-              errorMessage={errors.password}
+              errorMessage={(!!submitCount && errors.password) || ""}
               onChangeText={(text) => setFieldValue("password", text)}
             />
 

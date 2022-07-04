@@ -22,8 +22,8 @@ const Login: React.FC = () => {
   }, [isSuccess, navigate]);
 
   const signInSchema = Yup.object().shape({
-    email: Yup.string().email("invalid email address").required("Required"),
-    password: Yup.string().required("Required"),
+    email: Yup.string().email().required(),
+    password: Yup.string().required(),
   });
 
   const handlerLogin = (values: { email: string; password: string }) => {
@@ -33,7 +33,7 @@ const Login: React.FC = () => {
   return (
     <Container
       m="auto"
-      width="350px"
+      width="100%"
       alignItems="center"
       flexDirection="column"
       height="calc(100vh - 32px)"
@@ -42,6 +42,7 @@ const Login: React.FC = () => {
       <Container width="100%" flexDirection="row" justifyContent="flex-end">
         <LanguageButton />
       </Container>
+
       <Container flexDirection="column" width="100%">
         <Image src={Logo} mb="48px" height={"80px"} />
         {loginErrorMessage && (
@@ -60,7 +61,7 @@ const Login: React.FC = () => {
           validationSchema={signInSchema}
           onSubmit={handlerLogin}
         >
-          {({ handleSubmit, setFieldValue, errors }) => (
+          {({ handleSubmit, setFieldValue, errors, submitCount }) => (
             <Container width="100%" flexDirection="column">
               <Text
                 mb="4px"
@@ -71,7 +72,7 @@ const Login: React.FC = () => {
               />
               <Input
                 mb="16px"
-                errorMessage={errors.email}
+                errorMessage={(!!submitCount && errors.email) || ""}
                 onChangeText={(text) => setFieldValue("email", text)}
               />
               <Text
@@ -83,7 +84,7 @@ const Login: React.FC = () => {
               />
               <Input
                 type="password"
-                errorMessage={errors.password}
+                errorMessage={(!!submitCount && errors.password) || ""}
                 onChangeText={(text) => setFieldValue("password", text)}
               />
 

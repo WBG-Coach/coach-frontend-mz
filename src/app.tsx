@@ -26,7 +26,13 @@ const App = () => {
   }, [loaded, dispatch, navigate]);
 
   return (
-    <Container p="16px" flexDirection="column">
+    <Container
+      m="auto"
+      p="16px"
+      maxWidth="600px"
+      width="100%"
+      flexDirection="column"
+    >
       {loaded && <Outlet />}
     </Container>
   );

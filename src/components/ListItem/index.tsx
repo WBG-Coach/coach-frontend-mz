@@ -22,7 +22,7 @@ export const ListItem: React.FC<ListItemProps> = ({
       alignItems="center"
       borderBottom={"1px solid #F0F2F5"}
     >
-      {imageUrl && (
+      {imageUrl ? (
         <Image
           width={48}
           height={48}
@@ -30,7 +30,17 @@ export const ListItem: React.FC<ListItemProps> = ({
           borderRadius="50%"
           border="1px solid #E3E5E8"
         />
+      ) : (
+        <Container
+          width={48}
+          height={48}
+          borderRadius={24}
+          background="#F0F2F5"
+        >
+          <Icon name="school" size={24} />
+        </Container>
       )}
+
       {leftContent}
 
       <Container

@@ -24,7 +24,7 @@ export const uploadFileToS3 = (file: File): Promise<AnswerFile> => {
       .putObject(params)
       .on("complete", () => {
         resolve({
-          url: `https://${process.env.REACT_APP_AWS_BUCKET_NAME}.s3.amazonaws.com/${file.name}`,
+          url: `${process.env.REACT_APP_AWS_PREFIX_URL}/${file.name}`,
           name: file.name,
         });
       })

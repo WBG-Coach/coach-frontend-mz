@@ -73,7 +73,7 @@ const SchoolsList: React.FC<{}> = () => {
           )}
           <AddButton
             onClick={() => {
-              navigate("/shcool-form");
+              navigate("/school-form");
             }}
             label={t("Schools.new-school")}
           />
