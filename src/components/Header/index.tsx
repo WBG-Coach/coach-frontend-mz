@@ -15,12 +15,14 @@ import { Image } from "../Image";
 import { Icon } from "../Icon";
 import { Text } from "../Text";
 import { AddButton } from "../AddButton";
+import { useNavigate } from "react-router-dom";
 
 export const Header: React.FC<HeaderProps> = (props) => {
   const [open, setOpen] = useState(false);
   const user: User = useSelector(selectCurrentUser);
   const [getSchools, { data, isLoading }] = useGetSchoolsMutation();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -106,7 +108,10 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 />
               ))
             )}
-            <AddButton onClick={() => {}} label={t("Schools.new-school")} />
+            <AddButton
+              onClick={() => navigate("/school-form")}
+              label={t("Schools.new-school")}
+            />
           </Container>
         </BottomSheet>
       </>

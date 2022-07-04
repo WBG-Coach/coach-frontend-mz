@@ -24,6 +24,7 @@ import FeedbackDetails from "./routes/FeedbackDetails";
 import ObservationDetails from "./routes/ObservationDetails";
 import GuideContent from "./routes/GuideContent";
 import SignUp from "./routes/SignUp";
+import SchoolForm from "./routes/SchoolForm";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -45,6 +46,15 @@ root.render(
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="school-form"
+              element={
+                <ProtectedRoute>
+                  <SchoolForm />
+                </ProtectedRoute>
+              }
+            />
+
             <Route
               path="teachers"
               element={

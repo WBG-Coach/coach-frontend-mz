@@ -24,7 +24,6 @@ type Prepare = {
 
 const prepareHeaders: Prepare["prepareHeaders"] = (headers, { getState }) => {
   const token = (getState() as RootState)?.auth?.api_token;
-  headers.set("Content-Type", "application/json");
   if (token) {
     headers.set("authorization", `Bearer ${token}`);
   }
@@ -34,26 +33,31 @@ const prepareHeaders: Prepare["prepareHeaders"] = (headers, { getState }) => {
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://173.255.230.140:81",
+    baseUrl: process.env.REACT_APP_API_URL,
     prepareHeaders,
   }),
   endpoints: (builder) => ({
     login: builder.mutation<User, { email: string; password: string }>({
-      query: ({ email }) => ({
+      query: (body) => ({
         method: "POST",
-        url: "http://173.255.230.140:81/api/auth",
-        body: {
-          email,
-        },
+        url: "/api/auth",
+        body,
       }),
     }),
     getSchools: builder.mutation<School[], number>({
       query: (coach_id) => ({
         method: "POST",
-        url: "/api/coaches/questionnaire-applications/schools",
+        url: "/api/schools/search",
         body: {
           coach_id,
         },
+      }),
+    }),
+    createSchools: builder.mutation<void, School>({
+      query: (body) => ({
+        method: "POST",
+        url: "/api/schools",
+        body,
       }),
     }),
     getTeachers: builder.mutation<School, number>({
@@ -197,6 +201,7 @@ export const {
   useSaveNoteMutation,
   useGetAnswersMutation,
   useGetSchoolsMutation,
+  useCreateSchoolsMutation,
   useGetTeachersMutation,
   useGetQuestionsMutation,
   useGetTeacherByIdMutation,

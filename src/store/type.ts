@@ -13,12 +13,12 @@ export type User = {
 };
 
 export type School = {
-  id: number;
+  id?: number;
   name: string;
-  created_at: Date;
-  updated_at: Date;
-  image_url: string;
-  users: { user: User }[];
+  created_at?: Date;
+  updated_at?: Date;
+  image_url?: string;
+  users?: { user: User }[];
 };
 
 export type Questionnaire = {
