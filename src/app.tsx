@@ -30,8 +30,8 @@ const App = () => {
       m="auto"
       p="16px"
       maxWidth="600px"
-      width="100%"
       flexDirection="column"
+      width="cacl(100% - 32px)"
     >
       {loaded && <Outlet />}
     </Container>
