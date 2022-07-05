@@ -4,6 +4,7 @@ import { Container } from "../Container";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { Text } from "../Text";
 import { Icon } from "../Icon";
+import { setLocalLanguage } from "../../storage";
 
 const NAMES: any = {
   "pt-MZ": "PT",
@@ -26,6 +27,7 @@ export const LanguageButton: React.FC<{}> = () => {
 
   const handleLanguage = (language: string) => {
     i18n.changeLanguage(language);
+    setLocalLanguage(language);
     setOpen(false);
   };
 

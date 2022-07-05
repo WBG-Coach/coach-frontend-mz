@@ -89,6 +89,20 @@ export const Header: React.FC<HeaderProps> = (props) => {
                   imageUrl={school.image_url}
                   onClick={() => chooseSchool(school)}
                   description={t("Schools.school_description", { value: 1 })}
+                  leftContent={
+                    !school.image_url && (
+                      <Container
+                        width={48}
+                        height={48}
+                        borderRadius={24}
+                        alignItems="center"
+                        background="#F0F2F5"
+                        justifyContent="center"
+                      >
+                        <Icon name="university" size={24} />
+                      </Container>
+                    )
+                  }
                   rigthContent={
                     <>
                       {user.selectedSchool?.id === school.id && (

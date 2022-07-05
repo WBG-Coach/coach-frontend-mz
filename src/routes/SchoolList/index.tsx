@@ -8,12 +8,13 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { School } from "../../store/type";
 import {
-  AddButton,
-  Button,
-  Container,
-  Image,
-  ListItem,
   Text,
+  Icon,
+  Image,
+  Button,
+  ListItem,
+  AddButton,
+  Container,
 } from "../../components";
 
 const SchoolsList: React.FC<{}> = () => {
@@ -55,6 +56,20 @@ const SchoolsList: React.FC<{}> = () => {
             data?.map((school, index) => (
               <ListItem
                 key={index}
+                leftContent={
+                  !school.image_url && (
+                    <Container
+                      width={48}
+                      height={48}
+                      borderRadius={24}
+                      alignItems="center"
+                      background="#F0F2F5"
+                      justifyContent="center"
+                    >
+                      <Icon name="university" size={24} />
+                    </Container>
+                  )
+                }
                 title={school.name}
                 imageUrl={school.image_url}
                 onClick={() => chooseSchool(school)}

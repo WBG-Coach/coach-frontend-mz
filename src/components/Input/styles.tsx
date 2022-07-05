@@ -8,12 +8,12 @@ export const StyledInputContainer = styled.span<any>`
   border-radius: 8px;
   display: flex;
   flex-direction: row;
-  padding: 16px;
   border: 1px solid ${(props) => (props.hasError ? "#e53935" : "#e3e5e8")};
 `;
 
 export const StyledInput = styled.input`
   font-family: "Inter", sans-serif;
+  padding: 16px;
   margin: 0;
   border: none;
   border-radius: 8px;

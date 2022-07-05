@@ -1,5 +1,20 @@
 {
-  "Login": {},
+  "Login": {
+    "email": "Email",
+    "password": "Senha",
+    "enter": "Entrar",
+    "dont-you-have-account": "Não tem uma conta?",
+    "register": "Cadastre-se"
+  },
+  "SignUp": {
+    "title": "Cadastro",
+    "name": "Nome",
+    "lastname": "Apelido",
+    "email": "Email",
+    "password": "Senha",
+    "description": "Crie sua conta",
+    "create-account": "Criar conta"
+  },
   "Menu": {
     "home": "Inicio",
     "guide": "Guião"
