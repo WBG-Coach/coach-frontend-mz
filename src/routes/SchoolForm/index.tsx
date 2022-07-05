@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useCreateSchoolsMutation } from "../../service";
@@ -7,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { School } from "../../store/type";
 import { Button, Container, Icon, Image, Text } from "../../components";
 import { Input } from "../../components/Input";
+import { uploadFileToS3 } from "../../util";
 
 const SchoolForm: React.FC<{}> = () => {
   const [createSchool, { isSuccess }] = useCreateSchoolsMutation();
+  const [imageUrl, setImageUrl] = useState<string>();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -20,6 +22,18 @@ const SchoolForm: React.FC<{}> = () => {
   useEffect(() => {
     if (isSuccess) navigate(-1);
   }, [isSuccess, navigate]);
+
+  const addImage = async (file?: File | null) => {
+    try {
+      if (file) {
+        const fileUrl = await uploadFileToS3(file);
+
+        setImageUrl(fileUrl.url);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const submitForm = (newSchool: School) => {
     createSchool(newSchool);
@@ -57,21 +71,45 @@ const SchoolForm: React.FC<{}> = () => {
             flexDirection="column"
             alignItems="center"
           >
-            <Container height={180}>
+            <Container mb="40px" flexDirection="column" alignItems="center">
               <Container
-                overflow="hidden"
                 width="120px"
                 height="120px"
+                overflow="hidden"
                 borderRadius="60px"
+                alignItems="center"
                 background="#E3E5E8"
+                justifyContent="center"
               >
-                <Image
-                  src=""
-                  width="120px"
-                  height="120px"
-                  borderRadius="60px"
-                />
+                {imageUrl ? (
+                  <Image
+                    src={imageUrl}
+                    width="120px"
+                    height="120px"
+                    borderRadius="60px"
+                  />
+                ) : (
+                  <Icon name="university" size={60} />
+                )}
               </Container>
+              <Container mt="16px">
+                <label htmlFor="file" style={{ cursor: "pointer" }}>
+                  <Text
+                    fontSize="14px"
+                    color="primary"
+                    value={t("SchoolForm.change-photo")}
+                  />
+                </label>
+              </Container>
+
+              <input
+                id="file"
+                type="file"
+                style={{ display: "none" }}
+                onChange={(e) => {
+                  addImage(e.target.files?.item(0));
+                }}
+              />
             </Container>
             <Container width="100%" flexDirection="column">
               <Text
@@ -89,8 +127,9 @@ const SchoolForm: React.FC<{}> = () => {
             </Container>
             <Button
               mt="auto"
-              value={t("SchoolForm.save")}
+              width="100%"
               onClick={handleSubmit}
+              value={t("SchoolForm.save")}
             />
           </Container>
         )}

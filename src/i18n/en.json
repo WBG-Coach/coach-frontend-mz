@@ -19,6 +19,12 @@
     "home": "Home",
     "guide": "Guide"
   },
+  "SchoolForm": {
+    "save": "Save",
+    "name": "Name",
+    "title": "New school",
+    "change-photo": "Change photo"
+  },
   "Schools": {
     "schools": "Schools",
     "title": "Select a school",

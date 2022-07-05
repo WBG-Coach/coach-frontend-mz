@@ -24,7 +24,13 @@ export const OnboardingApplicationModal = () => {
       onClose={closeOnboarding}
       title={t("ApplicationStatus.onboarding-modal-title")}
     >
-      <Container flexDirection="column" mt={100} alignItems="center">
+      <Container
+        mx="auto"
+        mt={100}
+        maxWidth="600px"
+        alignItems="center"
+        flexDirection="column"
+      >
         <Text
           mb="12px"
           color="#000000"

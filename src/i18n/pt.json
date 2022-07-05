@@ -26,6 +26,12 @@
     "new-school": "Adicionar escola",
     "school_description": "{{value}} Professores alocados a você"
   },
+  "SchoolForm": {
+    "save": "Salvar",
+    "name": "Nome",
+    "title": "Nova escola",
+    "change-photo": "Mudar foto"
+  },
   "Teachers": {
     "title": "Professores",
     "empty": "Sem professores",

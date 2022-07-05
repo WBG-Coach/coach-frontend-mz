@@ -28,7 +28,7 @@ const App = () => {
       }
       setLoaded(true);
     }
-  }, [loaded, dispatch, navigate]);
+  }, [loaded, i18n, dispatch, navigate]);
 
   return (
     <Container

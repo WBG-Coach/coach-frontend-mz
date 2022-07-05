@@ -138,8 +138,9 @@ const SignUp: React.FC = () => {
 
             <Button
               mt="auto"
-              value={t("SignUp.create-account")}
+              width="100%"
               onClick={handleSubmit}
+              value={t("SignUp.create-account")}
             />
           </Container>
         )}
