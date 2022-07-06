@@ -22,9 +22,10 @@
   "Schools": {
     "schools": "Escolas",
     "title": "Escolha a escola",
-    "empty": "Sem escolas",
     "new-school": "Adicionar escola",
-    "school_description": "{{value}} Professores alocados a você"
+    "empty-title": "Comece adicionando uma escola",
+    "school_description": "{{value}} Professores alocados a você",
+    "empty-description": "Adicione as escolas das quais você faz parte"
   },
   "SchoolForm": {
     "save": "Salvar",

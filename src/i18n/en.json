@@ -28,9 +28,10 @@
   "Schools": {
     "schools": "Schools",
     "title": "Select a school",
-    "empty": "No schools to display",
+    "empty-title": "Start by adding a school",
     "new-school": "Add a school",
-    "school_description": "{{value}} teachers assigned to you"
+    "school_description": "{{value}} teachers assigned to you",
+    "empty-description": "Add the schools you are a part of"
   },
   "Teachers": {
     "title": "Teachers",

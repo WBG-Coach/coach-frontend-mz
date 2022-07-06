@@ -34,7 +34,14 @@ export const FeedbackOnboardingModal = () => {
 
   return (
     <Modal isOpen={onboarding} onClose={closeOnboarding}>
-      <Container flexDirection="column" width="100%" flex={1}>
+      <Container
+        m="auto"
+        maxWidth="600px"
+        height="100%"
+        flexDirection="column"
+        width="100%"
+        flex={1}
+      >
         {step === 0 && (
           <Container
             flex={1}

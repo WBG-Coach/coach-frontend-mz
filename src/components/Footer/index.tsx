@@ -73,16 +73,16 @@ export const Footer: React.FC<FooterProps> = (props) => {
           />
         ) : (
           <Container
-            mb="8px"
-            height="24px"
-            width="24px"
+            mb="4px"
+            height="28px"
+            width="28px"
             alignItems="center"
-            borderRadius="12px"
+            borderRadius="14px"
             background="#F0F2F5"
             justifyContent="center"
           >
             <Text
-              fontSize={12}
+              fontSize={10}
               value={user?.name
                 ?.substring(0, 1)
                 .concat(user?.last_name?.substring(0, 1) || "")}
