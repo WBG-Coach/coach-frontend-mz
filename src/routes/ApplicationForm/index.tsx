@@ -39,11 +39,11 @@ const ApplicationForm: React.FC<{}> = () => {
   }, [isSuccess, navigate]);
 
   const submitForm = (application: Partial<Application>) => {
-    if (teacherId)
+    if (teacherId && user.selectedSchool?.id)
       createApplication({
         ...application,
         application_date: application.application_date,
-        school_id: user.selectedSchool.id,
+        school_id: user.selectedSchool?.id,
         coach_id: user.id,
         teacher_id: parseInt(teacherId, 10),
       });
@@ -119,8 +119,8 @@ const ApplicationForm: React.FC<{}> = () => {
                   value={t("ApplicationForm.observation-questionnaire")}
                 />
                 <Select
-                  modalTitle="Select a questionnaire"
                   errorMessage={errors.questionnaire_id}
+                  modalTitle={t("ApplicationForm.select-questionnaire")}
                   value={
                     questionnairesRequest.data?.find(
                       (item) => item.id === values.questionnaire_id
@@ -145,8 +145,8 @@ const ApplicationForm: React.FC<{}> = () => {
                   value={t("ApplicationForm.feedback-questionnaire")}
                 />
                 <Select
-                  modalTitle="Select a questionnaire"
                   errorMessage={errors.feedback_questionnaire_id}
+                  modalTitle={t("ApplicationForm.select-questionnaire")}
                   value={
                     questionnairesRequest.data?.find(
                       (item) => item.id === values.feedback_questionnaire_id

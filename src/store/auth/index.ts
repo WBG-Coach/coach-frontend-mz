@@ -36,7 +36,7 @@ const authSlice = createSlice({
   },
 });
 
-export const selectCurrentUser = (state: RootState) => state.auth;
+export const selectCurrentUser = (state: RootState): User => state.auth;
 
 export const selectLoginErrorMessage = (state: RootState) =>
   state.auth.loginError;

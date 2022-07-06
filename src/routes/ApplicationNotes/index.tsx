@@ -9,12 +9,16 @@ const ApplicationNotes: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [note, setNote] = useState("");
-  const [saveNote] = useSaveNoteMutation();
+  const [saveNote, { isSuccess }] = useSaveNoteMutation();
   const [getNote, { data }] = useGetNoteMutation();
   const { id, applicationId } = useParams<{
     id: string;
     applicationId: string;
   }>();
+
+  useEffect(() => {
+    if (isSuccess) navigate(-1);
+  }, [isSuccess, navigate]);
 
   useEffect(() => {
     if (id) getNote(parseInt(id, 10));
@@ -28,7 +32,6 @@ const ApplicationNotes: React.FC<{}> = () => {
       });
     }
 
-    navigate(-1);
     setNote("");
   };
 

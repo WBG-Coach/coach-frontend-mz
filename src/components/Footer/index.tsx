@@ -63,13 +63,32 @@ export const Footer: React.FC<FooterProps> = (props) => {
         hoverColor="#0071BC20"
         onClick={() => navigate("/profile")}
       >
-        <Image
-          mb="8px"
-          width={24}
-          height={24}
-          borderRadius="50%"
-          src={user?.image_url || ""}
-        />
+        {user?.image_url ? (
+          <Image
+            mb="8px"
+            width={24}
+            height={24}
+            borderRadius="50%"
+            src={user?.image_url || ""}
+          />
+        ) : (
+          <Container
+            mb="8px"
+            height="24px"
+            width="24px"
+            alignItems="center"
+            borderRadius="12px"
+            background="#F0F2F5"
+            justifyContent="center"
+          >
+            <Text
+              fontSize={12}
+              value={user?.name
+                ?.substring(0, 1)
+                .concat(user?.last_name?.substring(0, 1) || "")}
+            />
+          </Container>
+        )}
         <Text fontSize={12} color="#2C4668" value="Profile" />
       </Container>
     </StyledFooter>

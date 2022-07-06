@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FinishContainer } from "./FinishContainer";
 import { ButtonQuestionList } from "./ButtonQuestionList";
@@ -25,6 +25,7 @@ import {
 const ObservationQuestionnaire: React.FC<{}> = () => {
   const theme: any = useTheme();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [isFinish, setFinish] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
@@ -132,10 +133,15 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
               <Container mb="24px">
                 <Container
                   mt="8px"
-                  p="4px 8px"
+                  p="8px 16px"
                   width="auto"
                   borderRadius="20px"
                   background="#F0F2F5"
+                  onClick={() =>
+                    navigate(
+                      `/guide-content/${data?.questions[currentQuestion]?.question?.competence.content_guide_id}`
+                    )
+                  }
                 >
                   <Text
                     value={

@@ -71,12 +71,32 @@ const TeachersList: React.FC<{}> = () => {
                   )
                 }
               >
-                <Image
-                  src={application.teacher.image_url || ""}
-                  width="24px"
-                  height="24px"
-                  borderRadius="12px"
-                />
+                {application.teacher.image_url ? (
+                  <Image
+                    src={application.teacher.image_url || ""}
+                    width="24px"
+                    height="24px"
+                    borderRadius="12px"
+                  />
+                ) : (
+                  <Container
+                    width="28px"
+                    height="28px"
+                    alignItems="center"
+                    borderRadius="24px"
+                    background="#F0F2F5"
+                    justifyContent="center"
+                  >
+                    <Text
+                      fontSize={12}
+                      value={application.teacher?.name
+                        ?.substring(0, 1)
+                        .concat(
+                          application.teacher?.last_name?.substring(0, 1) || ""
+                        )}
+                    />
+                  </Container>
+                )}
                 <Container flexDirection="column">
                   <Text
                     color="#494B50"
@@ -125,6 +145,28 @@ const TeachersList: React.FC<{}> = () => {
                   key={index}
                   title={teacher.user.name || ""}
                   imageUrl={teacher?.user.image_url || ""}
+                  leftContent={
+                    !teacher?.user.image_url && (
+                      <Container
+                        mb="8px"
+                        width="48px"
+                        height="48px"
+                        alignItems="center"
+                        borderRadius="24px"
+                        background="#F0F2F5"
+                        justifyContent="center"
+                      >
+                        <Text
+                          fontSize={16}
+                          value={teacher?.user?.name
+                            ?.substring(0, 1)
+                            .concat(
+                              teacher?.user?.last_name?.substring(0, 1) || ""
+                            )}
+                        />
+                      </Container>
+                    )
+                  }
                   onClick={() => navigate(`/teacher/${teacher.user.id}`)}
                   description={t("Teachers.teacher_description", {
                     subject: teacher.user.subject,

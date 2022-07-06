@@ -20,7 +20,7 @@ export const Input: React.FC<InputProps> = ({
   return (
     <Container flexDirection="column" {...props}>
       <StyledInputContainer hasError={errorMessage}>
-        {icon && <Icon mr="8px" color="#494B50" size={24} name={icon} />}
+        {icon && <Icon ml="8px" color="#494B50" size={24} name={icon} />}
         <StyledInput
           type={type}
           value={value}

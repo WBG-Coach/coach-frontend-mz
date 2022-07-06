@@ -20,24 +20,39 @@ const Profile: React.FC<{}> = () => {
       <Container flex={1} flexDirection="column">
         <Container flexDirection="row">
           <Container
-            mb="34px"
+            mb="40px"
             width="100%"
             flexDirection="row"
             alignContent="center"
             justifyContent="center"
           >
-            <Image
-              mr="12px"
-              width={40}
-              height={40}
-              borderRadius="50%"
-              src={user?.image_url || ""}
-            />
-            <Container
-              flex={1}
-              flexDirection="column"
-              justifyContent="space-between"
-            >
+            {user?.image_url ? (
+              <Image
+                mr="12px"
+                width={40}
+                height={40}
+                borderRadius="50%"
+                src={user?.image_url || ""}
+              />
+            ) : (
+              <Container
+                mr="12px"
+                width="48px"
+                height="48px"
+                alignItems="center"
+                borderRadius="24px"
+                background="#F0F2F5"
+                justifyContent="center"
+              >
+                <Text
+                  fontSize={12}
+                  value={user?.name
+                    ?.substring(0, 1)
+                    .concat(user?.last_name?.substring(0, 1) || "")}
+                />
+              </Container>
+            )}
+            <Container flex={1} flexDirection="column" justifyContent="center">
               <Text
                 fontWeight={600}
                 fontSize="18px"

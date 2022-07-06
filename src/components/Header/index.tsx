@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
           alignItems="center"
         >
           <Container onClick={() => setOpen(true)} alignItems="center">
-            {user.selectedSchool?.image_url && (
+            {user.selectedSchool?.image_url ? (
               <Image
                 height={32}
                 width={32}
@@ -55,6 +55,17 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 border="1px solid #F0F3F5"
                 borderRadius="50%"
               />
+            ) : (
+              <Container
+                width={48}
+                height={48}
+                borderRadius={24}
+                alignItems="center"
+                background="#F0F2F5"
+                justifyContent="center"
+              >
+                <Icon name="university" size={24} />
+              </Container>
             )}
             <Text
               ml="8px"

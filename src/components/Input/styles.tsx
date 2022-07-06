@@ -8,6 +8,7 @@ export const StyledInputContainer = styled.span<any>`
   border-radius: 8px;
   display: flex;
   flex-direction: row;
+  align-items: center;
   border: 1px solid ${(props) => (props.hasError ? "#e53935" : "#e3e5e8")};
 `;
 

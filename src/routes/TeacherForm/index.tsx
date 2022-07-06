@@ -47,12 +47,12 @@ const TeacherForm: React.FC<{}> = () => {
   };
 
   const submitForm = (teacher: User) => {
-    console.log("teacher => ", teacher);
-    createTeacher({
-      ...teacher,
-      image_url: imageUrl,
-      school_id: user.selectedSchool.id,
-    });
+    if (user?.selectedSchool?.id)
+      createTeacher({
+        ...teacher,
+        image_url: imageUrl,
+        school_id: user?.selectedSchool?.id,
+      });
   };
 
   return (

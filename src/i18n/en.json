@@ -61,10 +61,11 @@
   },
   "ApplicationForm": {
     "title": "New session",
-    "application-date": "Start date",
     "save": "Create session",
-    "observation-questionnaire": "Observation questionnaire",
-    "feedback-questionnaire": "Feedback questionnaire"
+    "application-date": "Start date",
+    "select-questionnaire": "Select a questionnaire",
+    "feedback-questionnaire": "Feedback questionnaire",
+    "observation-questionnaire": "Observation questionnaire"
   },
   "ApplicationStatus": {
     "title": "Session {{value}}",
