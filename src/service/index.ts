@@ -76,6 +76,13 @@ export const api = createApi({
         },
       }),
     }),
+    createTeacher: builder.mutation<void, User & { school_id: number }>({
+      query: (body) => ({
+        method: "POST",
+        url: "/api/users",
+        body,
+      }),
+    }),
     getApplications: builder.mutation<
       Application[],
       { coach_id: number; school_id: number; teacher_id: number }
@@ -202,6 +209,7 @@ export const {
   useGetAnswersMutation,
   useGetSchoolsMutation,
   useCreateSchoolsMutation,
+  useCreateTeacherMutation,
   useGetTeachersMutation,
   useGetQuestionsMutation,
   useGetTeacherByIdMutation,

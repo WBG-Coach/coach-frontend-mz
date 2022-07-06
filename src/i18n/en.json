@@ -41,6 +41,14 @@
     "teacher_description": "{{subject}} teacher",
     "description": "These are the teachers allocated to you."
   },
+  "TeacherForm": {
+    "save": "Add teacher",
+    "name": "Name",
+    "lastname": "Lastname",
+    "subject": "Subject",
+    "title": "New teacher",
+    "change-photo": "Change photo"
+  },
   "TeacherDetails": {
     "title": "Teacher",
     "sessions": "Orientation sessions",

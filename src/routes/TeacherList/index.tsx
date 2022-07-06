@@ -188,7 +188,10 @@ const TeachersList: React.FC<{}> = () => {
           </Container>
         )}
 
-        <AddButton label={t("Teachers.add-teacher")} onClick={() => {}} />
+        <AddButton
+          label={t("Teachers.add-teacher")}
+          onClick={() => navigate("/teacher-form")}
+        />
       </Container>
       <Footer />
     </>

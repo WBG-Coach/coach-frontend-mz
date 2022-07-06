@@ -6,7 +6,14 @@ import { CompetenceList } from "./CompetenceList";
 import { selectCurrentUser } from "../../store/auth";
 import { ApplicationsList } from "./ApplicationsList";
 import { useNavigate, useParams } from "react-router-dom";
-import { LoadingDots, Container, Footer, Icon, Text } from "../../components";
+import {
+  LoadingDots,
+  Container,
+  Footer,
+  Icon,
+  Text,
+  AddButton,
+} from "../../components";
 import {
   useGetApplicationsMutation,
   useGetLastAnswersMutation,
@@ -80,6 +87,11 @@ const TeacherDetails: React.FC = () => {
                 `/application-details/${applicationId}/${questionnaireId}`
               )
             }
+          />
+
+          <AddButton
+            label={t("TeacherDetails.add-session")}
+            onClick={() => navigate("/session-form")}
           />
         </>
       )}
