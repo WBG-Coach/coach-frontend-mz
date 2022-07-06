@@ -7,7 +7,6 @@ import {
 import { selectCurrentUser } from "../../store/auth";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import { Input } from "../../components/Input";
 import { useSelector } from "react-redux";
 import { Application, Questionnaire } from "../../store/type";
 import { Formik } from "formik";
