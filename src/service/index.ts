@@ -193,7 +193,15 @@ export const api = createApi({
       query: (body) => ({
         method: "POST",
         url: "/api/questionnaire-applications",
-        body,
+        body: {
+          ...body,
+          application_date:
+            body.application_date?.getFullYear() +
+            "-" +
+            body.application_date?.getMonth() +
+            "-" +
+            body.application_date?.getDate(),
+        },
       }),
     }),
     getLastFeedbacks: builder.mutation<Feedback[], number>({

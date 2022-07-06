@@ -2,15 +2,16 @@ import React, { useEffect } from "react";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Icon, Text } from "../../components";
-import { useLoginMutation } from "../../service";
+import { useCreateCoachMutation } from "../../service";
 import * as Yup from "yup";
 import { Input } from "../../components/Input";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { selectLoginErrorMessage } from "../../store/auth";
+import { User } from "../../store/type";
 
 const SignUp: React.FC = () => {
-  const [login, { isSuccess }] = useLoginMutation();
+  const [signUp, { isSuccess }] = useCreateCoachMutation();
   const loginErrorMessage = useSelector(selectLoginErrorMessage);
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -26,8 +27,8 @@ const SignUp: React.FC = () => {
     password: Yup.string().required(),
   });
 
-  const handlerLogin = (values: { email: string; password: string }) => {
-    login(values);
+  const handlerLogin = (values: User) => {
+    signUp(values);
   };
 
   return (

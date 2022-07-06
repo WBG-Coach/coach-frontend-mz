@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { logout, selectCurrentUser, selectSchool } from "../../store/auth";
+import { selectCurrentUser, selectSchool } from "../../store/auth";
 import { LoadingDots } from "../../components/LoadingDots";
 import LogoSmall from "../../assets/images/logo-small.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,6 @@ import {
   Text,
   Icon,
   Image,
-  Button,
   ListItem,
   AddButton,
   Container,
@@ -79,11 +78,6 @@ const SchoolsList: React.FC<{}> = () => {
           ) : (
             <>
               <Text value={t("Schools.empty")} mb="40px" />
-              <Button
-                value="Logout"
-                width="100%"
-                onClick={() => dispatch(logout())}
-              />
             </>
           )}
           <AddButton

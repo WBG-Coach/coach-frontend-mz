@@ -36,7 +36,7 @@ const SchoolForm: React.FC<{}> = () => {
   };
 
   const submitForm = (newSchool: School) => {
-    createSchool(newSchool);
+    createSchool({ ...newSchool, image_url: imageUrl });
   };
 
   return (

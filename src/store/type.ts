@@ -3,6 +3,7 @@ export type User = {
   name?: string;
   email?: string;
   lastname?: string;
+  password?: string;
   profile_id?: number;
   created_at?: Date;
   updated_at?: Date;
