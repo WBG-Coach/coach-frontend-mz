@@ -9,7 +9,7 @@
   "SignUp": {
     "title": "Cadastro",
     "name": "Nome",
-    "lastname": "Apelido",
+    "last_name": "Apelido",
     "email": "Email",
     "password": "Senha",
     "description": "Crie sua conta",

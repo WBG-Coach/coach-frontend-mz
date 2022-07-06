@@ -2,7 +2,7 @@ export type User = {
   id?: number;
   name?: string;
   email?: string;
-  lastname?: string;
+  last_name?: string;
   password?: string;
   profile_id?: number;
   created_at?: Date;

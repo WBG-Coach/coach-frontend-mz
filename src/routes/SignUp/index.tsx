@@ -22,7 +22,7 @@ const SignUp: React.FC = () => {
 
   const signInSchema = Yup.object().shape({
     name: Yup.string().required(),
-    lastname: Yup.string().required(),
+    last_name: Yup.string().required(),
     email: Yup.string().email().required(),
     password: Yup.string().required(),
   });
@@ -72,7 +72,7 @@ const SignUp: React.FC = () => {
         initialValues={{
           name: "",
           email: "",
-          lastname: "",
+          last_name: "",
           password: "",
         }}
         validationSchema={signInSchema}
@@ -102,12 +102,12 @@ const SignUp: React.FC = () => {
               fontSize="14px"
               lineHeight="18px"
               fontWeight={600}
-              value={t("SignUp.lastname")}
+              value={t("SignUp.last_name")}
             />
             <Input
               mb="16px"
-              errorMessage={(!!submitCount && errors.lastname) || ""}
-              onChangeText={(text) => setFieldValue("lastname", text)}
+              errorMessage={(!!submitCount && errors.last_name) || ""}
+              onChangeText={(text) => setFieldValue("last_name", text)}
             />
 
             <Text

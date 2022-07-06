@@ -9,7 +9,7 @@
   "SignUp": {
     "title": "Register",
     "name": "Name",
-    "lastname": "Lastname",
+    "last_name": "Lastname",
     "email": "Email",
     "password": "Password",
     "description": "Register your account",
@@ -44,7 +44,7 @@
   "TeacherForm": {
     "save": "Add teacher",
     "name": "Name",
-    "lastname": "Lastname",
+    "last_name": "Lastname",
     "subject": "Subject",
     "title": "New teacher",
     "change-photo": "Change photo"

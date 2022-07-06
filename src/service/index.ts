@@ -25,6 +25,7 @@ type Prepare = {
 const prepareHeaders: Prepare["prepareHeaders"] = (headers, { getState }) => {
   const token = (getState() as RootState)?.auth?.api_token;
   if (token) {
+    headers.set("accept", `application/json`);
     headers.set("authorization", `Bearer ${token}`);
   }
   return headers;
@@ -84,11 +85,14 @@ export const api = createApi({
       }),
     }),
     createTeacher: builder.mutation<void, User & { school_id: number }>({
-      query: (body) => ({
-        method: "POST",
-        url: "/api/createTeacher",
-        body,
-      }),
+      query: (body) => {
+        console.log("BODY => ", body);
+        return {
+          method: "POST",
+          url: "/api/createTeacher",
+          body: { ...body },
+        };
+      },
     }),
     getQuestionnaires: builder.mutation<Questionnaire[], void>({
       query: (body) => ({

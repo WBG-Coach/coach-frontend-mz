@@ -35,11 +35,15 @@ const TeacherForm: React.FC<{}> = () => {
     if (isSuccess) navigate(-1);
   }, [isSuccess, navigate]);
 
-  const addImage = async (file?: File | null) => {
+  const addImage = async (
+    file?: File | null,
+    setFieldValue?: (fild: string, value: string) => void
+  ) => {
     try {
-      if (file) {
+      if (file && setFieldValue) {
         const uploadedFile = await uploadFileToS3(file);
         setImageUrl(uploadedFile.url);
+        setFieldValue("image_url", uploadedFile.url);
       }
     } catch (err) {
       console.log(err);
@@ -47,12 +51,7 @@ const TeacherForm: React.FC<{}> = () => {
   };
 
   const submitForm = (teacher: User) => {
-    console.log("teacher => ", teacher);
-    createTeacher({
-      ...teacher,
-      image_url: imageUrl,
-      school_id: user.selectedSchool.id,
-    });
+    createTeacher({ ...teacher, school_id: user.selectedSchool.id });
   };
 
   return (
@@ -129,7 +128,7 @@ const TeacherForm: React.FC<{}> = () => {
                   type="file"
                   style={{ display: "none" }}
                   onChange={(e) => {
-                    addImage(e.target.files?.item(0));
+                    addImage(e.target.files?.item(0), setFieldValue);
                   }}
                 />
               </Container>
