@@ -91,7 +91,7 @@ const TeacherDetails: React.FC = () => {
 
           <AddButton
             label={t("TeacherDetails.add-session")}
-            onClick={() => navigate("/session-form")}
+            onClick={() => navigate(`/application-form/${teacherId}`)}
           />
         </>
       )}

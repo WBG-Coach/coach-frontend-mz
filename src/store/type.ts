@@ -25,6 +25,7 @@ export type School = {
 export type Questionnaire = {
   id: number;
   title: string;
+  type: "FEEDBACK" | "OBSERVATION";
   created_at: Date;
   updated_at: Date;
 };

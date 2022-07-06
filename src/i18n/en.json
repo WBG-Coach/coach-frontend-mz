@@ -56,7 +56,15 @@
     "subject": "{{subject}} teacher",
     "competences": "Competencies",
     "feedbacks": "Feedback",
-    "see-feedback": "Review feedback"
+    "see-feedback": "Review feedback",
+    "add-session": "Add a session"
+  },
+  "ApplicationForm": {
+    "title": "New session",
+    "application-date": "Start date",
+    "save": "Create session",
+    "observation-questionnaire": "Observation questionnaire",
+    "feedback-questionnaire": "Feedback questionnaire"
   },
   "ApplicationStatus": {
     "title": "Session {{value}}",

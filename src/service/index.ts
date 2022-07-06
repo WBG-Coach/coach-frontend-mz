@@ -44,6 +44,13 @@ export const api = createApi({
         body,
       }),
     }),
+    createCoach: builder.mutation<void, User>({
+      query: (body) => ({
+        method: "POST",
+        url: "/api/createCoach",
+        body,
+      }),
+    }),
     getSchools: builder.mutation<School[], number>({
       query: (coach_id) => ({
         method: "POST",
@@ -79,7 +86,14 @@ export const api = createApi({
     createTeacher: builder.mutation<void, User & { school_id: number }>({
       query: (body) => ({
         method: "POST",
-        url: "/api/users",
+        url: "/api/createTeacher",
+        body,
+      }),
+    }),
+    getQuestionnaires: builder.mutation<Questionnaire[], void>({
+      query: (body) => ({
+        method: "POST",
+        url: "/api/questionnaires/search",
         body,
       }),
     }),
@@ -175,6 +189,13 @@ export const api = createApi({
         body,
       }),
     }),
+    createApplication: builder.mutation<void, Partial<Application>>({
+      query: (body) => ({
+        method: "POST",
+        url: "/api/questionnaire-applications",
+        body,
+      }),
+    }),
     getLastFeedbacks: builder.mutation<Feedback[], number>({
       query: (teacher_id) => ({
         method: "POST",
@@ -206,10 +227,13 @@ export const {
   useLoginMutation,
   useGetNoteMutation,
   useSaveNoteMutation,
+  useGetQuestionnairesMutation,
   useGetAnswersMutation,
   useGetSchoolsMutation,
   useCreateSchoolsMutation,
   useCreateTeacherMutation,
+  useCreateApplicationMutation,
+  useCreateCoachMutation,
   useGetTeachersMutation,
   useGetQuestionsMutation,
   useGetTeacherByIdMutation,

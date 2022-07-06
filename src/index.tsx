@@ -26,6 +26,7 @@ import GuideContent from "./routes/GuideContent";
 import SignUp from "./routes/SignUp";
 import SchoolForm from "./routes/SchoolForm";
 import TeacherForm from "./routes/TeacherForm";
+import ApplicationForm from "./routes/ApplicationForm";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -77,6 +78,14 @@ root.render(
               element={
                 <ProtectedRoute>
                   <TeacherDetails />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="application-form/:teacherId"
+              element={
+                <ProtectedRoute>
+                  <ApplicationForm />
                 </ProtectedRoute>
               }
             />
