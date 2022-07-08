@@ -86,7 +86,7 @@ const FeedbackDetails: React.FC<{}> = () => {
           fontSize="14px"
           color="#494B50"
           lineHeight="18px"
-          value={t("Questionnaire.competence-to-work")}
+          value={t("Questionnaire.selected-competency")}
         />
 
         <Text mt="12px" value={data?.competence?.subtitle} />
