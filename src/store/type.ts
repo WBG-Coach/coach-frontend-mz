@@ -41,7 +41,7 @@ export type Note = {
 
 export type Application = {
   id: number;
-  status: string;
+  status: "PENDING_FEEDBACK" | "PENDING_RESPONSE" | "PENDING_MEET" | "DONE";
   questionnaire_id: number;
   feedback_questionnaire_id: number;
   coach_id: number;

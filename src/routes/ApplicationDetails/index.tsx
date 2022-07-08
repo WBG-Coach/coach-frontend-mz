@@ -95,10 +95,10 @@ const ApplicationDetails: React.FC = () => {
                 alignItems="center"
                 flexDirection="row"
                 background={
-                  data?.status === "PENDING_FEEDBACK" ? "#F0F2F5" : "#F9FAFB"
+                  data?.status !== "PENDING_RESPONSE" ? "#F0F2F5" : "#F9FAFB"
                 }
                 onClick={() =>
-                  data?.status === "PENDING_FEEDBACK" &&
+                  data?.status !== "PENDING_RESPONSE" &&
                   navigate(`/feedback-list/${applicationId}`)
                 }
               >
@@ -107,14 +107,14 @@ const ApplicationDetails: React.FC = () => {
                   name="comments"
                   size={24}
                   color={
-                    data?.status === "PENDING_FEEDBACK" ? "#191A1B" : "#94979E"
+                    data?.status !== "PENDING_RESPONSE" ? "#191A1B" : "#94979E"
                   }
                 />
                 <Text
                   fontSize="12px"
                   fontWeight={500}
                   color={
-                    data?.status === "PENDING_FEEDBACK" ? "#191A1B" : "#94979E"
+                    data?.status !== "PENDING_RESPONSE" ? "#191A1B" : "#94979E"
                   }
                   value={t("ApplicationStatus.label-feedback")}
                 />
@@ -123,7 +123,7 @@ const ApplicationDetails: React.FC = () => {
                   name="chevron-right"
                   size={24}
                   color={
-                    data?.status === "PENDING_FEEDBACK" ? "#191A1B" : "#94979E"
+                    data?.status !== "PENDING_RESPONSE" ? "#191A1B" : "#94979E"
                   }
                 />
               </Container>
@@ -176,6 +176,7 @@ const ApplicationDetails: React.FC = () => {
                   />
                 </Container>
               ))}
+
               <Container
                 p="12px"
                 mb="24px"
