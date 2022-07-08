@@ -59,6 +59,11 @@ const ObservationDetails: React.FC<{}> = () => {
               width="auto"
               borderRadius="20px"
               background="#F0F2F5"
+              onClick={() =>
+                navigate(
+                  `/guide-content/${data[currentQuestion]?.option?.question?.competence.content_guide_id}`
+                )
+              }
             >
               <Text
                 value={
