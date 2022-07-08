@@ -60,14 +60,6 @@
     "see-feedback": "Review feedback",
     "add-session": "Add a session"
   },
-  "ApplicationForm": {
-    "title": "New session",
-    "save": "Create session",
-    "application-date": "Start date",
-    "select-questionnaire": "Select a forn",
-    "feedback-questionnaire": "Feedback form",
-    "observation-questionnaire": "Observation form"
-  },
   "ApplicationStatus": {
     "title": "Session {{value}}",
     "steps": "Steps",
@@ -78,6 +70,14 @@
     "info": "To access the Feedback page, you must first complete the Observation Form",
     "competences": "Competencies",
     "onboarding-modal-title": "Observation sessions"
+  },
+  "ApplicationForm": {
+    "title": "New session",
+    "save": "Create session",
+    "application-date": "Start date",
+    "select-questionnaire": "Select a forn",
+    "feedback-questionnaire": "Feedback form",
+    "observation-questionnaire": "Observation form"
   },
   "Questionnaire": {
     "title": "Session",
