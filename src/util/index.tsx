@@ -10,7 +10,6 @@ export const uploadFileToS3 = (file: File): Promise<AnswerFile> => {
 
     const myBucket = new AWS.S3({
       region: "us-east-1",
-      params: { Bucket: process.env.REACT_APP_AWS_BUCKET_NAME },
     });
 
     const params = {

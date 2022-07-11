@@ -13,6 +13,7 @@ import { Answer } from "../../store/type";
 const FeedbackQuestionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [haveThumbsDown, setHaveThumbsDown] = useState(false);
   const [answer, setAnswer] = useState<Answer>();
   const [currentStep, setCurrentStep] = useState(0);
   const [getAnswer, { data }] = useGetAnswersMutation();
@@ -30,6 +31,13 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
         setNotes(new Array(response?.data?.questions.length).fill(""))
       );
   }, [getQuestions, questionnaireId]);
+
+  useEffect(() => {
+    if (data)
+      setHaveThumbsDown(
+        !!data.find((item) => item.option?.selected_icon === "thumbs-down")
+      );
+  }, [data]);
 
   useEffect(() => {
     if (applicationId) getAnswer(parseInt(applicationId, 10));
@@ -71,6 +79,15 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
             value={"Selecione uma competência para dar o feedback"}
           />
           <Container mt="24px" mb="100px" flexDirection="column">
+            {answer?.option?.selected_icon === "thumbs-up" &&
+              haveThumbsDown && (
+                <Text
+                  mb="16px"
+                  color="#e53935"
+                  value="Selecione uma competência a melhorar"
+                />
+              )}
+
             {data?.map(
               (currentAnswer) =>
                 currentAnswer.option?.question?.competence && (
@@ -136,7 +153,11 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
               width="100%"
               onClick={goToFeedbackQuestions}
               value={t("Questionnaire.continue")}
-              isDisabled={!answer?.id}
+              isDisabled={
+                !answer?.id ||
+                (answer?.option?.selected_icon === "thumbs-up" &&
+                  haveThumbsDown)
+              }
             />
           </Container>
         </Container>
