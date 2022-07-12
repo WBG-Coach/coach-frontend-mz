@@ -1,13 +1,18 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { FinishContainer } from "./FinishContainer";
-import { ButtonQuestionList } from "./ButtonQuestionList";
 import { QuestionnaireHeader } from "./QuestionnaireHeader";
+import { ButtonQuestionList } from "./ButtonQuestionList";
+import { useNavigate, useParams } from "react-router-dom";
 import { Answer, AnswerFile } from "../../store/type";
-import { uploadFileToS3 } from "../../util";
+import { FinishContainer } from "./FinishContainer";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { uploadFileToS3 } from "../../util";
 import { OptionsList } from "./OptionsList";
+import {
+  useGetQuestionsMutation,
+  useGetApplicationMutation,
+  useAnswerQuestionnaireMutation,
+} from "../../service";
 import {
   Icon,
   Text,
@@ -16,36 +21,27 @@ import {
   Container,
   LoadingDots,
 } from "../../components";
-import {
-  useAnswerQuestionnaireMutation,
-  useGetApplicationMutation,
-  useGetQuestionsMutation,
-} from "../../service";
 
 const ObservationQuestionnaire: React.FC<{}> = () => {
   const theme: any = useTheme();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [isFinish, setFinish] = useState(false);
+  const [files, setFiles] = useState<AnswerFile[][]>([[]]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answerQuestionnaire] = useAnswerQuestionnaireMutation();
+  const [notes, setNotes] = useState<Array<string | undefined>>([]);
+  const [answers, setAnswers] = useState<Array<number | undefined>>([]);
   const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
   const [getApplication, applicationRequest] = useGetApplicationMutation();
-  const [answerQuestionnaire] = useAnswerQuestionnaireMutation();
-  const [answers, setAnswers] = useState<Array<number | undefined>>([]);
-  const [files, setFiles] = useState<AnswerFile[][]>([[]]);
-  const [notes, setNotes] = useState<Array<string | undefined>>([]);
-  const { applicationId, questionnaireId } = useParams<{
-    applicationId: string;
-    questionnaireId: string;
-  }>();
+  const { applicationId } = useParams<{ applicationId: string }>();
 
   useEffect(() => {
-    if (questionnaireId) getQuestions(parseInt(questionnaireId, 10));
-  }, [questionnaireId, getQuestions]);
-
-  useEffect(() => {
-    if (applicationId) getApplication({ id: parseInt(applicationId, 10) });
-  }, [applicationId, getApplication]);
+    if (applicationId) {
+      getQuestions(parseInt(applicationId, 10));
+      getApplication({ id: parseInt(applicationId, 10) });
+    }
+  }, [applicationId, getQuestions, getApplication]);
 
   useEffect(() => {
     if (data?.questions) {

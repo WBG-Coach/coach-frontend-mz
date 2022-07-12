@@ -59,9 +59,7 @@ const ApplicationDetails: React.FC = () => {
                 background="#F0F2F5"
                 onClick={() =>
                   data?.status === "PENDING_RESPONSE"
-                    ? navigate(
-                        `/questionnaire/${applicationId}/${data?.questionnaire_id}`
-                      )
+                    ? navigate(`/questionnaire/${applicationId}`)
                     : navigate(
                         `/questionnaire-observation-review/${applicationId}`
                       )

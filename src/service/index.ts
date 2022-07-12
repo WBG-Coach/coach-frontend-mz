@@ -122,11 +122,11 @@ export const api = createApi({
       { questions: QuestionnaireQuestion[]; questionnaire: Questionnaire },
       number
     >({
-      query: (questionnaire_id) => ({
+      query: (questionnaire_application_id) => ({
         method: "POST",
         url: "/api/questionnaire-questions/search",
         body: {
-          questionnaire_id,
+          questionnaire_application_id,
         },
       }),
     }),

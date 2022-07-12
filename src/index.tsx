@@ -98,7 +98,7 @@ root.render(
               }
             />
             <Route
-              path="questionnaire/:applicationId/:questionnaireId"
+              path="questionnaire/:applicationId"
               element={
                 <ProtectedRoute>
                   <ObservationQuestionnaire />
