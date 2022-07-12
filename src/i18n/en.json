@@ -40,7 +40,7 @@
     "last-seasons": "Previous sessions",
     "previous-sessions": "Previous sessions",
     "teacher_description": "{{subject}} teacher",
-    "description": "These are the teachers allocated to you."
+    "description": "These teachers are allocated to you."
   },
   "TeacherForm": {
     "save": "Add teacher",
@@ -75,7 +75,7 @@
     "title": "New session",
     "save": "Create session",
     "application-date": "Start date",
-    "select-questionnaire": "Select a forn",
+    "select-questionnaire": "Select a form",
     "feedback-questionnaire": "Feedback form",
     "observation-questionnaire": "Observation form"
   },
