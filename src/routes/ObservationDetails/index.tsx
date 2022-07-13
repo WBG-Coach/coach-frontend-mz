@@ -13,10 +13,13 @@ import {
   Icon,
 } from "../../components";
 import { useTheme } from "styled-components";
+import { useDispatch } from "react-redux";
+import { openGuide } from "../../store/guide";
 
 const ObservationDetails: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const theme: any = useTheme();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const { applicationId } = useParams<{ applicationId: string }>();
@@ -60,8 +63,11 @@ const ObservationDetails: React.FC<{}> = () => {
               borderRadius="20px"
               background="#F0F2F5"
               onClick={() =>
-                navigate(
-                  `/guide-content/${data[currentQuestion]?.option?.question?.competence.content_guide_id}`
+                dispatch(
+                  openGuide(
+                    data[currentQuestion]?.option?.question?.competence
+                      .content_guide_id
+                  )
                 )
               }
             >

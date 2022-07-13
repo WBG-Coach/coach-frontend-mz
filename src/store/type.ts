@@ -41,6 +41,7 @@ export type Note = {
 
 export type Application = {
   id: number;
+  name?: string;
   status: "PENDING_FEEDBACK" | "PENDING_RESPONSE" | "PENDING_MEET" | "DONE";
   questionnaire_id: number;
   feedback_questionnaire_id: number;
@@ -83,6 +84,7 @@ export type Question = {
   text: string;
   options: Option[];
   competence: Competence;
+  last_answers?: Answer[];
 };
 
 export type QuestionnaireQuestion = {

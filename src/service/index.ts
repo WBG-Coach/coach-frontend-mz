@@ -120,14 +120,12 @@ export const api = createApi({
     }),
     getQuestions: builder.mutation<
       { questions: QuestionnaireQuestion[]; questionnaire: Questionnaire },
-      number
+      { questionnaire_application_id: number; feedback?: boolean }
     >({
-      query: (questionnaire_application_id) => ({
+      query: (body) => ({
         method: "POST",
         url: "/api/questionnaire-questions/search",
-        body: {
-          questionnaire_application_id,
-        },
+        body,
       }),
     }),
     answerQuestionnaire: builder.mutation<any, AnswerQuestionnaire>({

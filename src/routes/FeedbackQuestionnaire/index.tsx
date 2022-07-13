@@ -9,10 +9,13 @@ import {
   useGetQuestionsMutation,
 } from "../../service";
 import { Answer } from "../../store/type";
+import { useDispatch } from "react-redux";
+import { openGuide } from "../../store/guide";
 
 const FeedbackQuestionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [haveThumbsDown, setHaveThumbsDown] = useState(false);
   const [answer, setAnswer] = useState<Answer>();
   const [currentStep, setCurrentStep] = useState(0);
@@ -20,17 +23,9 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
   const [getQuestions, questionsRequest] = useGetQuestionsMutation();
   const [answerFeedback] = useAnswerFeedbackMutation();
   const [notes, setNotes] = useState<string[]>([]);
-  const { applicationId, questionnaireId } = useParams<{
+  const { applicationId } = useParams<{
     applicationId: string;
-    questionnaireId: string;
   }>();
-
-  useEffect(() => {
-    if (questionnaireId)
-      getQuestions(parseInt(questionnaireId, 10)).then((response: any) =>
-        setNotes(new Array(response?.data?.questions.length).fill(""))
-      );
-  }, [getQuestions, questionnaireId]);
 
   useEffect(() => {
     if (data)
@@ -40,8 +35,17 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
   }, [data]);
 
   useEffect(() => {
-    if (applicationId) getAnswer(parseInt(applicationId, 10));
-  }, [applicationId, getAnswer]);
+    if (applicationId) {
+      getAnswer(parseInt(applicationId, 10));
+
+      getQuestions({
+        questionnaire_application_id: parseInt(applicationId, 10),
+        feedback: true,
+      }).then((response: any) =>
+        setNotes(new Array(response?.data?.questions.length).fill(""))
+      );
+    }
+  }, [applicationId, getQuestions, getAnswer]);
 
   const noteQuestion = (text: string, index: number) => {
     setNotes(notes.map((oldNode, i) => (i === index ? text : oldNode)));
@@ -89,11 +93,12 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
               )}
 
             {data?.map(
-              (currentAnswer) =>
+              (currentAnswer, index) =>
                 currentAnswer.option?.question?.competence && (
                   <Container
                     p="16px"
                     mb="12px"
+                    key={index}
                     borderRadius="8px"
                     flexDirection="column"
                     justifyContent="center"
@@ -164,27 +169,68 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
       ) : (
         <Container flex={1} flexDirection="column">
           <Container
-            flexDirection="column"
-            mb="40px"
-            background="#F0F2F5"
-            borderRadius="8px"
             p="12px"
+            mb="40px"
+            borderRadius="12px"
+            background="#F0F2F5"
+            flexDirection="column"
+            onClick={() =>
+              data && dispatch(openGuide(data[0].option?.content_guide_id))
+            }
           >
             <Text
-              mb="4px"
-              fontSize="10px"
+              fontSize="14px"
               color="#494B50"
-              lineHeight="16px"
-              fontWeight={400}
-              value={answer?.option?.question?.competence.title}
+              lineHeight="18px"
+              value={t("Questionnaire.class-plan")}
             />
+
+            {data && <Text mt="12px" value={data[0].option?.text} />}
+
+            <Container
+              my="12px"
+              height="1px"
+              background="#E3E5E8"
+              width="100%"
+            />
+
+            <Text color="primary" value={t("Questionnaire.see-class-plan")} />
+          </Container>
+
+          <Container
+            p="12px"
+            mb="40px"
+            borderRadius="12px"
+            background="#F0F2F5"
+            flexDirection="column"
+            onClick={() =>
+              dispatch(
+                openGuide(
+                  answer?.option?.question?.competence?.content_guide_id
+                )
+              )
+            }
+          >
             <Text
               fontSize="14px"
-              color="#191A1B"
-              lineHeight="16px"
-              fontWeight={600}
-              value={answer?.option?.question?.competence.subtitle}
+              color="#494B50"
+              lineHeight="18px"
+              value={t("Questionnaire.selected-competency")}
             />
+
+            <Text
+              mt="12px"
+              value={answer?.option?.question?.competence?.subtitle}
+            />
+
+            <Container
+              my="12px"
+              height="1px"
+              background="#E3E5E8"
+              width="100%"
+            />
+
+            <Text color="primary" value={t("Questionnaire.see-competence")} />
           </Container>
 
           {questionsRequest?.data?.questions?.map(

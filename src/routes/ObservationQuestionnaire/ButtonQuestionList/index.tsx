@@ -22,6 +22,7 @@ export const ButtonQuestionList: React.FC<Props> = ({
       mx={-16}
       p="16px"
       mb="24px"
+      hideScrollbar={true}
       flexDirection="row"
       overflowX="scroll"
       borderBottom="1px solid #F0F2F5"

@@ -21,10 +21,10 @@ const SignUp: React.FC = () => {
   }, [isSuccess, navigate]);
 
   const signInSchema = Yup.object().shape({
-    name: Yup.string().required(),
-    last_name: Yup.string().required(),
-    email: Yup.string().email().required(),
-    password: Yup.string().required(),
+    name: Yup.string().required(t("Validations.required")),
+    last_name: Yup.string().required(t("Validations.required")),
+    email: Yup.string().email().required(t("Validations.required")),
+    password: Yup.string().required(t("Validations.required")),
   });
 
   const handlerLogin = (values: User) => {

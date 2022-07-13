@@ -13,6 +13,7 @@ export type ContainerProps = {
   onClick?: () => void;
   hoverColor?: string;
   rotate?: number;
+  hideScrollbar?: boolean;
 } & LayoutProps &
   SpaceProps &
   FlexboxProps &

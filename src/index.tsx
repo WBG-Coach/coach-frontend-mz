@@ -22,7 +22,6 @@ import FeedbackQuestionnaire from "./routes/FeedbackQuestionnaire";
 import FeedbackList from "./routes/FeedbackList";
 import FeedbackDetails from "./routes/FeedbackDetails";
 import ObservationDetails from "./routes/ObservationDetails";
-import GuideContent from "./routes/GuideContent";
 import SignUp from "./routes/SignUp";
 import SchoolForm from "./routes/SchoolForm";
 import TeacherForm from "./routes/TeacherForm";
@@ -126,14 +125,6 @@ root.render(
               element={
                 <ProtectedRoute>
                   <FeedbackDetails />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="guide-content/:id"
-              element={
-                <ProtectedRoute>
-                  <GuideContent />
                 </ProtectedRoute>
               }
             />

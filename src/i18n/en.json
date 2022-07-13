@@ -1,4 +1,7 @@
 {
+  "Validations": {
+    "required": "Required"
+  },
   "Login": {
     "email": "Email",
     "password": "Password",
@@ -72,6 +75,7 @@
     "onboarding-modal-title": "Observation sessions"
   },
   "ApplicationForm": {
+    "name": "Name",
     "title": "New session",
     "save": "Create session",
     "application-date": "Start date",
@@ -98,7 +102,8 @@
     "class-plan": "Class plan",
     "see-class-plan": "See class plan",
     "selected-competency": "Selected competency",
-    "see-competence": "See competency"
+    "see-competence": "See competency",
+    "previous-sessions": "Previous sessions"
   },
   "FeedbackList": {
     "title": "Feedback",

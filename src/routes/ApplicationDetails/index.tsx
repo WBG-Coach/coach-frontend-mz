@@ -44,7 +44,7 @@ const ApplicationDetails: React.FC = () => {
               color="#191A1B"
               fontWeight={600}
               lineHeight="32px"
-              value={t("ApplicationStatus.title", { value: data?.id })}
+              value={data?.name || "-"}
             />
 
             <Container mb="40px" flexDirection="column">

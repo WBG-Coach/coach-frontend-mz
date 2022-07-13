@@ -22,8 +22,8 @@ const Login: React.FC = () => {
   }, [isSuccess, navigate]);
 
   const signInSchema = Yup.object().shape({
-    email: Yup.string().email().required(),
-    password: Yup.string().required(),
+    email: Yup.string().email().required(t("Validations.required")),
+    password: Yup.string().required(t("Validations.required")),
   });
 
   const handlerLogin = (values: { email: string; password: string }) => {

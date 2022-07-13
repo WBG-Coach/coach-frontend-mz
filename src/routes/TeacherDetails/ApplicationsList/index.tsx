@@ -63,9 +63,7 @@ export const ApplicationsList: React.FC<Props> = ({
                   fontSize="16px"
                   color="#191A1B"
                   lineHeight="24px"
-                  value={t("TeacherDetails.item-description", {
-                    value: application.id,
-                  })}
+                  value={application.name || "-"}
                 />
                 <Text
                   fontSize="14px"

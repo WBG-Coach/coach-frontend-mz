@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { QuestionnaireHeader } from "./QuestionnaireHeader";
 import { ButtonQuestionList } from "./ButtonQuestionList";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Answer, AnswerFile } from "../../store/type";
 import { FinishContainer } from "./FinishContainer";
 import { useTranslation } from "react-i18next";
@@ -21,11 +21,14 @@ import {
   Container,
   LoadingDots,
 } from "../../components";
+import { LastAnswersList } from "./LastAnswersList";
+import { useDispatch } from "react-redux";
+import { openGuide } from "../../store/guide";
 
 const ObservationQuestionnaire: React.FC<{}> = () => {
   const theme: any = useTheme();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [isFinish, setFinish] = useState(false);
   const [files, setFiles] = useState<AnswerFile[][]>([[]]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -38,7 +41,9 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
 
   useEffect(() => {
     if (applicationId) {
-      getQuestions(parseInt(applicationId, 10));
+      getQuestions({
+        questionnaire_application_id: parseInt(applicationId, 10),
+      });
       getApplication({ id: parseInt(applicationId, 10) });
     }
   }, [applicationId, getQuestions, getApplication]);
@@ -134,8 +139,11 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
                   borderRadius="20px"
                   background="#F0F2F5"
                   onClick={() =>
-                    navigate(
-                      `/guide-content/${data?.questions[currentQuestion]?.question?.competence.content_guide_id}`
+                    dispatch(
+                      openGuide(
+                        data?.questions[currentQuestion]?.question?.competence
+                          .content_guide_id
+                      )
                     )
                   }
                 >
@@ -148,6 +156,7 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
                 </Container>
               </Container>
             )}
+
             {data?.questions.map(
               (_, index) =>
                 index === currentQuestion && (
@@ -179,7 +188,7 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
             </Container>
           )}
 
-          <Container mt="16px" mb="100px" flexDirection="column">
+          <Container mt="16px" flexDirection="column">
             {files.map(
               (fileList: AnswerFile[], index: number): ReactNode =>
                 currentQuestion === index &&
@@ -205,6 +214,15 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
                 ))
             )}
           </Container>
+
+          {data?.questions[currentQuestion]?.question.last_answers && (
+            <LastAnswersList
+              lastAnwsers={
+                data.questions[currentQuestion].question.last_answers || []
+              }
+            />
+          )}
+
           {data?.questions[currentQuestion]?.question.type !== "LIST" && (
             <Container
               left="0"

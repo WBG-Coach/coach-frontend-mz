@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Container, Icon, ListItem, Text } from "../../../components";
+import { openGuide } from "../../../store/guide";
 import { Answer } from "../../../store/type";
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
 
 export const CompetenceList: React.FC<Props> = ({ data }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -43,8 +44,10 @@ export const CompetenceList: React.FC<Props> = ({ data }) => {
                 title={answer?.option?.question?.competence.title}
                 description={answer?.option?.question?.competence.subtitle}
                 onClick={() => {
-                  navigate(
-                    `/guide-content/${answer?.option?.question?.competence.content_guide_id}`
+                  dispatch(
+                    openGuide(
+                      answer?.option?.question?.competence.content_guide_id
+                    )
                   );
                 }}
                 leftContent={

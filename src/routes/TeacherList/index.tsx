@@ -51,7 +51,7 @@ const TeachersList: React.FC<{}> = () => {
           value={t("Teachers.previous-sessions")}
         />
 
-        <Container flexDirection="row">
+        <Container flexDirection="row" overflowX="auto">
           {lastApplicationsRequest?.data?.data &&
             lastApplicationsRequest.data.data.length > 0 &&
             lastApplicationsRequest.data.data.map((application, index) => (
@@ -59,7 +59,7 @@ const TeachersList: React.FC<{}> = () => {
                 key={index}
                 p="12px"
                 mr="16px"
-                width="120px"
+                minWidth="120px"
                 height="120px"
                 borderRadius="12px"
                 flexDirection="column"
@@ -108,9 +108,7 @@ const TeachersList: React.FC<{}> = () => {
                     fontSize="16px"
                     fontWeight={600}
                     lineHeight="24px"
-                    value={t("TeacherDetails.item-description", {
-                      value: application.id,
-                    })}
+                    value={application.name || "-"}
                   />
                 </Container>
               </Container>

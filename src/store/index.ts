@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
+import guideReducer from "./guide";
 import authReducer from "./auth";
 import { api } from "../service";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
 export const store = configureStore({
-  reducer: { auth: authReducer, api: api.reducer },
+  reducer: { guide: guideReducer, auth: authReducer, api: api.reducer },
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware().concat(api.middleware),
   ],

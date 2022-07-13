@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Container, LoadingDots, Text } from "../../components";
 import { useGetAnswersMutation, useGetFeedbackMutation } from "../../service";
 import { TeacherInfo } from "../TeacherDetails/TeacherInfo";
 import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHeader";
+import { useDispatch } from "react-redux";
+import { openGuide } from "../../store/guide";
 
 const FeedbackDetails: React.FC<{}> = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [getFeedback, { data, isLoading }] = useGetFeedbackMutation();
   const [getAnswers, answersRequest] = useGetAnswersMutation();
   const { feedbackId } = useParams<{
@@ -51,9 +53,7 @@ const FeedbackDetails: React.FC<{}> = () => {
         flexDirection="column"
         onClick={() =>
           answersRequest?.data &&
-          navigate(
-            `/guide-content/${answersRequest?.data[0].option?.content_guide_id}`
-          )
+          dispatch(openGuide(answersRequest?.data[0].option?.content_guide_id))
         }
       >
         <Text
@@ -78,9 +78,7 @@ const FeedbackDetails: React.FC<{}> = () => {
         borderRadius="12px"
         background="#F0F2F5"
         flexDirection="column"
-        onClick={() =>
-          navigate(`/guide-content/${data?.competence?.content_guide_id}`)
-        }
+        onClick={() => dispatch(openGuide(data?.competence?.content_guide_id))}
       >
         <Text
           fontSize="14px"

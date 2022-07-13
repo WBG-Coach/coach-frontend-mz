@@ -1,4 +1,7 @@
 {
+  "Validations": {
+    "required": "Obrigatório"
+  },
   "Login": {
     "email": "Email",
     "password": "Senha",
@@ -98,7 +101,8 @@
     "class-plan": "Plano de aula",
     "see-class-plan": "Ver plano de aula",
     "selected-competency": "Competência a trabalhar",
-    "see-competence": "Ver competência"
+    "see-competence": "Ver competência",
+    "previous-sessions": "Sessões anteriores"
   },
   "FeedbackList": {
     "title": "Feedbacks",

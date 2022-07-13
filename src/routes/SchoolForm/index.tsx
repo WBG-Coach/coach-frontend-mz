@@ -16,7 +16,7 @@ const SchoolForm: React.FC<{}> = () => {
   const { t } = useTranslation();
 
   const validation = Yup.object().shape({
-    name: Yup.string().required("Required"),
+    name: Yup.string().required(t("Validations.required")),
   });
 
   useEffect(() => {

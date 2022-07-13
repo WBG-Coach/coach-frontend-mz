@@ -1,14 +1,17 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadLocalUser } from "./store/auth";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Container } from "./components";
 import { getLocalLanguage, getLocalUser } from "./storage";
 import { useTranslation } from "react-i18next";
+import { selectGuide } from "./store/guide";
+import GuideContent from "./components/GuideContent";
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const guide = useSelector(selectGuide);
   const [loaded, setLoaded] = useState(false);
   const { i18n } = useTranslation();
 
@@ -39,6 +42,20 @@ const App = () => {
       width="cacl(100% - 32px)"
     >
       {loaded && <Outlet />}
+      {guide.id && (
+        <Container
+          px="16px"
+          position="fixed"
+          top={0}
+          left={0}
+          bottom={0}
+          right={0}
+          background="#fff"
+          overflowY="scroll"
+        >
+          <GuideContent id={guide.id} />
+        </Container>
+      )}
     </Container>
   );
 };

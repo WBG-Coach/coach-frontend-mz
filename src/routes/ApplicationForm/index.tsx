@@ -13,6 +13,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-date-picker";
 import { Select } from "../../components/Select";
+import { Input } from "../../components/Input";
 
 const ApplicationForm: React.FC<{}> = () => {
   const [createApplication, { isSuccess, isLoading }] =
@@ -25,9 +26,10 @@ const ApplicationForm: React.FC<{}> = () => {
   const { t } = useTranslation();
 
   const validation = Yup.object().shape({
-    application_date: Yup.date().required(),
-    questionnaire_id: Yup.number().required(),
-    feedback_questionnaire_id: Yup.number().required(),
+    name: Yup.string().required(t("Validations.required")),
+    application_date: Yup.date().required(t("Validations.required")),
+    questionnaire_id: Yup.number().required(t("Validations.required")),
+    feedback_questionnaire_id: Yup.number().required(t("Validations.required")),
   });
 
   useEffect(() => {
@@ -72,6 +74,7 @@ const ApplicationForm: React.FC<{}> = () => {
       ) : (
         <Formik
           initialValues={{
+            name: "",
             application_date: new Date(),
             questionnaire_id: undefined,
             feedback_questionnaire_id: undefined,
@@ -87,6 +90,19 @@ const ApplicationForm: React.FC<{}> = () => {
               alignItems="center"
             >
               <Container width="100%" flexDirection="column">
+                <Text
+                  mb="4px"
+                  fontSize="14px"
+                  lineHeight="18px"
+                  fontWeight={600}
+                  value={t("ApplicationForm.name")}
+                />
+                <Input
+                  mb="16px"
+                  errorMessage={(!!submitCount && errors.name) || ""}
+                  onChangeText={(text) => setFieldValue("name", text)}
+                />
+
                 <Text
                   mb="4px"
                   fontSize="14px"

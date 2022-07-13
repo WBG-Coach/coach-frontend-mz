@@ -10,6 +10,8 @@ import {
 import { ContainerProps } from "./types";
 
 export const StyledContainer = styled.div<ContainerProps>`
+  transition: all 300ms;
+  display: flex;
   ${layout}
   ${space}
   ${flexbox}
@@ -17,13 +19,18 @@ export const StyledContainer = styled.div<ContainerProps>`
   ${border}
   ${background}
 
-  transition: all 300ms;
-  display: flex;
-
   ${(props) =>
     props.rotate &&
     css`
       transform: rotate(${props.rotate}deg);
+    `}
+
+  ${(props) =>
+    props.hideScrollbar &&
+    css`
+      &::-webkit-scrollbar {
+        height: 0px;
+      }
     `}
 
   ${(props) =>

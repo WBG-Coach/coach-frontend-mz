@@ -3,12 +3,9 @@ import { layout, space } from "styled-system";
 import { ButtonProps } from "./types";
 
 export const StyledQuestionButton = styled.button<ButtonProps>`
-  width: auto;
-  display: inline;
+  min-width: ${(props) => (props.selected ? "92px" : "32px")};
   border: none;
-  display: flex;
   height: 32px;
-  min-width: 32px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
