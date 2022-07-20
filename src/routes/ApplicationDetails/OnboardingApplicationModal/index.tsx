@@ -103,7 +103,7 @@ export const OnboardingApplicationModal = () => {
               color="#191A1B"
               fontWeight={600}
               fontSize="14px"
-              value="Preparação do feedback"
+              value="Preparação do encontro de acompanhamento"
             />
             <Text
               color="#494B50"
@@ -136,7 +136,7 @@ export const OnboardingApplicationModal = () => {
               color="#191A1B"
               fontWeight={600}
               fontSize="14px"
-              value="Feedback"
+              value="Encontro de acompanhamento"
             />
             <Text
               color="#494B50"

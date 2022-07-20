@@ -80,13 +80,14 @@
     "onboarding-modal-title": "Observation sessions"
   },
   "ApplicationForm": {
-    "name": "Name",
+    "name": "Session title",
     "title": "New session",
     "save": "Create session",
     "application-date": "Start date",
-    "select-questionnaire": "Select a form",
-    "feedback-questionnaire": "Feedback form",
-    "observation-questionnaire": "Observation form"
+    "select-questionnaire": "Select a observation sheet",
+    "feedback-questionnaire": "Form for the follow-up meeting",
+    "select-feedback-questionnaire": "Select a form for the follow-up meeting",
+    "observation-questionnaire": "Observation sheet"
   },
   "Questionnaire": {
     "title": "Session",
@@ -98,7 +99,7 @@
     "finish": "Finish",
     "continue": "Continue",
     "see-summary": "See summary",
-    "finish-title": "Good job, Coach!",
+    "finish-title": "Good job, pedagogical advisor!",
     "question-number": "Question {{value}}",
     "finish-description": "The observation sheet has been saved.",
     "annotation": "Annotation",

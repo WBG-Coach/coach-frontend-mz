@@ -75,13 +75,14 @@
     "onboarding-modal-title": "Sessão de orientação"
   },
   "ApplicationForm": {
-    "name": "Nome",
+    "name": "Nome da sessão",
     "title": "Nova sessão",
     "save": "Criar sessão",
     "application-date": "Data início",
-    "select-questionnaire": "Seleccionar um cuestionario",
-    "feedback-questionnaire": "Feedback form",
-    "observation-questionnaire": "Observation form"
+    "select-questionnaire": "Seleccionar a ficha de observação",
+    "feedback-questionnaire": "Ficha para o encontro de acompanhamento",
+    "select-feedback-questionnaire": "Seleccionar a ficha para o encontro de acompanhamento",
+    "observation-questionnaire": "Ficha de observação"
   },
   "Questionnaire": {
     "title": "Sessão",
@@ -93,7 +94,7 @@
     "finish": "Concluir",
     "continue": "Continuar",
     "see-summary": "Ver resumo",
-    "finish-title": "Bom trabalho, Coach!",
+    "finish-title": "Bom trabalho, orientador pedagógico!",
     "question-number": "Questão {{value}}",
     "finish-description": "A competência pedagógica foi selecionada!",
     "annotation": "Annotation",

@@ -162,11 +162,14 @@ const ApplicationForm: React.FC<{}> = () => {
                 />
                 <Select
                   errorMessage={errors.feedback_questionnaire_id}
-                  modalTitle={t("ApplicationForm.select-questionnaire")}
+                  modalTitle={t(
+                    "ApplicationForm.select-feedback-questionnaire"
+                  )}
                   value={
                     questionnairesRequest.data?.find(
                       (item) => item.id === values.feedback_questionnaire_id
-                    )?.title || t("ApplicationForm.select-questionnaire")
+                    )?.title ||
+                    t("ApplicationForm.select-feedback-questionnaire")
                   }
                   data={
                     questionnairesRequest.data?.filter(
