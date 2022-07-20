@@ -1,13 +1,11 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { ProtectedRoute } from "./components";
 import ReactDOM from "react-dom/client";
 import Profile from "./routes/Profile";
 import { Provider } from "react-redux";
 import { store } from "./store";
-import { theme } from "./theme";
 import App from "./app";
 import "./i18n";
 
@@ -26,6 +24,7 @@ import SignUp from "./routes/SignUp";
 import SchoolForm from "./routes/SchoolForm";
 import TeacherForm from "./routes/TeacherForm";
 import ApplicationForm from "./routes/ApplicationForm";
+import SelectProject from "./routes/SelectProject";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -33,137 +32,137 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route index element={<Login />} />
-            <Route path="sign-up" element={<SignUp />} />
-            <Route
-              path="select-school"
-              element={
-                <ProtectedRoute>
-                  <SchoolsList />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="school-form"
-              element={
-                <ProtectedRoute>
-                  <SchoolForm />
-                </ProtectedRoute>
-              }
-            />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<SelectProject />} />
+          <Route path="login/:projectId" element={<Login />} />
+          <Route path="sign-up" element={<SignUp />} />
+          <Route
+            path="select-school"
+            element={
+              <ProtectedRoute>
+                <SchoolsList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="school-form"
+            element={
+              <ProtectedRoute>
+                <SchoolForm />
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="teachers"
-              element={
-                <ProtectedRoute>
-                  <TeachersList />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="teacher-form"
-              element={
-                <ProtectedRoute>
-                  <TeacherForm />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="teacher/:teacherId"
-              element={
-                <ProtectedRoute>
-                  <TeacherDetails />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="application-form/:teacherId"
-              element={
-                <ProtectedRoute>
-                  <ApplicationForm />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="application-details/:applicationId/:questionnaireId"
-              element={
-                <ProtectedRoute>
-                  <ApplicationDetails />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="questionnaire/:applicationId"
-              element={
-                <ProtectedRoute>
-                  <ObservationQuestionnaire />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="questionnaire-observation-review/:applicationId"
-              element={
-                <ProtectedRoute>
-                  <ObservationDetails />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="feedback-list/:applicationId"
-              element={
-                <ProtectedRoute>
-                  <FeedbackList />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="feedback-details/:feedbackId"
-              element={
-                <ProtectedRoute>
-                  <FeedbackDetails />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="questionnaire-feedback/:applicationId/:questionnaireId"
-              element={
-                <ProtectedRoute>
-                  <FeedbackQuestionnaire />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="questionnaire-review/:applicationId"
-              element={
-                <ProtectedRoute>
-                  <ApplicationNotes />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="questionnaire-review-details/:id"
-              element={
-                <ProtectedRoute>
-                  <ApplicationNotes />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="profile"
-              element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              }
-            />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+          <Route
+            path="teachers"
+            element={
+              <ProtectedRoute>
+                <TeachersList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="teacher-form"
+            element={
+              <ProtectedRoute>
+                <TeacherForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="teacher/:teacherId"
+            element={
+              <ProtectedRoute>
+                <TeacherDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="application-form/:teacherId"
+            element={
+              <ProtectedRoute>
+                <ApplicationForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="application-details/:applicationId/:questionnaireId"
+            element={
+              <ProtectedRoute>
+                <ApplicationDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="questionnaire/:applicationId"
+            element={
+              <ProtectedRoute>
+                <ObservationQuestionnaire />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="questionnaire-observation-review/:applicationId"
+            element={
+              <ProtectedRoute>
+                <ObservationDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="feedback-list/:applicationId"
+            element={
+              <ProtectedRoute>
+                <FeedbackList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="feedback-details/:feedbackId"
+            element={
+              <ProtectedRoute>
+                <FeedbackDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="questionnaire-feedback/:applicationId/:questionnaireId"
+            element={
+              <ProtectedRoute>
+                <FeedbackQuestionnaire />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="questionnaire-review/:applicationId"
+            element={
+              <ProtectedRoute>
+                <ApplicationNotes />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="questionnaire-review-details/:id"
+            element={
+              <ProtectedRoute>
+                <ApplicationNotes />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </Provider>
 );
 

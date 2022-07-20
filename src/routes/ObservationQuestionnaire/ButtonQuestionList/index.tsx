@@ -35,7 +35,7 @@ export const ButtonQuestionList: React.FC<Props> = ({
           onClick={() => onClick(index)}
           value={
             index === currentQuestion
-              ? t("Questionnaire.question-number", { value: index + 1 })
+              ? t("Questionnaire.question-number", { value: index })
               : index + 1
           }
         />

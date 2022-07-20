@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { selectCurrentUser, selectSchool } from "../../store/auth";
 import { LoadingDots } from "../../components/LoadingDots";
-import LogoSmall from "../../assets/images/logo-small.svg";
+import LogoSmall from "../../assets/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetSchoolsMutation } from "../../service";
 import { useTranslation } from "react-i18next";

@@ -40,7 +40,7 @@ const FeedbackDetails: React.FC<{}> = () => {
         fontSize="20px"
         fontWeight={600}
         lineHeight="24px"
-        value={t("Questionnaire.session-title", { value: data?.id })}
+        value={data?.questionnaire_application?.name}
       />
 
       <TeacherInfo teacher={data?.questionnaire_application?.teacher} />

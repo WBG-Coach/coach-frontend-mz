@@ -58,7 +58,7 @@
     "sessions": "Sessões de orientação",
     "item-description": "Sessão {{value}}",
     "subject": "Professor de {{subject}}",
-    "competences": "Competências",
+    "competences": "Resultados da última observação",
     "feedbacks": "Feedbacks",
     "see-feedback": "Ver feedbacks",
     "add-session": "Adicionar sessão"
@@ -75,10 +75,11 @@
     "onboarding-modal-title": "Sessão de orientação"
   },
   "ApplicationForm": {
+    "name": "Nome",
     "title": "Nova sessão",
     "save": "Criar sessão",
     "application-date": "Data início",
-    "select-questionnaire": "Select a forn",
+    "select-questionnaire": "Seleccionar um cuestionario",
     "feedback-questionnaire": "Feedback form",
     "observation-questionnaire": "Observation form"
   },

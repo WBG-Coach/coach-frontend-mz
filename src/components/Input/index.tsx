@@ -26,6 +26,11 @@ export const Input: React.FC<InputProps> = ({
           value={value}
           placeholder={placeholder}
           onChange={(e: any): void => onChange(e.target.value)}
+          onKeyPress={(event: React.KeyboardEvent) => {
+            if (event.key === "Enter" && props?.handlePressEnter) {
+              props.handlePressEnter();
+            }
+          }}
         />
       </StyledInputContainer>
       {errorMessage && <StyledErrorMessage>{errorMessage}</StyledErrorMessage>}

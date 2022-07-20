@@ -7,6 +7,8 @@ import { getLocalLanguage, getLocalUser } from "./storage";
 import { useTranslation } from "react-i18next";
 import { selectGuide } from "./store/guide";
 import GuideContent from "./components/GuideContent";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./theme";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -14,6 +16,7 @@ const App = () => {
   const guide = useSelector(selectGuide);
   const [loaded, setLoaded] = useState(false);
   const { i18n } = useTranslation();
+  const [currentTheme] = useState(theme);
 
   useEffect(() => {
     if (!loaded) {
@@ -34,29 +37,31 @@ const App = () => {
   }, [loaded, i18n, dispatch, navigate]);
 
   return (
-    <Container
-      m="auto"
-      p="16px"
-      maxWidth="600px"
-      flexDirection="column"
-      width="cacl(100% - 32px)"
-    >
-      {loaded && <Outlet />}
-      {guide.id && (
-        <Container
-          px="16px"
-          position="fixed"
-          top={0}
-          left={0}
-          bottom={0}
-          right={0}
-          background="#fff"
-          overflowY="scroll"
-        >
-          <GuideContent id={guide.id} />
-        </Container>
-      )}
-    </Container>
+    <ThemeProvider theme={currentTheme}>
+      <Container
+        m="auto"
+        p="16px"
+        maxWidth="600px"
+        flexDirection="column"
+        width="cacl(100% - 32px)"
+      >
+        {loaded && <Outlet />}
+        {guide.id && (
+          <Container
+            px="16px"
+            position="fixed"
+            top={0}
+            left={0}
+            bottom={0}
+            right={0}
+            background="#fff"
+            overflowY="scroll"
+          >
+            <GuideContent id={guide.id} />
+          </Container>
+        )}
+      </Container>
+    </ThemeProvider>
   );
 };
 

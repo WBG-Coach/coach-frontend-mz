@@ -15,3 +15,13 @@ export const StyledFooter = styled.div<FooterProps>`
   justify-content: center;
   border-top: 1px solid #f0f3f5;
 `;
+
+export const StyledGuideModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background-color: #fff;
+`;

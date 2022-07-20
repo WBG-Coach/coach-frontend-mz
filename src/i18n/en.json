@@ -2,12 +2,17 @@
   "Validations": {
     "required": "Required"
   },
+  "SelectProject": {
+    "title": "Choose a project",
+    "search": "Search"
+  },
   "Login": {
     "email": "Email",
-    "password": "Password",
     "enter": "Enter",
+    "password": "Password",
+    "register": "Register",
     "dont-you-have-account": "Don't have an account?",
-    "register": "Register"
+    "choose-another-project": "Choose another project"
   },
   "SignUp": {
     "title": "Register",
@@ -58,7 +63,7 @@
     "sessions": "Observation sessions",
     "item-description": "Session {{value}}",
     "subject": "{{subject}} teacher",
-    "competences": "Competencies",
+    "observation-results": "Results of the last observation",
     "feedbacks": "Feedback",
     "see-feedback": "Review feedback",
     "add-session": "Add a session"

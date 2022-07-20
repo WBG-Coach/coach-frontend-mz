@@ -25,7 +25,7 @@ export const CompetenceList: React.FC<Props> = ({ data }) => {
           fontSize="20px"
           lineHeight="24px"
           fontWeight={600}
-          value={t("TeacherDetails.competences")}
+          value={t("TeacherDetails.observation-results")}
         />
         <Icon rotate={isOpen ? 90 : 0} size={24} name="chevron-right" />
       </Container>

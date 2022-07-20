@@ -12,6 +12,15 @@ export type User = {
   subject?: string;
   answers?: Answer[];
   api_token?: string;
+  project?: Project;
+};
+
+export type Project = {
+  id: number;
+  image: string;
+  name: string;
+  country: string;
+  primaryColor: string;
 };
 
 export type School = {

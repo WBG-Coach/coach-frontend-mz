@@ -1,7 +1,6 @@
 import "react-spring-bottom-sheet/dist/style.css";
 import React, { useEffect, useState } from "react";
 import { selectCurrentUser, selectSchool } from "../../store/auth";
-import LogoSmall from "../../assets/images/logo-small.svg";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetSchoolsMutation } from "../../service";
@@ -77,7 +76,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
             />
             <Icon ml="4px" name="chevron-bottom" size={24} />
           </Container>
-          <Image height={24} src={LogoSmall} />
         </Container>
         <BottomSheet open={open} onDismiss={() => setOpen(false)}>
           <Container flexDirection="column" p="16px">
