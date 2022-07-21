@@ -34,3 +34,21 @@ export const uploadFileToS3 = (file: File): Promise<AnswerFile> => {
 };
 
 export const groupAndSumAnswers = () => {};
+
+export const getLocation = (): Promise<{
+  latitude: number;
+  longitude: number;
+}> => {
+  return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        resolve({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    } else {
+      reject("Geolocation is not supported by this browser.");
+    }
+  });
+};

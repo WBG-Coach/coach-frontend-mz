@@ -6,7 +6,7 @@ import { Answer, AnswerFile } from "../../store/type";
 import { FinishContainer } from "./FinishContainer";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { uploadFileToS3 } from "../../util";
+import { getLocation, uploadFileToS3 } from "../../util";
 import { OptionsList } from "./OptionsList";
 import {
   useGetQuestionsMutation,
@@ -29,6 +29,7 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
   const theme: any = useTheme();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [isLoadingAnswer, setIsLoadingAnswer] = useState(false);
   const [isFinish, setFinish] = useState(false);
   const [files, setFiles] = useState<AnswerFile[][]>([[]]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -94,7 +95,10 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
   };
 
   const sendQuestionnaire = async () => {
+    setIsLoadingAnswer(true);
+    const location = await getLocation();
     await answerQuestionnaire({
+      ...location,
       questionnaire_application_id: parseInt(applicationId || "", 10),
       answers:
         data?.questions.map(
@@ -106,10 +110,11 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
           })
         ) || [],
     });
+    setIsLoadingAnswer(false);
     setFinish(true);
   };
 
-  return isLoading || applicationRequest.isLoading ? (
+  return isLoading || isLoadingAnswer || applicationRequest.isLoading ? (
     <LoadingDots />
   ) : (
     <Container flex={1} flexDirection="column">
