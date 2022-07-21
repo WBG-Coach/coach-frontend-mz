@@ -130,6 +130,8 @@ export type AnswerFile = {
 
 export type Feedback = {
   id?: number;
+  latitude?: number;
+  longitude?: number;
   questionnaire_application_id?: number;
   questionnaire_application?: Application;
   competence_id?: number;

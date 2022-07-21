@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Button, Container, Icon, Text, TextArea } from "../../components";
+import {
+  Button,
+  Container,
+  Icon,
+  LoadingDots,
+  Text,
+  TextArea,
+} from "../../components";
 import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHeader";
 import {
   useAnswerFeedbackMutation,
@@ -11,6 +18,7 @@ import {
 import { Answer } from "../../store/type";
 import { useDispatch } from "react-redux";
 import { openGuide } from "../../store/guide";
+import { getLocation } from "../../util";
 
 const FeedbackQuestionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
@@ -20,6 +28,7 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
   const [answer, setAnswer] = useState<Answer>();
   const [currentStep, setCurrentStep] = useState(0);
   const [getAnswer, { data }] = useGetAnswersMutation();
+  const [isLoadingAnswer, setIsLoadingAnswer] = useState(false);
   const [getQuestions, questionsRequest] = useGetQuestionsMutation();
   const [answerFeedback] = useAnswerFeedbackMutation();
   const [notes, setNotes] = useState<string[]>([]);
@@ -55,22 +64,29 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
     setCurrentStep(1);
   };
 
-  const sendQuestionnaire = () => {
+  const sendQuestionnaire = async () => {
     if (answer?.id) {
-      answerFeedback({
+      setIsLoadingAnswer(true);
+      const location = await getLocation();
+
+      await answerFeedback({
+        ...location,
         answer_id: answer.id,
         feedback_answers: notes.map((note, index) => ({
           notes: note,
           questionnaire_question_id:
             questionsRequest?.data?.questions[index].id || 0,
         })),
-      }).then(() => {
-        navigate(-1);
       });
+
+      setIsLoadingAnswer(false);
+      navigate(-1);
     }
   };
 
-  return (
+  return isLoadingAnswer ? (
+    <LoadingDots />
+  ) : (
     <>
       <QuestionnaireHeader title={t("Questionnaire.title-feedback")} />
       {currentStep === 0 ? (
