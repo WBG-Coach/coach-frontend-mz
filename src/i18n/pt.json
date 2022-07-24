@@ -20,7 +20,8 @@
   },
   "Menu": {
     "home": "Inicio",
-    "guide": "Guião"
+    "guide": "Guião",
+    "profile": "Perfil"
   },
   "SchoolForm": {
     "save": "Salvar",
@@ -114,6 +115,10 @@
     "finish": "Preparar feedback"
   },
   "Profile": {
-    "logout": "Sair"
+    "logout": "Sair",
+    "help": "Ajuda",
+    "update-password": "Alterar senha",
+    "edit-profile": "Editar perfil",
+    "version": "Version {{value}}"
   }
 }

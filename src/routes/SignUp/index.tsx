@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
-import { Button, Container, Icon, Text } from "../../components";
+import { Button, Container, Icon, Image, Text } from "../../components";
 import { useCreateCoachMutation } from "../../service";
 import * as Yup from "yup";
 import { Input } from "../../components/Input";
@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { selectLoginErrorMessage } from "../../store/auth";
 import { User } from "../../store/type";
+import { PROJECT } from "../../mock";
 
 const SignUp: React.FC = () => {
   const [signUp, { isSuccess }] = useCreateCoachMutation();
@@ -32,13 +33,7 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <Container
-      m="auto"
-      width="100%"
-      maxWidth="350px"
-      alignItems="center"
-      flexDirection="column"
-    >
+    <Container m="auto" width="100%" alignItems="center" flexDirection="column">
       <Container
         mb="32px"
         alignItems="center"
@@ -48,17 +43,21 @@ const SignUp: React.FC = () => {
         <Container onClick={() => navigate(-1)}>
           <Icon name="arrow-left" size={24} />
         </Container>
-        <Text fontWeight={600} value={t("SignUp.title")} />
+
+        <Image src={PROJECT.image} height="24px" />
+
         <Container width="24px"></Container>
       </Container>
 
-      <Text
-        value={t("SignUp.description")}
-        fontSize="24px"
-        lineHeight="32px"
-        fontWeight="600"
-        mb="32px"
-      />
+      <Container width="100%">
+        <Text
+          value={t("SignUp.description")}
+          fontSize="24px"
+          lineHeight="32px"
+          fontWeight="600"
+          mb="36px"
+        />
+      </Container>
 
       {loginErrorMessage && (
         <Text

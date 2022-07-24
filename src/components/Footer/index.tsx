@@ -101,7 +101,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
           <Text
             fontSize={12}
             color={pathname === "/profile" ? PROJECT.primaryColor : "#2C4668"}
-            value="Profile"
+            value={t("Menu.profile")}
           />
         </Container>
       </StyledFooter>

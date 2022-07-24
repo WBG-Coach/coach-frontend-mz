@@ -25,7 +25,8 @@
   },
   "Menu": {
     "home": "Home",
-    "guide": "Guide"
+    "guide": "Guide",
+    "profile": "Profile"
   },
   "SchoolForm": {
     "save": "Save",
@@ -119,6 +120,10 @@
     "finish": "Prepare feedback"
   },
   "Profile": {
-    "logout": "Logout"
+    "logout": "Logout",
+    "help": "Help",
+    "update-password": "Update password",
+    "edit-profile": "Edit profile",
+    "version": "Version {{value}}"
   }
 }
