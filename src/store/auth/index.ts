@@ -18,6 +18,11 @@ const authSlice = createSlice({
       setLocalUser(newState);
       return newState;
     },
+    selectProject: (state, action) => {
+      const newState = { ...state, project: action.payload };
+      setLocalUser(newState);
+      return newState;
+    },
     logout: () => {
       clearLocalStorage();
       setLocalUser(INITIAL_STATE);
@@ -41,7 +46,8 @@ export const selectCurrentUser = (state: RootState): User => state.auth;
 export const selectLoginErrorMessage = (state: RootState) =>
   state.auth.loginError;
 
-export const { selectSchool, loadLocalUser, logout } = authSlice.actions;
+export const { selectSchool, loadLocalUser, selectProject, logout } =
+  authSlice.actions;
 
 const { reducer } = authSlice;
 

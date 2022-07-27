@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { loadLocalUser } from "./store/auth";
+import { loadLocalUser, selectCurrentUser } from "./store/auth";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Container } from "./components";
@@ -14,9 +14,10 @@ const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const guide = useSelector(selectGuide);
+  const user = useSelector(selectCurrentUser);
   const [loaded, setLoaded] = useState(false);
   const { i18n } = useTranslation();
-  const [currentTheme] = useState(theme);
+  const [currentTheme, setCurrentTheme] = useState(theme);
 
   useEffect(() => {
     if (!loaded) {
@@ -35,6 +36,20 @@ const App = () => {
       setLoaded(true);
     }
   }, [loaded, i18n, dispatch, navigate]);
+
+  useEffect(() => {
+    if (user.project?.id) {
+      if (currentTheme.colors.primary !== user.project.primaryColor) {
+        setCurrentTheme({
+          ...currentTheme,
+          colors: {
+            ...currentTheme.colors,
+            primary: user.project.primaryColor,
+          },
+        });
+      }
+    }
+  }, [navigate, currentTheme, user]);
 
   return (
     <ThemeProvider theme={currentTheme}>

@@ -38,7 +38,10 @@ export const api = createApi({
     prepareHeaders,
   }),
   endpoints: (builder) => ({
-    login: builder.mutation<User, { email: string; password: string }>({
+    login: builder.mutation<
+      User,
+      { email: string; password: string; project_id: number }
+    >({
       query: (body) => ({
         method: "POST",
         url: "/api/auth",

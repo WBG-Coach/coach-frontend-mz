@@ -1,10 +1,9 @@
 import { Project } from "./store/type";
-import LogoAprender from "./assets/images/logo.png";
 
 export const PROJECT: Project = {
   id: 1,
   name: "Aprender +",
-  image: LogoAprender,
+  image: "https://s3.amazonaws.com/coachdigital.org/static/aprender-mais.png",
   country: "Moçambique",
   primaryColor: "#0F8A43",
 };

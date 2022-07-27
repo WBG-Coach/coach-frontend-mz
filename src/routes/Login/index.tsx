@@ -1,21 +1,34 @@
 import React, { useEffect } from "react";
 import { Button, Container, Image, Text } from "../../components";
 import { LanguageButton } from "../../components/LanguageButton";
-import { selectLoginErrorMessage } from "../../store/auth";
+import {
+  logout,
+  selectCurrentUser,
+  selectLoginErrorMessage,
+} from "../../store/auth";
 import { useLoginMutation } from "../../service";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { PROJECT } from "../../mock";
 
 const Login: React.FC = () => {
   const [login, { isLoading, isSuccess, error }] = useLoginMutation();
   const loginErrorMessage = useSelector(selectLoginErrorMessage);
+  const user = useSelector(selectCurrentUser);
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("Error ", error);
+  }, [error]);
+
+  useEffect(() => {
+    if (!user.project) navigate("/select-project");
+  }, [navigate, user]);
 
   useEffect(() => {
     if (isSuccess) navigate("/select-school");
@@ -27,7 +40,7 @@ const Login: React.FC = () => {
   });
 
   const handlerLogin = (values: { email: string; password: string }) => {
-    login(values);
+    login({ ...values, project_id: user.project?.id || 0 });
   };
 
   return (
@@ -44,7 +57,12 @@ const Login: React.FC = () => {
       </Container>
 
       <Container flexDirection="column" alignItems="center" width="100%">
-        <Image src={PROJECT.image} mx="auto" mb="48px" width={"220px"} />
+        <Image
+          mx="auto"
+          mb="48px"
+          width={"220px"}
+          src={user.project?.image || ""}
+        />
 
         {error && (
           <Text color="#e53935" value={(error as any)?.data?.message} />
@@ -115,7 +133,7 @@ const Login: React.FC = () => {
         </Text>
       </Container>
 
-      <Container ml="2px" onClick={() => navigate(-1)}>
+      <Container ml="2px" onClick={() => dispatch(logout())}>
         <Text color="primary">{t("Login.choose-another-project")}</Text>
       </Container>
     </Container>

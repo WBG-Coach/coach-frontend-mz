@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Container } from "../../../components";
-import { QuestionButton } from "../../../components/QuestionButton";
 import { QuestionnaireQuestion } from "../../../store/type";
+import { QuestionButton } from "../../../components/QuestionButton";
 
 type Props = {
   questions: QuestionnaireQuestion[];
@@ -36,7 +36,7 @@ export const ButtonQuestionList: React.FC<Props> = ({
           value={
             index === currentQuestion
               ? t("Questionnaire.question-number", { value: index })
-              : index + 1
+              : index
           }
         />
       ))}

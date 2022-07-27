@@ -1,17 +1,26 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Container, Image, Text } from "../../components";
 import WBGLogo from "../../assets/images/WBG.png";
 import { Input } from "../../components/Input";
 import { useTranslation } from "react-i18next";
 import { LanguageButton } from "../../components/LanguageButton";
 import { PROJECT } from "../../mock";
+import { Project } from "../../store/type";
+import { useDispatch } from "react-redux";
+import { selectProject } from "../../store/auth";
+import { useNavigate } from "react-router-dom";
 
 const SelectProject: React.FC = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const DATA = [PROJECT];
+
+  const onSelectProject = (project: Project) => {
+    dispatch(selectProject(project));
+    navigate(`login/${project.id}`);
+  };
 
   return (
     <Container
@@ -45,7 +54,11 @@ const SelectProject: React.FC = () => {
 
       <Container mt="16px" flexDirection="column" width="100%">
         {DATA.map((project) => (
-          <Container py="16px" onClick={() => navigate(`login/${project.id}`)}>
+          <Container
+            py="16px"
+            key={project.id}
+            onClick={() => onSelectProject(project)}
+          >
             <Container
               mr="12px"
               p="4px"
