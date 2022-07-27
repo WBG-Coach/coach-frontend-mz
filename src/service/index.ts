@@ -48,7 +48,7 @@ export const api = createApi({
         body,
       }),
     }),
-    createCoach: builder.mutation<void, User>({
+    createCoach: builder.mutation<void, User & { project_id: number }>({
       query: (body) => ({
         method: "POST",
         url: "/api/createCoach",

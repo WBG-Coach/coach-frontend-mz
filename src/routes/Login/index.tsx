@@ -127,7 +127,10 @@ const Login: React.FC = () => {
         </Formik>
         <Text mt="24px">
           {t("Login.dont-you-have-account")}
-          <Container ml="2px" onClick={() => navigate("/sign-up")}>
+          <Container
+            ml="2px"
+            onClick={() => navigate(`/sign-up/${user.project?.id}`)}
+          >
             <Text color="primary">{t("Login.register")}</Text>
           </Container>
         </Text>

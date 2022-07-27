@@ -37,7 +37,7 @@ root.render(
         <Route path="/" element={<App />}>
           <Route index element={<SelectProject />} />
           <Route path="login/:projectId" element={<Login />} />
-          <Route path="sign-up" element={<SignUp />} />
+          <Route path="sign-up/:projectId" element={<SignUp />} />
           <Route
             path="select-school"
             element={

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Formik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button, Container, Icon, Image, Text } from "../../components";
 import { useCreateCoachMutation } from "../../service";
 import * as Yup from "yup";
@@ -16,6 +16,9 @@ const SignUp: React.FC = () => {
   const loginErrorMessage = useSelector(selectLoginErrorMessage);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { projectId } = useParams<{
+    projectId: string;
+  }>();
 
   useEffect(() => {
     if (isSuccess) navigate("/");
@@ -29,7 +32,7 @@ const SignUp: React.FC = () => {
   });
 
   const handlerLogin = (values: User) => {
-    signUp(values);
+    signUp({ ...values, project_id: parseInt(projectId || "", 10) });
   };
 
   return (
