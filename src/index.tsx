@@ -26,6 +26,7 @@ import TeacherForm from "./routes/TeacherForm";
 import ApplicationForm from "./routes/ApplicationForm";
 import SelectProject from "./routes/SelectProject";
 import ProfileForm from "./routes/ProfileForm";
+import UpdatePassword from "./routes/UpdatePassword";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -165,6 +166,14 @@ root.render(
             element={
               <ProtectedRoute>
                 <ProfileForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="update-password"
+            element={
+              <ProtectedRoute>
+                <UpdatePassword />
               </ProtectedRoute>
             }
           />

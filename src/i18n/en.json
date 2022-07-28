@@ -136,5 +136,11 @@
     "description": "Register your account",
     "create-account": "Create account",
     "save": "Save updates"
+  },
+  "UpdatePassword": {
+    "title": "Update passwrod",
+    "old_password": "Current password",
+    "new_password": "New password",
+    "passwordConfirmation": "Confirm password"
   }
 }

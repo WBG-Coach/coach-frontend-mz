@@ -103,7 +103,9 @@ const Profile: React.FC<{}> = () => {
         {renderOption("user-circle", t("Profile.edit-profile"), () =>
           navigate("/profile-form")
         )}
-        {renderOption("lock", t("Profile.update-password"), () => {})}
+        {renderOption("lock", t("Profile.update-password"), () =>
+          navigate("/update-password")
+        )}
         {renderOption("question-circle", t("Profile.help"), openHelpEmail)}
         {renderOption("signout", t("Profile.logout"), handleLogout, false)}
 

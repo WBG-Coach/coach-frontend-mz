@@ -131,5 +131,11 @@
     "description": "Register your account",
     "create-account": "Create account",
     "save": "Save updates"
+  },
+  "UpdatePassword": {
+    "title": "Alterar senha",
+    "old_password": "Senha atual",
+    "new_password": "Nova senha",
+    "passwordConfirmation": "Confirmar senha"
   }
 }
