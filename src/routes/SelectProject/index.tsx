@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Image, Text } from "../../components";
-import WBGLogo from "../../assets/images/WBG.png";
+import WBGLogo from "../../assets/images/WBG.svg";
 import { Input } from "../../components/Input";
 import { useTranslation } from "react-i18next";
 import { LanguageButton } from "../../components/LanguageButton";
@@ -31,10 +31,11 @@ const SelectProject: React.FC = () => {
     >
       <Container
         width="100%"
+        alignItems="center"
         flexDirection="row"
         justifyContent="space-between"
       >
-        <Image p="16px" src={WBGLogo} height={24} />
+        <Image src={WBGLogo} height={24} />
         <LanguageButton />
       </Container>
 
