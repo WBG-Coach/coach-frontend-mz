@@ -125,5 +125,16 @@
     "update-password": "Update password",
     "edit-profile": "Edit profile",
     "version": "Version {{value}}"
+  },
+  "UpdateProfile": {
+    "change-photo": "Update photo",
+    "title": "Update profile",
+    "name": "First name",
+    "last_name": "Last name",
+    "email": "Email",
+    "password": "Password",
+    "description": "Register your account",
+    "create-account": "Create account",
+    "save": "Save updates"
   }
 }

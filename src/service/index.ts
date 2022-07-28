@@ -233,6 +233,13 @@ export const api = createApi({
         body: { id },
       }),
     }),
+    updateUser: builder.mutation<void, User>({
+      query: (body) => ({
+        method: "PUT",
+        url: "/api/users",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -260,4 +267,5 @@ export const {
   useAnswerQuestionnaireMutation,
   useAnswerFeedbackMutation,
   useGetContentGuideMutation,
+  useUpdateUserMutation,
 } = api;

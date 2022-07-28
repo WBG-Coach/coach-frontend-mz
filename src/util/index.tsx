@@ -19,11 +19,13 @@ export const uploadFileToS3 = (file: File): Promise<AnswerFile> => {
       Bucket: process.env.REACT_APP_AWS_BUCKET_NAME || "",
     };
 
+    console.log(params);
+
     myBucket
       .putObject(params)
       .on("complete", () => {
         resolve({
-          url: `https://${process.env.REACT_APP_AWS_BUCKET_NAME}.s3.amazonaws.com/${file.name}`,
+          url: `https://s3.amazonaws.com/${process.env.REACT_APP_AWS_BUCKET_NAME}/${file.name}`,
           name: file.name,
         });
       })
@@ -32,8 +34,6 @@ export const uploadFileToS3 = (file: File): Promise<AnswerFile> => {
       });
   });
 };
-
-export const groupAndSumAnswers = () => {};
 
 export const getLocation = (): Promise<{
   latitude: number;

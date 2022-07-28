@@ -1,16 +1,23 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Container, Footer, Icon, Image, Text } from "../../components";
 import { LanguageButton } from "../../components/LanguageButton";
 import { PROJECT } from "../../mock";
 import { logout, selectCurrentUser } from "../../store/auth";
 import { User } from "../../store/type";
 
+const emailTo = "example@example.com";
+const emailCC = "cc@example.com";
+const emailSub = "Help - Coachdigital";
+const emailBody = "body";
+
 const Profile: React.FC<{}> = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const user: User = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
@@ -34,6 +41,13 @@ const Profile: React.FC<{}> = () => {
       <Icon ml="auto" name="chevron-right" size={24} color="#CCCCCC" />
     </Container>
   );
+
+  const openHelpEmail = () => {
+    window.open(
+      `mailto:${emailTo}?cc=${emailCC}&subject=${emailSub}&body=${emailBody}`,
+      "_self"
+    );
+  };
 
   return (
     <>
@@ -86,9 +100,11 @@ const Profile: React.FC<{}> = () => {
         />
         <Text mb="32px" color="#7D827F" fontSize="14px" value={user.email} />
 
-        {renderOption("user-circle", t("Profile.edit-profile"), () => {})}
+        {renderOption("user-circle", t("Profile.edit-profile"), () =>
+          navigate("/profile-form")
+        )}
         {renderOption("lock", t("Profile.update-password"), () => {})}
-        {renderOption("question-circle", t("Profile.help"), () => {})}
+        {renderOption("question-circle", t("Profile.help"), openHelpEmail)}
         {renderOption("signout", t("Profile.logout"), handleLogout, false)}
 
         <Text

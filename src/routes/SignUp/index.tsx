@@ -7,12 +7,12 @@ import * as Yup from "yup";
 import { Input } from "../../components/Input";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { selectLoginErrorMessage } from "../../store/auth";
+import { selectCurrentUser, selectLoginErrorMessage } from "../../store/auth";
 import { User } from "../../store/type";
-import { PROJECT } from "../../mock";
 
 const SignUp: React.FC = () => {
   const [signUp, { isSuccess }] = useCreateCoachMutation();
+  const user = useSelector(selectCurrentUser);
   const loginErrorMessage = useSelector(selectLoginErrorMessage);
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const SignUp: React.FC = () => {
           <Icon name="arrow-left" size={24} />
         </Container>
 
-        <Image src={PROJECT.image} height="24px" />
+        <Image src={user.project?.image || ""} height="24px" />
 
         <Container width="24px"></Container>
       </Container>

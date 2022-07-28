@@ -79,7 +79,6 @@ const TeacherForm: React.FC<{}> = () => {
         <Formik
           initialValues={{
             name: "",
-            image_url: "",
             last_name: "",
             subject: "",
           }}
