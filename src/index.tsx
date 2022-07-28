@@ -51,7 +51,7 @@ root.render(
           <Route
             path="select-school"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <SchoolsList />
                 </ProtectedRoute>
@@ -61,7 +61,7 @@ root.render(
           <Route
             path="school-form"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <SchoolForm />
                 </ProtectedRoute>
@@ -72,7 +72,7 @@ root.render(
           <Route
             path="teachers"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <TeachersList />
                 </ProtectedRoute>
@@ -82,7 +82,7 @@ root.render(
           <Route
             path="teacher-form"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <TeacherForm />
                 </ProtectedRoute>
@@ -92,7 +92,7 @@ root.render(
           <Route
             path="teacher/:teacherId"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <TeacherDetails />
                 </ProtectedRoute>
@@ -102,7 +102,7 @@ root.render(
           <Route
             path="application-form/:teacherId"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <ApplicationForm />
                 </ProtectedRoute>
@@ -112,7 +112,7 @@ root.render(
           <Route
             path="application-details/:applicationId/:questionnaireId"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <ApplicationDetails />
                 </ProtectedRoute>
@@ -122,7 +122,7 @@ root.render(
           <Route
             path="questionnaire/:applicationId"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <ObservationQuestionnaire />
                 </ProtectedRoute>
@@ -132,7 +132,7 @@ root.render(
           <Route
             path="questionnaire-observation-review/:applicationId"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <ObservationDetails />
                 </ProtectedRoute>
@@ -142,7 +142,7 @@ root.render(
           <Route
             path="feedback-list/:applicationId"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <FeedbackList />
                 </ProtectedRoute>
@@ -152,7 +152,7 @@ root.render(
           <Route
             path="feedback-details/:feedbackId"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <FeedbackDetails />
                 </ProtectedRoute>
@@ -162,7 +162,7 @@ root.render(
           <Route
             path="questionnaire-feedback/:applicationId/:questionnaireId"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <FeedbackQuestionnaire />
                 </ProtectedRoute>
@@ -172,7 +172,7 @@ root.render(
           <Route
             path="questionnaire-review/:applicationId"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <ApplicationNotes />
                 </ProtectedRoute>
@@ -182,7 +182,7 @@ root.render(
           <Route
             path="questionnaire-review-details/:id"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <ApplicationNotes />
                 </ProtectedRoute>
@@ -192,7 +192,7 @@ root.render(
           <Route
             path="profile"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <Profile />
                 </ProtectedRoute>
@@ -202,7 +202,7 @@ root.render(
           <Route
             path="profile-form"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <ProfileForm />
                 </ProtectedRoute>
@@ -212,7 +212,7 @@ root.render(
           <Route
             path="update-password"
             element={
-              <React.Suspense fallback={<>...</>}>
+              <React.Suspense>
                 <ProtectedRoute>
                   <UpdatePassword />
                 </ProtectedRoute>
