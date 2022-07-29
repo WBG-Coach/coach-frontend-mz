@@ -18,7 +18,7 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     env:
       REACT_APP_BASENAME: coach-digital
-      PUBLIC_URL: ./
+      PUBLIC_URL: https://coachdigital.org
       REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
       REACT_APP_AWS_ACCESS_KEY: ${{ secrets.REACT_APP_AWS_ACCESS_KEY }}
       REACT_APP_AWS_SECRET: ${{ secrets.REACT_APP_AWS_SECRET }}
