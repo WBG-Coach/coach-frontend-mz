@@ -45,178 +45,199 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<SelectProject />} />
-          <Route path="login/:projectId" element={<Login />} />
-          <Route path="sign-up/:projectId" element={<SignUp />} />
+          <Route
+            index
+            element={
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <SelectProject />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="login/:projectId"
+            element={
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <Login />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="sign-up/:projectId"
+            element={
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <SignUp />
+              </React.Suspense>
+            }
+          />
           <Route
             path="select-school"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <SchoolsList />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="school-form"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <SchoolForm />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
 
           <Route
             path="teachers"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <TeachersList />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="teacher-form"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <TeacherForm />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="teacher/:teacherId"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <TeacherDetails />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="application-form/:teacherId"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <ApplicationForm />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="application-details/:applicationId/:questionnaireId"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <ApplicationDetails />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="questionnaire/:applicationId"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <ObservationQuestionnaire />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="questionnaire-observation-review/:applicationId"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <ObservationDetails />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="feedback-list/:applicationId"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <FeedbackList />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="feedback-details/:feedbackId"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <FeedbackDetails />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="questionnaire-feedback/:applicationId/:questionnaireId"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <FeedbackQuestionnaire />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="questionnaire-review/:applicationId"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <ApplicationNotes />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="questionnaire-review-details/:id"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <ApplicationNotes />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="profile"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <Profile />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="profile-form"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <ProfileForm />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route
             path="update-password"
             element={
-              <React.Suspense>
-                <ProtectedRoute>
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
                   <UpdatePassword />
-                </ProtectedRoute>
-              </React.Suspense>
+                </React.Suspense>
+              </ProtectedRoute>
             }
           />
           <Route path="*" element={<Navigate to="/" replace />} />
