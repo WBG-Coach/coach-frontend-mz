@@ -88,14 +88,11 @@ export const api = createApi({
       }),
     }),
     createTeacher: builder.mutation<void, User & { school_id: number }>({
-      query: (body) => {
-        console.log("BODY => ", body);
-        return {
-          method: "POST",
-          url: "/api/createTeacher",
-          body: { ...body },
-        };
-      },
+      query: (body) => ({
+        method: "POST",
+        url: "/api/createTeacher",
+        body: { ...body },
+      }),
     }),
     getQuestionnaires: builder.mutation<Questionnaire[], void>({
       query: (body) => ({

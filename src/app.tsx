@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { loadLocalUser, selectCurrentUser } from "./store/auth";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Container } from "./components";
 import { getLocalLanguage, getLocalUser } from "./storage";
@@ -18,6 +18,7 @@ const App = () => {
   const [loaded, setLoaded] = useState(false);
   const { i18n } = useTranslation();
   const [currentTheme, setCurrentTheme] = useState(theme);
+  const location = useLocation();
 
   useEffect(() => {
     if (!loaded) {
@@ -27,15 +28,18 @@ const App = () => {
 
       if (localUser?.id) {
         dispatch(loadLocalUser(localUser));
-        if (localUser.selectedSchool) {
-          navigate("/teachers");
-        } else {
+        if (!localUser.selectedSchool) {
           navigate("/select-school");
+        } else if (
+          location.pathname === "/" ||
+          location.pathname.startsWith("/login")
+        ) {
+          navigate("/teachers");
         }
       }
       setLoaded(true);
     }
-  }, [loaded, i18n, dispatch, navigate]);
+  }, [loaded, location, i18n, dispatch, navigate]);
 
   useEffect(() => {
     if (user.project?.id) {

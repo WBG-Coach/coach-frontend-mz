@@ -23,10 +23,6 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Error ", error);
-  }, [error]);
-
-  useEffect(() => {
     if (!user.project) navigate("/select-project");
   }, [navigate, user]);
 
