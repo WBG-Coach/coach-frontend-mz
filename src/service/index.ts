@@ -13,6 +13,7 @@ import {
   User,
   Feedback,
   ContentGuide,
+  Count,
 } from "../store/type";
 
 type Prepare = {
@@ -206,6 +207,13 @@ export const api = createApi({
         },
       }),
     }),
+    updateApplication: builder.mutation<void, Partial<Application>>({
+      query: (body) => ({
+        method: "PUT",
+        url: "/api/questionnaire-applications",
+        body,
+      }),
+    }),
     getLastFeedbacks: builder.mutation<Feedback[], number>({
       query: (teacher_id) => ({
         method: "POST",
@@ -247,6 +255,22 @@ export const api = createApi({
         body,
       }),
     }),
+    countCompetenceFeedbacks: builder.mutation<
+      Count,
+      {
+        teacher_id: number;
+        competence_id: number;
+      }
+    >({
+      query: (body) => ({
+        method: "POST",
+        url: "/api/feedbacks/search",
+        body: {
+          ...body,
+          count: true,
+        },
+      }),
+    }),
   }),
 });
 
@@ -276,4 +300,6 @@ export const {
   useGetContentGuideMutation,
   useUpdateUserMutation,
   useUpdatePasswordMutation,
+  useUpdateApplicationMutation,
+  useCountCompetenceFeedbacksMutation,
 } = api;

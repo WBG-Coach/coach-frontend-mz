@@ -110,7 +110,8 @@
     "see-class-plan": "See class plan",
     "selected-competency": "Selected competency",
     "see-competence": "See competency",
-    "previous-sessions": "Previous sessions"
+    "previous-sessions": "Previous sessions",
+    "delivery-feedback": "Delivery feedback"
   },
   "FeedbackList": {
     "title": "Feedback",

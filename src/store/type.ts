@@ -148,3 +148,7 @@ export type ContentGuide = {
   id: number;
   text: string;
 };
+
+export type Count = {
+  quantity: number;
+};

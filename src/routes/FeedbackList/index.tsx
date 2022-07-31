@@ -112,24 +112,26 @@ const FeedbackList: React.FC<{}> = () => {
               ))}
             </>
           )}
-          <Container
-            left="0"
-            right="0"
-            bottom="0"
-            p="24px 16px"
-            position="absolute"
-          >
-            <Button
-              mt={3}
-              width="100%"
-              value={t("FeedbackList.new")}
-              onClick={() =>
-                navigate(
-                  `/questionnaire-feedback/${applicationId}/${data?.feedback_questionnaire_id}`
-                )
-              }
-            />
-          </Container>
+          {data?.status !== "DONE" && (
+            <Container
+              left="0"
+              right="0"
+              bottom="0"
+              p="24px 16px"
+              position="absolute"
+            >
+              <Button
+                mt={3}
+                width="100%"
+                value={t("FeedbackList.new")}
+                onClick={() =>
+                  navigate(
+                    `/questionnaire-feedback/${applicationId}/${data?.feedback_questionnaire_id}`
+                  )
+                }
+              />
+            </Container>
+          )}
         </>
       )}
       <FeedbackOnboardingModal />

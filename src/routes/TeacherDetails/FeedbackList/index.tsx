@@ -37,6 +37,7 @@ export const FeedbackList: React.FC<Props> = ({ data }) => {
       >
         {data.map(
           (feedback, index) =>
+            feedback.questionnaire_application?.status !== "DONE" &&
             feedback?.competence && (
               <Container
                 p="16px"

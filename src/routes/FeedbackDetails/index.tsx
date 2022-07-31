@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
-import { Container, LoadingDots, Text } from "../../components";
-import { useGetAnswersMutation, useGetFeedbackMutation } from "../../service";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button, Container, LoadingDots, Text } from "../../components";
+import {
+  useGetAnswersMutation,
+  useGetFeedbackMutation,
+  useUpdateApplicationMutation,
+} from "../../service";
 import { TeacherInfo } from "../TeacherDetails/TeacherInfo";
 import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHeader";
 import { useDispatch } from "react-redux";
@@ -11,7 +15,9 @@ import { openGuide } from "../../store/guide";
 const FeedbackDetails: React.FC<{}> = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [getFeedback, { data, isLoading }] = useGetFeedbackMutation();
+  const [updateApplication, deliveryRequest] = useUpdateApplicationMutation();
   const [getAnswers, answersRequest] = useGetAnswersMutation();
   const { feedbackId } = useParams<{
     feedbackId: string;
@@ -29,7 +35,17 @@ const FeedbackDetails: React.FC<{}> = () => {
     }
   }, [data, getAnswers]);
 
-  return isLoading ? (
+  const deliveryFeedback = () => {
+    if (data?.questionnaire_application_id)
+      updateApplication({
+        id: data?.questionnaire_application_id,
+        status: "DONE",
+      }).then(() => {
+        navigate(-1);
+      });
+  };
+
+  return isLoading || deliveryRequest.isLoading ? (
     <LoadingDots />
   ) : (
     <Container flex={1} flexDirection="column">
@@ -122,6 +138,11 @@ const FeedbackDetails: React.FC<{}> = () => {
             </Container>
           )
       )}
+
+      <Button
+        value={t("Questionnaire.delivery-feedback")}
+        onClick={deliveryFeedback}
+      />
     </Container>
   );
 };
