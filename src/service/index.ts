@@ -1,6 +1,7 @@
 import { BaseQueryApi } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
 import { MaybePromise } from "@reduxjs/toolkit/dist/query/tsHelpers";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { format } from "date-fns";
 import { RootState } from "../store";
 import {
   Answer,
@@ -198,12 +199,10 @@ export const api = createApi({
         url: "/api/questionnaire-applications",
         body: {
           ...body,
-          application_date:
-            body.application_date?.getFullYear() +
-            "-" +
-            body.application_date?.getMonth() +
-            "-" +
-            body.application_date?.getDate(),
+          application_date: format(
+            body.application_date || new Date(),
+            "yyyy-MM-dd"
+          ),
         },
       }),
     }),

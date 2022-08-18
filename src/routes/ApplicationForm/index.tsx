@@ -44,7 +44,6 @@ const ApplicationForm: React.FC<{}> = () => {
     if (teacherId && user.selectedSchool?.id)
       createApplication({
         ...application,
-        application_date: application.application_date,
         school_id: user.selectedSchool?.id,
         coach_id: user.id,
         teacher_id: parseInt(teacherId, 10),
