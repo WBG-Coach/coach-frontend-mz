@@ -8,12 +8,15 @@ import { School } from "../../store/type";
 import { Button, Container, Icon, Image, Text } from "../../components";
 import { Input } from "../../components/Input";
 import { uploadFileToS3 } from "../../util";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/auth";
 
 const SchoolForm: React.FC<{}> = () => {
   const [createSchool, { isSuccess }] = useCreateSchoolsMutation();
   const [imageUrl, setImageUrl] = useState<string>();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const user = useSelector(selectCurrentUser);
 
   const validation = Yup.object().shape({
     name: Yup.string().required(t("Validations.required")),
@@ -36,7 +39,11 @@ const SchoolForm: React.FC<{}> = () => {
   };
 
   const submitForm = (newSchool: School) => {
-    createSchool({ ...newSchool, image_url: imageUrl });
+    createSchool({
+      ...newSchool,
+      image_url: imageUrl,
+      project_id: user.project?.id || 0,
+    });
   };
 
   return (

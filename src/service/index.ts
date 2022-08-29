@@ -66,7 +66,7 @@ export const api = createApi({
         },
       }),
     }),
-    createSchools: builder.mutation<void, School>({
+    createSchools: builder.mutation<void, School & { project_id: number }>({
       query: (body) => ({
         method: "POST",
         url: "/api/schools",
@@ -89,7 +89,10 @@ export const api = createApi({
         },
       }),
     }),
-    createTeacher: builder.mutation<void, User & { school_id: number }>({
+    createTeacher: builder.mutation<
+      void,
+      User & { school_id: number } & { project_id: number }
+    >({
       query: (body) => ({
         method: "POST",
         url: "/api/createTeacher",

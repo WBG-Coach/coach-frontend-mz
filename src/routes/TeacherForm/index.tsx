@@ -52,6 +52,7 @@ const TeacherForm: React.FC<{}> = () => {
         ...teacher,
         image_url: imageUrl,
         school_id: user?.selectedSchool?.id,
+        project_id: user.project?.id || 0,
       });
   };
 
