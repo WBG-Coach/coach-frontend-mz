@@ -47,7 +47,7 @@ const SignUp: React.FC = () => {
           <Icon name="arrow-left" size={24} />
         </Container>
 
-        <Image src={user.project?.image || ""} height="24px" />
+        <Image src={user.project?.image_url || ""} height="24px" />
 
         <Container width="24px"></Container>
       </Container>

@@ -37,7 +37,7 @@ const SchoolsList: React.FC<{}> = () => {
   return (
     <Container width="100%" height="calc(100vh - 32px)" flexDirection="column">
       <Container mb="32px" justifyContent="center">
-        <Image height={32} src={PROJECT.image} p="16px" />
+        <Image height={32} src={PROJECT.image_url} p="16px" />
       </Container>
 
       {isLoading ? (
@@ -108,6 +108,7 @@ const SchoolsList: React.FC<{}> = () => {
           <Container position="absolute" bottom={0} left={0} right={0}>
             <Button
               width="100%"
+              variant="primary"
               value={t("Schools.new-school")}
               onClick={() => navigate("/school-form")}
             />

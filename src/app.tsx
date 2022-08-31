@@ -43,12 +43,12 @@ const App = () => {
 
   useEffect(() => {
     if (user.project?.id) {
-      if (currentTheme.colors.primary !== user.project.primaryColor) {
+      if (currentTheme.colors.primary !== user.project.primary_color) {
         setCurrentTheme({
           ...currentTheme,
           colors: {
             ...currentTheme.colors,
-            primary: user.project.primaryColor,
+            primary: user.project.primary_color,
           },
         });
       }

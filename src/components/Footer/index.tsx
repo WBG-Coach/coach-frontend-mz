@@ -38,11 +38,11 @@ export const Footer: React.FC<FooterProps> = (props) => {
             mb="8px"
             name="home"
             size={24}
-            color={pathname !== "/profile" ? PROJECT.primaryColor : "#2C4668"}
+            color={pathname !== "/profile" ? PROJECT.primary_color : "#2C4668"}
           />
           <Text
             fontSize={12}
-            color={pathname !== "/profile" ? PROJECT.primaryColor : "#2C4668"}
+            color={pathname !== "/profile" ? PROJECT.primary_color : "#2C4668"}
             value={t("Menu.home")}
           />
         </Container>
@@ -85,7 +85,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
               alignItems="center"
               borderRadius="14px"
               background={
-                pathname === "/profile" ? PROJECT.primaryColor : "#F0F2F5"
+                pathname === "/profile" ? PROJECT.primary_color : "#F0F2F5"
               }
               justifyContent="center"
             >
@@ -100,7 +100,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
           )}
           <Text
             fontSize={12}
-            color={pathname === "/profile" ? PROJECT.primaryColor : "#2C4668"}
+            color={pathname === "/profile" ? PROJECT.primary_color : "#2C4668"}
             value={t("Menu.profile")}
           />
         </Container>

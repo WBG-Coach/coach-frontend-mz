@@ -60,7 +60,7 @@ const Profile: React.FC<{}> = () => {
             alignContent="center"
             justifyContent="space-between"
           >
-            <Image src={PROJECT.image} height="24px" />
+            <Image src={PROJECT.image_url} height="24px" />
             <LanguageButton />
           </Container>
         </Container>

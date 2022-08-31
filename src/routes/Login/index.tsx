@@ -57,7 +57,7 @@ const Login: React.FC = () => {
           mx="auto"
           mb="48px"
           width={"220px"}
-          src={user.project?.image || ""}
+          src={user.project?.image_url || ""}
         />
 
         {error && (
