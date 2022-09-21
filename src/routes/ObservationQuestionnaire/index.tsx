@@ -98,7 +98,6 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
     setIsLoadingAnswer(true);
     const location = await getLocation();
     await answerQuestionnaire({
-      ...location,
       questionnaire_application_id: parseInt(applicationId || "", 10),
       answers:
         data?.questions.map(
@@ -107,6 +106,7 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
             option_id: answers[index] || 0,
             notes: notes[index] || "",
             files: files[index],
+            ...location,
           })
         ) || [],
     });

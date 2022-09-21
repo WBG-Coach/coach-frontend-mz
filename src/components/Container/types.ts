@@ -6,6 +6,7 @@ import {
   LayoutProps,
   PositionProps,
   SpaceProps,
+  GridGapProps,
 } from "styled-system";
 
 export type ContainerProps = {
@@ -19,4 +20,5 @@ export type ContainerProps = {
   FlexboxProps &
   BorderProps &
   BackgroundProps &
-  PositionProps;
+  PositionProps &
+  GridGapProps;

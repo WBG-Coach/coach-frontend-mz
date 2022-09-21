@@ -49,7 +49,10 @@
     "last-seasons": "Previous sessions",
     "previous-sessions": "Previous sessions",
     "teacher_description": "{{subject}} teacher",
-    "description": "These teachers are allocated to you."
+    "description": "These teachers are allocated to you.",
+    "create-session": "Create session",
+    "statistics": "Statistics",
+    "competencies": "Competencies"
   },
   "TeacherForm": {
     "save": "Add teacher",

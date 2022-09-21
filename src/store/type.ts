@@ -118,8 +118,6 @@ export type Answer = {
 
 export type AnswerQuestionnaire = {
   questionnaire_application_id: number;
-  latitude: number;
-  longitude: number;
   answers: Answer[];
 };
 

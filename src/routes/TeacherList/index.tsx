@@ -41,83 +41,58 @@ const TeachersList: React.FC<{}> = () => {
     <>
       <Header />
       <Container width="100%" height="100%" mb="100px" flexDirection="column">
-        <Text
-          mb="16px"
-          mt="32px"
-          fontSize={20}
-          lineHeight="24px"
-          fontWeight={600}
-          color="#00121A"
-          value={t("Teachers.previous-sessions")}
-        />
-
-        <Container flexDirection="row" overflowX="auto">
-          {lastApplicationsRequest?.data?.data &&
-            lastApplicationsRequest.data.data.length > 0 &&
-            lastApplicationsRequest.data.data.map((application, index) => (
-              <Container
-                key={index}
-                p="12px"
-                mr="16px"
-                minWidth="120px"
-                height="120px"
-                borderRadius="12px"
-                flexDirection="column"
-                border="1px solid #E3E5E8"
-                justifyContent="space-between"
-                onClick={() =>
-                  navigate(
-                    `/application-details/${application.id}/${application.questionnaire_id}`
-                  )
-                }
-              >
-                {application.teacher.image_url ? (
-                  <Image
-                    src={application.teacher.image_url || ""}
-                    width="24px"
-                    height="24px"
-                    borderRadius="12px"
-                  />
-                ) : (
-                  <Container
-                    width="28px"
-                    height="28px"
-                    alignItems="center"
-                    borderRadius="24px"
-                    background="#F0F2F5"
-                    justifyContent="center"
-                  >
-                    <Text
-                      fontSize={12}
-                      value={application.teacher?.name
-                        ?.substring(0, 1)
-                        .concat(
-                          application.teacher?.last_name?.substring(0, 1) || ""
-                        )}
-                    />
-                  </Container>
-                )}
-                <Container flexDirection="column">
-                  <Text
-                    color="#494B50"
-                    fontSize="12px"
-                    lineHeight="16px"
-                    value={application.teacher.name?.split(" ")[0]}
-                  />
-                  <Text
-                    fontSize="16px"
-                    fontWeight={600}
-                    lineHeight="24px"
-                    value={application.name || "-"}
-                  />
-                </Container>
-              </Container>
-            ))}
+        <Container gridGap="16px" mt="24px" mb="32px">
+          <Container
+            p="16px"
+            flex={1}
+            alignItems="center"
+            borderRadius="12px"
+            flexDirection="column"
+            justifyContent="center"
+            background="#F4F5F5"
+          >
+            <Icon name="plus" size={24} mb="8px" />
+            <Text
+              fontSize={12}
+              lineHeight={"16px"}
+              value={t("Teachers.create-session")}
+            />
+          </Container>
+          <Container
+            p="16px"
+            flex={1}
+            alignItems="center"
+            borderRadius="12px"
+            flexDirection="column"
+            justifyContent="center"
+            background="#F4F5F5"
+          >
+            <Icon name="analytics" size={24} mb="8px" />
+            <Text
+              fontSize={12}
+              lineHeight={"16px"}
+              value={t("Teachers.statistics")}
+            />
+          </Container>
+          <Container
+            p="16px"
+            flex={1}
+            alignItems="center"
+            borderRadius="12px"
+            flexDirection="column"
+            justifyContent="center"
+            background="#F4F5F5"
+          >
+            <Icon name="puzzle-piece-solid" size={24} mb="8px" />
+            <Text
+              fontSize={12}
+              lineHeight={"16px"}
+              value={t("Teachers.competencies")}
+            />
+          </Container>
         </Container>
-
         <Text
           mb="4px"
-          mt="32px"
           fontSize={20}
           lineHeight="24px"
           fontWeight={600}
