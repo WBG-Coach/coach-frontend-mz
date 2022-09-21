@@ -4,15 +4,11 @@ import {
   Container,
   Footer,
   Icon,
-  Image,
   ListItem,
   Text,
 } from "../../components";
 import { LoadingDots } from "../../components/LoadingDots";
-import {
-  useGetLastApplicationsMutation,
-  useGetTeachersMutation,
-} from "../../service";
+import { useGetTeachersMutation } from "../../service";
 import { selectCurrentUser } from "../../store/auth";
 import { Header } from "../../components/Header";
 import { useTranslation } from "react-i18next";
@@ -24,18 +20,12 @@ const TeachersList: React.FC<{}> = () => {
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   const [getTeachers, { data, isLoading }] = useGetTeachersMutation();
-  const [getLastApplications, lastApplicationsRequest] =
-    useGetLastApplicationsMutation();
 
   useEffect(() => {
     if (user.id && user.selectedSchool?.id) {
       getTeachers(user.selectedSchool?.id);
-      getLastApplications({
-        coach_id: user.id,
-        school_id: user.selectedSchool?.id,
-      });
     }
-  }, [user, getTeachers, getLastApplications]);
+  }, [user, getTeachers]);
 
   return (
     <>
