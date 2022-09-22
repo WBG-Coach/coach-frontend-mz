@@ -31,7 +31,7 @@ const ObservationDetails = React.lazy(
 const SignUp = React.lazy(() => import("./routes/SignUp"));
 const SchoolForm = React.lazy(() => import("./routes/SchoolForm"));
 const TeacherForm = React.lazy(() => import("./routes/TeacherForm"));
-const ApplicationForm = React.lazy(() => import("./routes/ApplicationForm"));
+const SelectTeacher = React.lazy(() => import("./routes/SelectTeacher"));
 const SelectProject = React.lazy(() => import("./routes/SelectProject"));
 const ProfileForm = React.lazy(() => import("./routes/ProfileForm"));
 const UpdatePassword = React.lazy(() => import("./routes/UpdatePassword"));
@@ -121,11 +121,11 @@ root.render(
             }
           />
           <Route
-            path="application-form/:teacherId"
+            path="select-teacher"
             element={
               <ProtectedRoute>
                 <React.Suspense fallback={<div>Loading...</div>}>
-                  <ApplicationForm />
+                  <SelectTeacher />
                 </React.Suspense>
               </ProtectedRoute>
             }
@@ -141,7 +141,7 @@ root.render(
             }
           />
           <Route
-            path="questionnaire/:applicationId"
+            path="questionnaire/:teacherId"
             element={
               <ProtectedRoute>
                 <React.Suspense fallback={<div>Loading...</div>}>

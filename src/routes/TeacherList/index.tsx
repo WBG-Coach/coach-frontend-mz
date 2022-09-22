@@ -14,6 +14,7 @@ import { Header } from "../../components/Header";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { HomeButton } from "./HomeButton";
 
 const TeachersList: React.FC<{}> = () => {
   const { t } = useTranslation();
@@ -31,55 +32,22 @@ const TeachersList: React.FC<{}> = () => {
     <>
       <Header />
       <Container width="100%" height="100%" mb="100px" flexDirection="column">
-        <Container gridGap="16px" mt="24px" mb="32px">
-          <Container
-            p="16px"
-            flex={1}
-            alignItems="center"
-            borderRadius="12px"
-            flexDirection="column"
-            justifyContent="center"
-            background="#F4F5F5"
-          >
-            <Icon name="plus" size={24} mb="8px" />
-            <Text
-              fontSize={12}
-              lineHeight={"16px"}
-              value={t("Teachers.create-session")}
-            />
-          </Container>
-          <Container
-            p="16px"
-            flex={1}
-            alignItems="center"
-            borderRadius="12px"
-            flexDirection="column"
-            justifyContent="center"
-            background="#F4F5F5"
-          >
-            <Icon name="analytics" size={24} mb="8px" />
-            <Text
-              fontSize={12}
-              lineHeight={"16px"}
-              value={t("Teachers.statistics")}
-            />
-          </Container>
-          <Container
-            p="16px"
-            flex={1}
-            alignItems="center"
-            borderRadius="12px"
-            flexDirection="column"
-            justifyContent="center"
-            background="#F4F5F5"
-          >
-            <Icon name="puzzle-piece-solid" size={24} mb="8px" />
-            <Text
-              fontSize={12}
-              lineHeight={"16px"}
-              value={t("Teachers.competencies")}
-            />
-          </Container>
+        <Container overflowX="auto" gridGap="16px" mt="24px" mb="32px">
+          <HomeButton
+            icon="plus"
+            value={t("Teachers.create-session")}
+            onClick={() => navigate("/select-teacher")}
+          />
+          <HomeButton
+            icon="analytics"
+            value={t("Teachers.statistics")}
+            onClick={() => navigate("")}
+          />
+          <HomeButton
+            icon="puzzle-piece-solid"
+            value={t("Teachers.competencies")}
+            onClick={() => navigate("")}
+          />
         </Container>
         <Text
           mb="4px"
