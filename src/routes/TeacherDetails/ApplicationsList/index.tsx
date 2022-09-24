@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { format } from "date-fns";
-import { useTranslation } from "react-i18next";
 import { Application } from "../../../store/type";
 import { Container, Icon, Text } from "../../../components";
 
@@ -13,31 +12,9 @@ export const ApplicationsList: React.FC<Props> = ({
   applications,
   onClick,
 }) => {
-  const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState(true);
-
   return (
     <Container flexDirection="column" borderBottom="1px solid #F0F2F5">
-      <Container
-        py="24px"
-        justifyContent="space-between"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <Text
-          fontSize="20px"
-          lineHeight="24px"
-          fontWeight={600}
-          value={t("TeacherDetails.sessions")}
-        />
-        <Icon rotate={isOpen ? 90 : 0} size={24} name="chevron-right" />
-      </Container>
-
-      <Container
-        height="auto"
-        overflow="hidden"
-        flexDirection="column"
-        maxHeight={isOpen ? "1000px" : "0px"}
-      >
+      <Container flexDirection="column">
         {applications &&
           applications.map((application, index) => (
             <Container

@@ -64,13 +64,14 @@
   },
   "TeacherDetails": {
     "title": "Teacher",
-    "sessions": "Observation sessions",
     "item-description": "Session {{value}}",
     "subject": "{{subject}} teacher",
     "observation-results": "Results of the last observation",
     "feedbacks": "Feedback",
     "see-feedback": "Review feedback",
-    "add-session": "Add a session"
+    "add-session": "Add a session",
+    "sessions": "Sessions",
+    "competencies": "Competencies"
   },
   "ApplicationStatus": {
     "title": "Session {{value}}",
@@ -91,7 +92,8 @@
     "select-questionnaire": "Select a observation sheet",
     "feedback-questionnaire": "Form for the follow-up meeting",
     "select-feedback-questionnaire": "Select a form for the follow-up meeting",
-    "observation-questionnaire": "Observation sheet"
+    "observation-questionnaire": "Observation sheet",
+    "choose-teacher": "Which teacher are you mentoring?"
   },
   "Questionnaire": {
     "title": "Session",

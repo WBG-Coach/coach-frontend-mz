@@ -9,7 +9,6 @@ import {
   Application,
   Note,
   QuestionnaireQuestion,
-  Questionnaire,
   School,
   User,
   Feedback,
@@ -107,13 +106,6 @@ export const api = createApi({
         body: { ...body },
       }),
     }),
-    getQuestionnaires: builder.mutation<Questionnaire[], void>({
-      query: (body) => ({
-        method: "POST",
-        url: "/api/questionnaires/search",
-        body,
-      }),
-    }),
     getApplications: builder.mutation<
       Application[],
       { coach_id: number; school_id: number; teacher_id: number }
@@ -132,8 +124,8 @@ export const api = createApi({
       }),
     }),
     getQuestions: builder.mutation<
-      { questions: QuestionnaireQuestion[]; questionnaire: Questionnaire },
-      { questionnaire_application_id: number; feedback?: boolean }
+      QuestionnaireQuestion[],
+      { questionnaire_id: number; feedback?: boolean }
     >({
       query: (body) => ({
         method: "POST",
@@ -309,7 +301,6 @@ export const {
   useGetLastFeedbacksMutation,
   useUpdateApplicationMutation,
   useCreateApplicationMutation,
-  useGetQuestionnairesMutation,
   useGetLastApplicationsMutation,
   useAnswerQuestionnaireMutation,
   useCountCompetenceFeedbacksMutation,

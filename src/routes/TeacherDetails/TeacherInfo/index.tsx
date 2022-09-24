@@ -12,19 +12,18 @@ export const TeacherInfo: React.FC<Props> = ({ teacher }) => {
 
   return (
     <Container
-      mt="24px"
-      mb="34px"
+      pb="16px"
+      mb="16px"
       width="100%"
-      flexDirection="row"
-      alignContent="center"
-      justifyContent="center"
+      flexDirection="column"
+      borderBottom="1px solid #F4F5F5"
     >
       {teacher?.image_url ? (
         <Image
-          width={40}
-          height={40}
+          width={48}
+          height={48}
           borderRadius="50%"
-          src={teacher?.image_url || ""}
+          src={teacher.image_url}
         />
       ) : (
         <Container
@@ -43,22 +42,17 @@ export const TeacherInfo: React.FC<Props> = ({ teacher }) => {
           />
         </Container>
       )}
-      <Container
-        ml="12px"
-        flex={1}
-        flexDirection="column"
-        justifyContent="center"
-      >
-        <Text
-          fontWeight={600}
-          fontSize="18px"
-          color="#00121A"
-          value={teacher?.name}
-        />
-        <Text color="#2B363B" fontSize="14px">
-          {t("TeacherDetails.subject", { subject: teacher?.subject })}
-        </Text>
-      </Container>
+      <Text
+        mt="12px"
+        fontSize="20px"
+        color="#00121A"
+        fontWeight={600}
+        lineHeight="24px"
+        value={teacher?.name}
+      />
+      <Text mt="4px" color="#2B363B" fontSize="14px" lineHeight="20px">
+        {t("TeacherDetails.subject", { subject: teacher?.subject })}
+      </Text>
     </Container>
   );
 };

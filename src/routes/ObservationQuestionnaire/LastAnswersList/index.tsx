@@ -4,10 +4,12 @@ import { Container, Icon, Text } from "../../../components";
 import { Answer } from "../../../store/type";
 
 type Props = {
-  lastAnwsers?: Answer[];
+  lastAnswers?: Answer[];
 };
 
-export const LastAnswersList: React.FC<Props> = ({ lastAnwsers }) => {
+export const LastAnswersList: React.FC<Props> = ({
+  lastAnswers: lastAnwsers,
+}) => {
   const { t } = useTranslation();
 
   return !!lastAnwsers ? (

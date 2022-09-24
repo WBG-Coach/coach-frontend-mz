@@ -36,6 +36,7 @@ export type Questionnaire = {
   id: number;
   title: string;
   type: "FEEDBACK" | "OBSERVATION";
+  project_id: number;
   created_at: Date;
   updated_at: Date;
 };

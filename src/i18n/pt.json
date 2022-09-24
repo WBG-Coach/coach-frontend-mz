@@ -56,13 +56,14 @@
   },
   "TeacherDetails": {
     "title": "Professor",
-    "sessions": "Sessões de orientação",
     "item-description": "Sessão {{value}}",
     "subject": "Professor de {{subject}}",
     "competences": "Resultados da última observação",
     "feedbacks": "Feedbacks",
     "see-feedback": "Ver feedbacks",
-    "add-session": "Adicionar sessão"
+    "add-session": "Adicionar sessão",
+    "sessions": "Sessões",
+    "competencies": "Competêncies"
   },
   "ApplicationStatus": {
     "title": "Sessão {{value}}",
@@ -83,7 +84,8 @@
     "select-questionnaire": "Seleccionar a ficha de observação",
     "feedback-questionnaire": "Ficha para o encontro de acompanhamento",
     "select-feedback-questionnaire": "Seleccionar a ficha para o encontro de acompanhamento",
-    "observation-questionnaire": "Ficha de observação"
+    "observation-questionnaire": "Ficha de observação",
+    "choose-teacher": "Qual professor você está a orientar?"
   },
   "Questionnaire": {
     "title": "Sessão",
