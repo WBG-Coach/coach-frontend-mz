@@ -1,13 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Container, Icon, Text } from "../../../components";
 type Props = {
   title: string;
+  onClose: () => void;
 };
 
-export const QuestionnaireHeader: React.FC<Props> = ({ title }) => {
-  const navigate = useNavigate();
-
+export const QuestionnaireHeader: React.FC<Props> = ({ title, onClose }) => {
   return (
     <Container mb="8px" flexDirection="row" p="16px 0" mt="-16px">
       <Container flex={1} justifyContent="center">
@@ -20,7 +18,7 @@ export const QuestionnaireHeader: React.FC<Props> = ({ title }) => {
           value={title}
         />
       </Container>
-      <Container onClick={() => navigate(-1)}>
+      <Container onClick={onClose}>
         <Icon name="close" size={24} />
       </Container>
     </Container>

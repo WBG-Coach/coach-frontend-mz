@@ -5,7 +5,7 @@ import { Container, Icon, Text } from "../../../components";
 
 type Props = {
   applications?: Application[];
-  onClick: (applicationId: number, questionnaireId: number) => void;
+  onClick: (applicationId: number) => void;
 };
 
 export const ApplicationsList: React.FC<Props> = ({
@@ -25,9 +25,7 @@ export const ApplicationsList: React.FC<Props> = ({
               flexDirection="row"
               justifyContent="center"
               borderTop={index !== 0 ? "1px solid #F0F3F5" : ""}
-              onClick={() =>
-                onClick(application.id, application.questionnaire_id)
-              }
+              onClick={() => onClick(application.id)}
             >
               <Icon size={24} name="notes" mr="12px" color="#C7CAD1" />
 

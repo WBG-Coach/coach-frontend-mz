@@ -21,13 +21,15 @@ import {
   LoadingDots,
 } from "../../components";
 import { LastAnswersList } from "./LastAnswersList";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openGuide } from "../../store/guide";
+import { selectCurrentUser } from "../../store/auth";
 
 const ObservationQuestionnaire: React.FC<{}> = () => {
   const theme: any = useTheme();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const user = useSelector(selectCurrentUser);
   const [isLoadingAnswer, setIsLoadingAnswer] = useState(false);
   const [isFinish, setFinish] = useState(false);
   const [files, setFiles] = useState<AnswerFile[][]>([[]]);
@@ -41,10 +43,12 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
 
   useEffect(() => {
     // TODO: REMOVE THIS FIXED ID
-    getQuestions({
-      questionnaire_id: 1,
-    });
-  }, [getQuestions]);
+    if (user?.project?.observation_questionnaire?.id) {
+      getQuestions({
+        questionnaire_id: user.project?.observation_questionnaire.id,
+      });
+    }
+  }, [user, getQuestions]);
 
   useEffect(() => {
     if (data) {
@@ -122,7 +126,10 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
     <LoadingDots />
   ) : (
     <Container flex={1} flexDirection="column">
-      <QuestionnaireHeader title={t("Questionnaire.title")} />
+      <QuestionnaireHeader
+        title={t("Questionnaire.title")}
+        onClose={() => {}}
+      />
 
       {isFinish ? (
         <FinishContainer />

@@ -83,10 +83,8 @@ const TeacherDetails: React.FC = () => {
             <>
               <ApplicationsList
                 applications={data}
-                onClick={(applicationId, questionnaireId) =>
-                  navigate(
-                    `/application-details/${applicationId}/${questionnaireId}`
-                  )
+                onClick={(applicationId) =>
+                  navigate(`/application-details/${applicationId}`)
                 }
               />
 

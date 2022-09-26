@@ -49,7 +49,10 @@ const FeedbackDetails: React.FC<{}> = () => {
     <LoadingDots />
   ) : (
     <Container flex={1} flexDirection="column">
-      <QuestionnaireHeader title={t("Questionnaire.feedback")} />
+      <QuestionnaireHeader
+        title={t("Questionnaire.feedback")}
+        onClose={() => {}}
+      />
 
       <Text
         mb="16px"

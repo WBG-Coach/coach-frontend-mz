@@ -5,7 +5,12 @@ import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHe
 const FeedbackQuestionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
 
-  return <QuestionnaireHeader title={t("Questionnaire.title-feedback")} />;
+  return (
+    <QuestionnaireHeader
+      title={t("Questionnaire.title-feedback")}
+      onClose={() => {}}
+    />
+  );
 };
 
 export default FeedbackQuestionnaire;

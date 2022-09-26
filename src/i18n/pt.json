@@ -66,7 +66,7 @@
     "competencies": "Competêncies"
   },
   "ApplicationStatus": {
-    "title": "Sessão {{value}}",
+    "title": "Sessão",
     "steps": "Etapas",
     "label-observation": "Ficha de observação",
     "label-feedback": "Feedbacks",

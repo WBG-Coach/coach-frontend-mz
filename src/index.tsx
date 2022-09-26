@@ -19,7 +19,6 @@ const Login = React.lazy(() => import("./routes/Login"));
 const ApplicationDetails = React.lazy(
   () => import("./routes/ApplicationDetails")
 );
-const ApplicationNotes = React.lazy(() => import("./routes/ApplicationNotes"));
 const FeedbackQuestionnaire = React.lazy(
   () => import("./routes/FeedbackQuestionnaire")
 );
@@ -131,7 +130,7 @@ root.render(
             }
           />
           <Route
-            path="application-details/:applicationId/:questionnaireId"
+            path="application-details/:applicationId"
             element={
               <ProtectedRoute>
                 <React.Suspense fallback={<div>Loading...</div>}>
@@ -186,26 +185,6 @@ root.render(
               <ProtectedRoute>
                 <React.Suspense fallback={<div>Loading...</div>}>
                   <FeedbackQuestionnaire />
-                </React.Suspense>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="questionnaire-review/:applicationId"
-            element={
-              <ProtectedRoute>
-                <React.Suspense fallback={<div>Loading...</div>}>
-                  <ApplicationNotes />
-                </React.Suspense>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="questionnaire-review-details/:id"
-            element={
-              <ProtectedRoute>
-                <React.Suspense fallback={<div>Loading...</div>}>
-                  <ApplicationNotes />
                 </React.Suspense>
               </ProtectedRoute>
             }

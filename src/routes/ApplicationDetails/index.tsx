@@ -2,8 +2,16 @@ import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { OnboardingApplicationModal } from "./OnboardingApplicationModal";
-import { Container, Footer, Icon, LoadingDots, Text } from "../../components";
+import {
+  Container,
+  Footer,
+  Icon,
+  Image,
+  LoadingDots,
+  Text,
+} from "../../components";
 import { useGetApplicationMutation } from "../../service";
+import { TimelineItem } from "../../components/TimelineItem";
 
 const ApplicationDetails: React.FC = () => {
   const navigate = useNavigate();
@@ -25,179 +33,133 @@ const ApplicationDetails: React.FC = () => {
     }
   }, [applicationId, getApplication]);
 
+  const getPrepareFeedbackStatus = () => {
+    if (data?.status === "PENDING_FEEDBACK") return "current";
+    return "complete";
+  };
+
+  const getFeedbackStatus = () => {
+    if (data?.status === "PENDING_MEET") return "current";
+    if (data?.status === "DONE") return "complete";
+    return "pending";
+  };
+
+  const getDocumentationStatus = () => {
+    if (data?.status === "DONE") return "complete";
+    return "pending";
+  };
+
   return (
     <Container width="100%" height="100%" mb="100px" flexDirection="column">
       {isLoading ? (
         <LoadingDots />
       ) : (
         <>
-          <Container mb="24px" flexDirection="row" p="16px 0" mt="-16px">
+          <Container
+            p="16px 0"
+            mt="-16px"
+            flexDirection="row"
+            justifyContent="flex-end"
+          >
             <Container onClick={() => navigate(-1)}>
-              <Icon name="arrow-left" size={24} />
+              <Icon name="close" size={24} />
             </Container>
           </Container>
 
-          <Container mt="16px" flexDirection="column">
+          <Container mt="8px" flexDirection="column">
             <Text
-              mb="32px"
+              mb="8px"
               fontSize="24px"
               color="#191A1B"
               fontWeight={600}
               lineHeight="32px"
-              value={data?.name || "-"}
+              value={t("ApplicationStatus.title")}
             />
 
-            <Container mb="40px" flexDirection="column">
-              <Container
-                p="12px"
-                mr="6px"
-                mb="12px"
-                flex={1}
-                borderRadius="12px"
-                alignItems="center"
-                flexDirection="row"
-                background="#F0F2F5"
-                onClick={() =>
-                  data?.status === "PENDING_RESPONSE"
-                    ? navigate(`/questionnaire/${applicationId}`)
-                    : navigate(
-                        `/questionnaire-observation-review/${applicationId}`
-                      )
-                }
-              >
-                <Icon
-                  mr="8px"
-                  size={24}
-                  color="#191A1B"
-                  name="clipboard-notes"
-                />
-                <Text
-                  fontSize="12px"
-                  color="#191A1B"
-                  fontWeight={500}
-                  value={t("ApplicationStatus.label-observation")}
-                />
-                <Icon
-                  ml="auto"
-                  name="chevron-right"
-                  size={24}
-                  color="#191A1B"
-                />
-              </Container>
+            <Container mb="8px">
+              <Icon name="calender" size={20} color="#49504C" mr="4px" />
+              <Text
+                fontSize="14px"
+                color="#49504C"
+                lineHeight="20px"
+                value={t("ApplicationStatus.label-review")}
+              />
+            </Container>
 
-              <Container
-                p="12px"
-                mr="6px"
-                flex={1}
-                borderRadius="12px"
-                alignItems="center"
-                flexDirection="row"
-                background={
-                  data?.status !== "PENDING_RESPONSE" ? "#F0F2F5" : "#F9FAFB"
-                }
-                onClick={() =>
-                  data?.status !== "PENDING_RESPONSE" &&
-                  navigate(`/feedback-list/${applicationId}`)
-                }
-              >
-                <Icon
-                  mr="8px"
-                  name="comments"
-                  size={24}
-                  color={
-                    data?.status !== "PENDING_RESPONSE" ? "#191A1B" : "#94979E"
-                  }
+            <Container width="100%" alignItems="center" mb="24px">
+              {data?.teacher?.image_url ? (
+                <Image
+                  mr="4px"
+                  width={20}
+                  height={20}
+                  borderRadius="50%"
+                  src={data.teacher.image_url}
                 />
-                <Text
-                  fontSize="12px"
-                  fontWeight={500}
-                  color={
-                    data?.status !== "PENDING_RESPONSE" ? "#191A1B" : "#94979E"
-                  }
-                  value={t("ApplicationStatus.label-feedback")}
-                />
-                <Icon
-                  ml="auto"
-                  name="chevron-right"
-                  size={24}
-                  color={
-                    data?.status !== "PENDING_RESPONSE" ? "#191A1B" : "#94979E"
-                  }
-                />
-              </Container>
-
-              {data?.status === "PENDING_RESPONSE" && (
-                <Container mt="16px">
+              ) : (
+                <Container
+                  mr="4px"
+                  width="20px"
+                  height="20px"
+                  alignItems="center"
+                  borderRadius="24px"
+                  background="#F0F2F5"
+                  justifyContent="center"
+                >
                   <Text
-                    fontSize="12px"
-                    color="#494B50"
-                    value={t("ApplicationStatus.info")}
+                    fontSize={14}
+                    lineHeight="20px"
+                    value={data?.teacher?.name
+                      ?.substring(0, 1)
+                      .concat(data?.teacher?.last_name?.substring(0, 1) || "")}
                   />
                 </Container>
               )}
-            </Container>
 
-            <Text
-              mb="24px"
-              fontSize="20px"
-              color="#191A1B"
-              fontWeight={600}
-              lineHeight="24px"
-              value={t("ApplicationStatus.label-review")}
-            />
-
-            <Container
-              flexDirection="row"
-              flexWrap="wrap"
-              justifyContent="space-between"
-            >
-              {data?.notes.map((note, index) => (
-                <Container
-                  key={index}
-                  p="12px"
-                  mb="24px"
-                  minHeight="80px"
-                  borderRadius="12px"
-                  width="calc(50% - 32px)"
-                  border="1px solid #E3E5E8"
-                  onClick={() =>
-                    navigate(`/questionnaire-review-details/${note.id}`)
-                  }
-                >
-                  <Text
-                    fontSize="12px"
-                    color="#191A1B"
-                    lineHeight="16px"
-                    value={`${note.text.substring(0, 50)}${
-                      note.text.length > 50 ? "..." : ""
-                    }`}
-                  />
-                </Container>
-              ))}
-
-              <Container
-                p="12px"
-                mb="24px"
-                minHeight="80px"
-                borderRadius="12px"
-                alignItems="center"
-                flexDirection="column"
-                justifyContent="center"
-                width="calc(50% - 32px)"
-                border="1px solid #E3E5E8"
-                onClick={() =>
-                  navigate(`/questionnaire-review/${applicationId}`)
-                }
-              >
-                <Icon mb="8px" name="plus" size={24} />
-                <Text
-                  fontSize="14px"
-                  color="#191A1B"
-                  value={t("ApplicationStatus.new-review")}
-                />
-              </Container>
+              <Text
+                fontSize="14px"
+                fontWeight={400}
+                lineHeight="18px"
+                color="#49504C"
+                value={data?.teacher?.name}
+              />
             </Container>
           </Container>
+
+          <TimelineItem
+            isFirst
+            buttonValue=""
+            description=""
+            status="complete"
+            title="Observação da aula"
+            onClick={() =>
+              navigate(`/questionnaire-observation-review/${applicationId}`)
+            }
+          />
+
+          <TimelineItem
+            buttonValue="Preparar feedback"
+            description="Prepare um feedback para o professor sobre a aula que você observou."
+            onClick={() => navigate(`/feedback-list/${applicationId}`)}
+            status={getPrepareFeedbackStatus()}
+            title="Preparação do feedback"
+          />
+
+          <TimelineItem
+            buttonValue="Ver feedback"
+            description="Oriente o professor de acordo com o que você preparou"
+            onClick={() => navigate(`/feedback-list/${applicationId}`)}
+            status={getFeedbackStatus()}
+            title="Feedback"
+          />
+
+          <TimelineItem
+            isLast
+            description=""
+            onClick={() => navigate(`/feedback-list/${applicationId}`)}
+            buttonValue="Documentar sessão"
+            status={getDocumentationStatus()}
+            title="Documentação da sessão"
+          />
         </>
       )}
 

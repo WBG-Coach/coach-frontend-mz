@@ -21,6 +21,8 @@ export type Project = {
   name: string;
   country: string;
   primary_color: string;
+  feedback_questionnaire?: Questionnaire;
+  observation_questionnaire?: Questionnaire;
 };
 
 export type School = {
