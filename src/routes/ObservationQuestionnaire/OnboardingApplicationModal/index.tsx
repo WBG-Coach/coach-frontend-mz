@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { Button, Container, Icon, Modal, Text } from "../../../components";
 import {
   getLocalHideOnBoardingApplication,
   setLocalHideOnboardingApplication,
 } from "../../../storage";
+import { selectCurrentUser } from "../../../store/auth";
 
 export const OnboardingApplicationModal = () => {
-  const { t } = useTranslation();
+  const user = useSelector(selectCurrentUser);
 
   const [onboarding, setOnboarding] = useState(
     !getLocalHideOnBoardingApplication()
@@ -19,18 +20,8 @@ export const OnboardingApplicationModal = () => {
   };
 
   return (
-    <Modal
-      isOpen={onboarding}
-      onClose={closeOnboarding}
-      title={t("ApplicationStatus.onboarding-modal-title")}
-    >
-      <Container
-        mx="auto"
-        mt={100}
-        maxWidth="600px"
-        alignItems="center"
-        flexDirection="column"
-      >
+    <Modal isOpen={onboarding} onClose={closeOnboarding}>
+      <Container mx="auto" mt={100} maxWidth="600px" flexDirection="column">
         <Text
           mb="12px"
           color="#000000"
@@ -43,8 +34,7 @@ export const OnboardingApplicationModal = () => {
           mb="32px"
           color="#191A1B"
           fontSize="14px"
-          textAlign="center"
-          value="Acompanhe a e documente a sessão de orientação e apoio ao professor. Cada sessão de orientação consiste em 4 partes fundamentais:"
+          value="Acompanhe a e documente a sessão de orientação e apoio ao professor. Cada sessão consiste em 4 partes fundamentais:"
         />
 
         <Container
@@ -60,9 +50,9 @@ export const OnboardingApplicationModal = () => {
             borderRadius="8px"
             justifyContent="center"
             alignItems="center"
-            background="#EBF1FF"
+            background={user.project?.primary_color + "21"}
           >
-            <Icon name="eye" size={24} color="#3373CC" />
+            <Icon name="eye" size={24} color={user.project?.primary_color} />
           </Container>
           <Container flex={1} flexDirection="column">
             <Text
@@ -93,9 +83,13 @@ export const OnboardingApplicationModal = () => {
             borderRadius="8px"
             justifyContent="center"
             alignItems="center"
-            background="#EBF1FF"
+            background={user.project?.primary_color + "21"}
           >
-            <Icon name="edit-file" size={24} color="#3373CC" />
+            <Icon
+              name="edit-file"
+              size={24}
+              color={user.project?.primary_color}
+            />
           </Container>
           <Container flex={1} flexDirection="column">
             <Text
@@ -103,7 +97,7 @@ export const OnboardingApplicationModal = () => {
               color="#191A1B"
               fontWeight={600}
               fontSize="14px"
-              value="Preparação do encontro de acompanhamento"
+              value="Preparação do feedback"
             />
             <Text
               color="#494B50"
@@ -126,9 +120,13 @@ export const OnboardingApplicationModal = () => {
             borderRadius="8px"
             justifyContent="center"
             alignItems="center"
-            background="#EBF1FF"
+            background={user.project?.primary_color + "21"}
           >
-            <Icon name="comments-outline" size={24} color="#3373CC" />
+            <Icon
+              name="comments-outline"
+              size={24}
+              color={user.project?.primary_color}
+            />
           </Container>
           <Container flex={1} flexDirection="column">
             <Text
@@ -136,7 +134,7 @@ export const OnboardingApplicationModal = () => {
               color="#191A1B"
               fontWeight={600}
               fontSize="14px"
-              value="Encontro de acompanhamento"
+              value="Feedback"
             />
             <Text
               color="#494B50"
@@ -159,9 +157,9 @@ export const OnboardingApplicationModal = () => {
             borderRadius="8px"
             justifyContent="center"
             alignItems="center"
-            background="#EBF1FF"
+            background={user.project?.primary_color + "21"}
           >
-            <Icon name="notes" size={24} color="#3373CC" />
+            <Icon name="notes" size={24} color={user.project?.primary_color} />
           </Container>
           <Container flex={1} flexDirection="column">
             <Text
@@ -174,7 +172,7 @@ export const OnboardingApplicationModal = () => {
             <Text
               color="#494B50"
               fontSize="12px"
-              value="Documente a sessão de orientação criando notas"
+              value="Responda um questionário sobre a como foi a sessão de feedback."
             />
           </Container>
         </Container>

@@ -83,7 +83,7 @@
     "new-review": "New note",
     "info": "To access the Feedback page, you must first complete the Observation Form",
     "competences": "Competencies",
-    "onboarding-modal-title": "Observation sessions",
+    "onboarding-modal-title": "Orientation sessions",
     "started-at": "Started at {{value}}"
   },
   "ApplicationForm": {
@@ -98,6 +98,7 @@
     "choose-teacher": "Which teacher are you mentoring?"
   },
   "Questionnaire": {
+    "question-order": "Question {{current}} of {{total}}",
     "title": "Observation sheet",
     "feedback": "Feedback",
     "session-title": "Session {{value}}",
@@ -107,6 +108,7 @@
     "title-feedback-form": "Prepare the feedback",
     "description-feedback-form": "Fill out the feedback questionnaire below and get ready to hand it to the teacher",
     "title-review": "Documentation",
+    "finish-feedback-title": "Your feedback has been delivered to the teacher!",
     "save": "Save",
     "finish": "Finish",
     "continue": "Continue",

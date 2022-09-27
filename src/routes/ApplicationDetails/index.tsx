@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import { OnboardingApplicationModal } from "./OnboardingApplicationModal";
 import { Container, Icon, Image, LoadingDots, Text } from "../../components";
 import { useGetApplicationMutation } from "../../service";
 import { TimelineItem } from "../../components/TimelineItem";
@@ -177,8 +176,6 @@ const ApplicationDetails: React.FC = () => {
           />
         </>
       )}
-
-      <OnboardingApplicationModal />
     </Container>
   );
 };

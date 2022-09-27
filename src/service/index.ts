@@ -140,6 +140,13 @@ export const api = createApi({
         body,
       }),
     }),
+    answerDocQuestionnaire: builder.mutation<Application, AnswerQuestionnaire>({
+      query: (body) => ({
+        method: "POST",
+        url: "/api/document-questionnaire",
+        body,
+      }),
+    }),
     getAnswers: builder.mutation<Answer[], number>({
       query: (questionnaire_application_id) => ({
         method: "POST",
@@ -304,4 +311,5 @@ export const {
   useGetLastApplicationsMutation,
   useAnswerQuestionnaireMutation,
   useCountCompetenceFeedbacksMutation,
+  useAnswerDocQuestionnaireMutation,
 } = api;

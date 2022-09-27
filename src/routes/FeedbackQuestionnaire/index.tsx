@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import { getLocation } from "../../util";
 import FirstFeedbackQuestion from "./FirstFeedbackQuestion";
 import { selectCurrentUser } from "../../store/auth";
+import { FeedbackOnboardingModal } from "./FeedbackOnboardingModal";
 
 const FeedbackQuestionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
@@ -82,74 +83,81 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
     }
   }, [applicationId, getAnswer]);
 
-  return isLoadingAnswer ? (
-    <LoadingDots />
-  ) : (
+  return (
     <>
-      <QuestionnaireHeader
-        title={t("Questionnaire.header-feedback")}
-        onClose={() => navigate(`/application-details/${applicationId}`)}
-      />
-      {currentStep === 0 ? (
-        <FirstFeedbackQuestion
-          answers={data || []}
-          onConfirmAnswer={onSelectAnswer}
-          applicationId={parseInt(applicationId || "", 10)}
-        />
+      {isLoadingAnswer ? (
+        <LoadingDots />
       ) : (
-        <Container flex={1} flexDirection="column">
-          <Text
-            my="8px"
-            fontSize={20}
-            fontWeight="600"
-            lineHeight="24px"
-            value={t("Questionnaire.title-feedback-form")}
+        <>
+          <QuestionnaireHeader
+            title={t("Questionnaire.header-feedback")}
+            onClose={() => navigate(`/application-details/${applicationId}`)}
           />
-          <Text
-            mb="32px"
-            fontSize={14}
-            color="#49504C"
-            lineHeight="20px"
-            value={t("Questionnaire.description-feedback-form")}
-          />
+          {currentStep === 0 ? (
+            <FirstFeedbackQuestion
+              answers={data || []}
+              onConfirmAnswer={onSelectAnswer}
+              applicationId={parseInt(applicationId || "", 10)}
+            />
+          ) : (
+            <Container flex={1} flexDirection="column">
+              <Text
+                my="8px"
+                fontSize={20}
+                fontWeight="600"
+                lineHeight="24px"
+                value={t("Questionnaire.title-feedback-form")}
+              />
+              <Text
+                mb="32px"
+                fontSize={14}
+                color="#49504C"
+                lineHeight="20px"
+                value={t("Questionnaire.description-feedback-form")}
+              />
 
-          {questionsRequest?.data?.questions?.map(
-            (questionnaireQuestion, index) => (
-              <Container key={index} flexDirection="column">
-                <Text
-                  mb="8px"
-                  fontWeight="600"
-                  fontSize="14px"
-                  lineHeight="18px"
-                  value={questionnaireQuestion.question.text + " (opcional)"}
-                />
-                <TextArea
-                  mb="20px"
-                  value={notes[index]}
-                  onChangeText={(text) => noteQuestion(text, index)}
+              {questionsRequest?.data?.questions?.map(
+                (questionnaireQuestion, index) => (
+                  <Container key={index} flexDirection="column">
+                    <Text
+                      mb="8px"
+                      fontWeight="600"
+                      fontSize="14px"
+                      lineHeight="18px"
+                      value={
+                        questionnaireQuestion.question.text + " (opcional)"
+                      }
+                    />
+                    <TextArea
+                      mb="20px"
+                      value={notes[index]}
+                      onChangeText={(text) => noteQuestion(text, index)}
+                    />
+                  </Container>
+                )
+              )}
+
+              <Container mb="100px" />
+
+              <Container
+                left="0"
+                right="0"
+                bottom="0"
+                p="24px 16px"
+                position="fixed"
+              >
+                <Button
+                  mt={3}
+                  width="100%"
+                  onClick={sendQuestionnaire}
+                  value={t("Questionnaire.save")}
                 />
               </Container>
-            )
+            </Container>
           )}
-
-          <Container mb="100px" />
-
-          <Container
-            left="0"
-            right="0"
-            bottom="0"
-            p="24px 16px"
-            position="fixed"
-          >
-            <Button
-              mt={3}
-              width="100%"
-              onClick={sendQuestionnaire}
-              value={t("Questionnaire.save")}
-            />
-          </Container>
-        </Container>
+        </>
       )}
+      <FeedbackOnboardingModal />
     </>
   );
 };

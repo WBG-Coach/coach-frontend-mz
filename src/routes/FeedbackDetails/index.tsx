@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -19,11 +19,13 @@ import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHe
 import { useDispatch } from "react-redux";
 import { openGuide } from "../../store/guide";
 import { format } from "date-fns";
+import { FinishContainer } from "./FinishContainer";
 
 const FeedbackDetails: React.FC<{}> = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isFinish, setFinish] = useState(false);
   const [getAnswers, answersRequest] = useGetAnswersMutation();
   const [getFeedbacks, feedbacksRequest] = useGetFeedbacksMutation();
   const [getFeedback, { data, isLoading }] = useGetFeedbackMutation();
@@ -51,14 +53,16 @@ const FeedbackDetails: React.FC<{}> = () => {
         id: parseInt(applicationId, 10),
         status: "PENDING_DOCUMENTATION",
       }).then(() => {
-        navigate(`/application-details/${applicationId}`);
+        setFinish(true);
       });
   };
 
   return isLoading || deliveryRequest.isLoading || !data ? (
     <LoadingDots />
+  ) : isFinish ? (
+    <FinishContainer applicationId={applicationId || ""} />
   ) : (
-    <Container flex={1} minHeight="calc(100vh - 32px);%" flexDirection="column">
+    <Container flex={1} minHeight="calc(100vh - 32px);" flexDirection="column">
       <QuestionnaireHeader
         title={""}
         onClose={() => navigate(`/application-details/${applicationId}`)}
@@ -230,11 +234,13 @@ const FeedbackDetails: React.FC<{}> = () => {
         </Container>
       ))}
 
-      <Button
-        mt="auto"
-        value={t("Questionnaire.delivery-feedback")}
-        onClick={deliveryFeedback}
-      />
+      {data.questionnaire_application?.status === "PENDING_MEET" && (
+        <Button
+          mt="auto"
+          value={t("Questionnaire.delivery-feedback")}
+          onClick={deliveryFeedback}
+        />
+      )}
     </Container>
   );
 };

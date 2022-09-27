@@ -119,6 +119,7 @@ export type QuestionnaireQuestion = {
 
 export type Answer = {
   id?: number;
+  questionnaire_application?: Application;
   questionnaire_question_id: number;
   notes?: string;
   option_id: number;

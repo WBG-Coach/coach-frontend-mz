@@ -69,7 +69,7 @@ export const TimelineItem: React.FC<Props> = ({
             <StyledTimelineItemDescription>
               {description}
             </StyledTimelineItemDescription>
-            <Button onClick={onClick} value={buttonValue} />
+            <Button width="fit-content" onClick={onClick} value={buttonValue} />
           </>
         )}
       </StyledTimelineItemTextContainer>

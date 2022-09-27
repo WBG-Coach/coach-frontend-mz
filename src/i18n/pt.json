@@ -89,6 +89,7 @@
     "choose-teacher": "Qual professor você está a orientar?"
   },
   "Questionnaire": {
+    "question-order": "Questão {{current}} de {{total}}",
     "title": "Ficha de observação",
     "feedback": "Feedback",
     "session-title": "Sessão {{value}}",
@@ -97,6 +98,7 @@
     "description-feedback": "Abaixo estão listadas as competências relacionadas com as perguntas respondidas na ficha de observação",
     "title-feedback-form": "Prepare o feedback",
     "description-feedback-form": "Preencha o questionário de feedback abaixo e prepare-se para entregar ao professor",
+    "finish-feedback-title": "O seu feedback foi entregue ao professor!",
     "title-review": "Documentação",
     "save": "Salvar",
     "finish": "Concluir",

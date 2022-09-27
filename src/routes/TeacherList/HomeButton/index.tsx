@@ -12,7 +12,6 @@ export const HomeButton: React.FC<Props> = ({ icon, onClick, value }) => {
       p="16px"
       flex={1}
       minWidth="85px"
-      maxWidth="120px"
       onClick={onClick}
       alignItems="center"
       borderRadius="12px"

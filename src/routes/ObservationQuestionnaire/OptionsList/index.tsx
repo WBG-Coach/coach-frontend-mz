@@ -40,7 +40,7 @@ export const OptionsList: React.FC<Props> = ({
   }, [filter]);
 
   return type === "LIST" ? (
-    <Container mt="24px" flexDirection="column">
+    <Container flexDirection="column">
       <Input
         mb="16px"
         icon="search"
@@ -75,7 +75,7 @@ export const OptionsList: React.FC<Props> = ({
       ))}
     </Container>
   ) : (
-    <Container mt="24px" flexDirection="column">
+    <Container flexDirection="column">
       {filtedOptions.map((option) => (
         <OptionButton
           key={option.id}

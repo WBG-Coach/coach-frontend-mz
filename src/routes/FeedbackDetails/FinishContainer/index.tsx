@@ -1,10 +1,11 @@
 import React from "react";
 import { Button, Container, Image, Text } from "../../../components";
-import FinishImage from "../../../assets/images/documentation-success.svg";
+import FinishImage from "../../../assets/images/feedback-success.svg";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { QuestionnaireHeader } from "../../ObservationQuestionnaire/QuestionnaireHeader";
 
-export const FinishContainer: React.FC<{ applicationId: number }> = ({
+export const FinishContainer: React.FC<{ applicationId: string }> = ({
   applicationId,
 }) => {
   const navigate = useNavigate();
@@ -12,6 +13,10 @@ export const FinishContainer: React.FC<{ applicationId: number }> = ({
 
   return (
     <>
+      <QuestionnaireHeader
+        title={""}
+        onClose={() => navigate(`/application-details/${applicationId}`)}
+      />
       <Container
         mt="100px"
         alignContent="center"
@@ -26,13 +31,7 @@ export const FinishContainer: React.FC<{ applicationId: number }> = ({
           fontSize={24}
           fontWeight={600}
           textAlign="center"
-          value={t("Questionnaire.finish-documentation-title")}
-        />
-        <Text
-          fontSize={16}
-          fontWeight={400}
-          textAlign="center"
-          value={t("Questionnaire.finish-documentation-description")}
+          value={t("Questionnaire.finish-feedback-title")}
         />
       </Container>
 

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { getLocation } from "../../util";
 import {
   useGetQuestionsMutation,
-  useAnswerQuestionnaireMutation,
+  useAnswerDocQuestionnaireMutation,
 } from "../../service";
 import {
   Text,
@@ -17,7 +17,6 @@ import {
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/auth";
 import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHeader";
-import { ButtonQuestionList } from "../ObservationQuestionnaire/ButtonQuestionList";
 import { OptionsList } from "../ObservationQuestionnaire/OptionsList";
 import { FinishContainer } from "./FinishContainer";
 
@@ -27,7 +26,8 @@ const DocumentationQuestionnaire: React.FC<{}> = () => {
   const user = useSelector(selectCurrentUser);
   const [isLoadingAnswer, setIsLoadingAnswer] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answerQuestionnaire, answerRequest] = useAnswerQuestionnaireMutation();
+  const [answerQuestionnaire, answerRequest] =
+    useAnswerDocQuestionnaireMutation();
   const [notes, setNotes] = useState<Array<string | undefined>>([]);
   const [answers, setAnswers] = useState<Array<number | undefined>>([]);
   const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
@@ -98,31 +98,31 @@ const DocumentationQuestionnaire: React.FC<{}> = () => {
     setIsLoadingAnswer(false);
   };
 
-  const changeQuestion = (index: number) => {
-    setCurrentQuestion(index);
-  };
-
   return isLoading || isLoadingAnswer ? (
     <LoadingDots />
   ) : (
     <Container flex={1} flexDirection="column">
       <QuestionnaireHeader
-        title={t("Questionnaire.title")}
+        title={t("Questionnaire.title-review")}
         onClose={() => navigate(`/teacher/${teacherId}`)}
       />
 
       {answerRequest.data?.id ? (
-        <FinishContainer applicationId={answerRequest.data.id} />
+        <FinishContainer applicationId={parseInt(applicationId || "")} />
       ) : (
         <>
-          <ButtonQuestionList
-            questions={data?.questions || []}
-            onClick={changeQuestion}
-            currentQuestion={currentQuestion}
+          <Text
+            mb="4px"
+            color="#7D827F"
+            fontSize="14px"
+            lineHeight="20px"
+            value={t("Questionnaire.question-order", {
+              current: currentQuestion + 1,
+              total: data?.questions.length,
+            })}
           />
-
           <Container flexDirection="column">
-            <Text fontSize={18} fontWeight="bold">
+            <Text fontSize={18} mb="32px" fontWeight="bold">
               {data?.questions &&
                 data?.questions[currentQuestion]?.question?.text}
             </Text>

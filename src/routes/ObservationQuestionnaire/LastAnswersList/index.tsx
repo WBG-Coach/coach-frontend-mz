@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Container, Icon, Text } from "../../../components";
@@ -38,9 +39,38 @@ export const LastAnswersList: React.FC<Props> = ({
               />
             )}
           </Container>
-          <Container flexDirection="column">
-            <Text fontWeight={600} mb="4px" value={answer.option?.text || ""} />
-            <Text value={answer.notes} />
+          <Container flexDirection="column" width="100%">
+            <Container justifyContent="space-between" width="100%">
+              <Text
+                color="#7D827F"
+                fontSize="14px"
+                lineHeight="20px"
+                value={t("Questionnaire.session-title", {
+                  value: answer.questionnaire_application?.order,
+                })}
+              />
+              <Text
+                color="#7D827F"
+                fontSize="14px"
+                lineHeight="20px"
+                value={format(
+                  new Date(
+                    answer.questionnaire_application?.application_date || ""
+                  ),
+                  "yyyy/MM/dd"
+                )}
+              />
+            </Container>
+            <Text
+              mt="2px"
+              fontWeight="600"
+              fontSize="16px"
+              lineHeight="24px"
+              value={answer.option?.text || "-"}
+            />
+            {answer.notes && (
+              <Text mt="8px" color="#49504C" value={answer.notes} />
+            )}
           </Container>
         </Container>
       ))}
