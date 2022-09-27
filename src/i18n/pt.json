@@ -63,7 +63,8 @@
     "see-feedback": "Ver feedbacks",
     "add-session": "Adicionar sessão",
     "sessions": "Sessões",
-    "competencies": "Competêncies"
+    "competencies": "Competêncies",
+    "session-name": "Sessão {{value}}"
   },
   "ApplicationStatus": {
     "title": "Sessão",
@@ -88,18 +89,20 @@
     "choose-teacher": "Qual professor você está a orientar?"
   },
   "Questionnaire": {
-    "title": "Sessão",
+    "title": "Ficha de observação",
     "feedback": "Feedback",
     "session-title": "Sessão {{value}}",
-    "title-feedback": "Preparação do feedback",
+    "header-feedback": "Novo feedback",
+    "title-feedback": "Selecione uma competência para dar o feedback",
+    "description-feedback": "Abaixo estão listadas as competências relacionadas com as perguntas respondidas na ficha de observação",
+    "title-feedback-form": "Prepare o feedback",
+    "description-feedback-form": "Preencha o questionário de feedback abaixo e prepare-se para entregar ao professor",
     "title-review": "Documentação",
     "save": "Salvar",
     "finish": "Concluir",
     "continue": "Continuar",
     "see-summary": "Ver resumo",
-    "finish-title": "Bom trabalho, orientador pedagógico!",
     "question-number": "Questão {{value}}",
-    "finish-description": "A competência pedagógica foi selecionada!",
     "annotation": "Annotation",
     "return": "Voltar",
     "teacher": "Professor",
@@ -108,7 +111,15 @@
     "selected-competency": "Competência a trabalhar",
     "see-competence": "Ver competência",
     "previous-sessions": "Sessões anteriores",
-    "delivery-feedback": "Entregar feedback"
+    "delivery-feedback": "Entregar feedback",
+    "add-comment": "Adicionar comentário",
+    "finish-observation-title": "Ficha de observação salva com sucesso!",
+    "finish-observation-description": "",
+    "finish-documentation-title": "Sessão de orientação concluída com sucesso!",
+    "finish-documentation-description": "Você pode visitar o resumo dessa sessão a qualquer momento na página deste professor.",
+    "session-name": "Sessão {{value}}"
+
+
   },
   "FeedbackList": {
     "title": "Feedbacks",

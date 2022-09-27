@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { QuestionnaireHeader } from "./QuestionnaireHeader";
 import { ButtonQuestionList } from "./ButtonQuestionList";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Answer, AnswerFile } from "../../store/type";
 import { FinishContainer } from "./FinishContainer";
 import { useTranslation } from "react-i18next";
@@ -24,17 +24,18 @@ import { LastAnswersList } from "./LastAnswersList";
 import { useDispatch, useSelector } from "react-redux";
 import { openGuide } from "../../store/guide";
 import { selectCurrentUser } from "../../store/auth";
+import { format } from "date-fns";
 
 const ObservationQuestionnaire: React.FC<{}> = () => {
   const theme: any = useTheme();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const user = useSelector(selectCurrentUser);
   const [isLoadingAnswer, setIsLoadingAnswer] = useState(false);
-  const [isFinish, setFinish] = useState(false);
   const [files, setFiles] = useState<AnswerFile[][]>([[]]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answerQuestionnaire] = useAnswerQuestionnaireMutation();
+  const [answerQuestionnaire, answerRequest] = useAnswerQuestionnaireMutation();
   const [notes, setNotes] = useState<Array<string | undefined>>([]);
   const [showComments, setShowComments] = useState(false);
   const [answers, setAnswers] = useState<Array<number | undefined>>([]);
@@ -42,21 +43,21 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
   const { teacherId } = useParams<{ teacherId: string }>();
 
   useEffect(() => {
-    // TODO: REMOVE THIS FIXED ID
     if (user?.project?.observation_questionnaire?.id) {
       getQuestions({
         questionnaire_id: user.project?.observation_questionnaire.id,
+        teacher_id: parseInt(teacherId || "0"),
       });
     }
-  }, [user, getQuestions]);
+  }, [user, teacherId, getQuestions]);
 
   useEffect(() => {
-    if (data) {
-      setFiles(new Array(data?.length).fill([]));
-      setNotes(new Array(data?.length).fill(undefined));
-      setAnswers(new Array(data?.length).fill(undefined));
+    if (data?.questions) {
+      setFiles(new Array(data?.questions?.length).fill([]));
+      setNotes(new Array(data?.questions?.length).fill(undefined));
+      setAnswers(new Array(data?.questions?.length).fill(undefined));
     }
-  }, [data]);
+  }, [data?.questions]);
 
   const addImage = async (file: File) => {
     try {
@@ -79,7 +80,10 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
       )
     );
 
-    if (data && data[currentQuestion]?.question.type === "LIST")
+    if (
+      data?.questions &&
+      data?.questions[currentQuestion]?.question.type === "LIST"
+    )
       goToNextQuestion();
   };
 
@@ -99,10 +103,16 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
     setIsLoadingAnswer(true);
     const location = await getLocation();
     await answerQuestionnaire({
-      questionnaire_application_id: parseInt(teacherId || "", 10),
+      project_id: user.project?.id || 0,
+      questionnaire_application: {
+        coach_id: user.id || 0,
+        teacher_id: parseInt(teacherId || "0"),
+        school_id: user.selectedSchool?.id || 0,
+        application_date: format(new Date(), "yyyy-MM-dd"),
+      },
       answers:
-        (data &&
-          data.map(
+        (data?.questions &&
+          data?.questions.map(
             (questionnaireQuestion, index): Answer => ({
               questionnaire_question_id: questionnaireQuestion.id,
               option_id: answers[index] || 0,
@@ -114,7 +124,6 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
         [],
     });
     setIsLoadingAnswer(false);
-    setFinish(true);
   };
 
   const changeQuestion = (index: number) => {
@@ -128,98 +137,106 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
     <Container flex={1} flexDirection="column">
       <QuestionnaireHeader
         title={t("Questionnaire.title")}
-        onClose={() => {}}
+        onClose={() => navigate(`/teacher/${teacherId}`)}
       />
 
-      {isFinish ? (
-        <FinishContainer />
+      {answerRequest.data?.id ? (
+        <FinishContainer applicationId={answerRequest.data.id} />
       ) : (
         <>
           <ButtonQuestionList
-            questions={data || []}
+            questions={data?.questions || []}
             onClick={changeQuestion}
             currentQuestion={currentQuestion}
           />
 
           <Container flexDirection="column">
             <Text fontSize={18} fontWeight="bold">
-              {data && data[currentQuestion]?.question?.text}
+              {data?.questions &&
+                data?.questions[currentQuestion]?.question?.text}
             </Text>
 
-            {data && data[currentQuestion]?.question?.competence && (
-              <Container mb="24px">
-                <Container
-                  mt="8px"
-                  p="8px 16px"
-                  width="auto"
-                  borderRadius="20px"
-                  background="#F0F2F5"
-                  onClick={() =>
-                    dispatch(
-                      openGuide(
-                        data[currentQuestion]?.question?.competence
-                          .content_guide_id
+            {data?.questions &&
+              data?.questions[currentQuestion]?.question?.competence && (
+                <Container mb="24px">
+                  <Container
+                    mt="8px"
+                    p="8px 16px"
+                    width="auto"
+                    borderRadius="20px"
+                    background="#F0F2F5"
+                    onClick={() =>
+                      dispatch(
+                        openGuide(
+                          data?.questions[currentQuestion]?.question?.competence
+                            .content_guide_id
+                        )
                       )
-                    )
-                  }
-                >
-                  <Text
-                    value={
-                      data[currentQuestion]?.question?.competence.title || ""
                     }
-                  />
+                  >
+                    <Text
+                      value={
+                        data?.questions[currentQuestion]?.question?.competence
+                          .title || ""
+                      }
+                    />
+                  </Container>
                 </Container>
-              </Container>
-            )}
+              )}
 
-            {data &&
-              data.map(
+            {data?.questions &&
+              data?.questions.map(
                 (_, index) =>
                   index === currentQuestion && (
                     <OptionsList
                       onClick={answerQuestion}
                       selectedOptionId={answers[currentQuestion]}
-                      type={data[currentQuestion]?.question.type || ""}
-                      options={data[currentQuestion]?.question.options || []}
+                      type={
+                        data?.questions[currentQuestion]?.question.type || ""
+                      }
+                      options={
+                        data?.questions[currentQuestion]?.question.options || []
+                      }
                     />
                   )
               )}
           </Container>
 
-          {data && data[currentQuestion]?.question.type !== "LIST" && (
-            <>
-              {showComments || notes[currentQuestion] ? (
-                <Container mt="16px" flexDirection="column">
-                  {notes.map(
-                    (note: string | undefined, index: number): ReactNode =>
-                      currentQuestion === index && (
-                        <TextArea
-                          key={index}
-                          value={note}
-                          onLoadFile={addImage}
-                          onChangeText={(text) => noteQuestion(text)}
-                        />
-                      )
-                  )}
-                </Container>
-              ) : (
-                <Container
-                  background="#F4F5F5"
-                  p="12px"
-                  borderRadius="12px"
-                  onClick={() => setShowComments(true)}
-                >
-                  <Icon name="plus" size={24} mr="8px" />
-                  <Text
-                    fontSize="16px"
-                    fontWeight="500"
-                    lineHeight="24px"
-                    value={t("Questionnaire.add-comment")}
-                  />
-                </Container>
-              )}
-            </>
-          )}
+          {data?.questions &&
+            data?.questions[currentQuestion]?.question.type !== "LIST" && (
+              <>
+                {showComments || notes[currentQuestion] ? (
+                  <Container mt="16px" flexDirection="column">
+                    {notes.map(
+                      (note: string | undefined, index: number): ReactNode =>
+                        currentQuestion === index && (
+                          <TextArea
+                            key={index}
+                            value={note}
+                            onLoadFile={addImage}
+                            onChangeText={(text) => noteQuestion(text)}
+                          />
+                        )
+                    )}
+                  </Container>
+                ) : (
+                  <Container
+                    background="#F4F5F5"
+                    p="12px"
+                    borderRadius="12px"
+                    onClick={() => setShowComments(true)}
+                  >
+                    <Icon name="plus" size={24} mr="8px" />
+                    <Text
+                      fontSize="16px"
+                      fontWeight="500"
+                      lineHeight="24px"
+                      value={t("Questionnaire.add-comment")}
+                    />
+                  </Container>
+                )}
+              </>
+            )}
 
           <Container mt="16px" flexDirection="column">
             {files.map(
@@ -248,39 +265,43 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
             )}
           </Container>
 
-          {data && data[currentQuestion]?.question.last_answers && (
-            <LastAnswersList
-              lastAnswers={data[currentQuestion].question.last_answers || []}
-            />
-          )}
+          {data?.questions &&
+            data?.questions[currentQuestion]?.question.last_answers && (
+              <LastAnswersList
+                lastAnswers={
+                  data?.questions[currentQuestion].question.last_answers || []
+                }
+              />
+            )}
 
-          {data && data[currentQuestion]?.question.type !== "LIST" && (
-            <Container
-              left="0"
-              right="0"
-              bottom="0"
-              p="24px 16px"
-              position="fixed"
-            >
-              {currentQuestion + 1 === data?.length ? (
-                <Button
-                  mt={3}
-                  width="100%"
-                  onClick={sendQuestionnaire}
-                  value={t("Questionnaire.finish")}
-                  isDisabled={answers.includes(undefined)}
-                />
-              ) : (
-                <Button
-                  mt={3}
-                  width="100%"
-                  onClick={goToNextQuestion}
-                  value={t("Questionnaire.continue")}
-                  isDisabled={!answers[currentQuestion]}
-                />
-              )}
-            </Container>
-          )}
+          {data?.questions &&
+            data?.questions[currentQuestion]?.question.type !== "LIST" && (
+              <Container
+                left="0"
+                right="0"
+                bottom="0"
+                p="24px 16px"
+                position="fixed"
+              >
+                {currentQuestion + 1 === data?.questions?.length ? (
+                  <Button
+                    mt={3}
+                    width="100%"
+                    onClick={sendQuestionnaire}
+                    value={t("Questionnaire.finish")}
+                    isDisabled={answers.includes(undefined)}
+                  />
+                ) : (
+                  <Button
+                    mt={3}
+                    width="100%"
+                    onClick={goToNextQuestion}
+                    value={t("Questionnaire.continue")}
+                    isDisabled={!answers[currentQuestion]}
+                  />
+                )}
+              </Container>
+            )}
         </>
       )}
     </Container>

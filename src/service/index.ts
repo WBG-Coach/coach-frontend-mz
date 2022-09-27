@@ -124,8 +124,8 @@ export const api = createApi({
       }),
     }),
     getQuestions: builder.mutation<
-      QuestionnaireQuestion[],
-      { questionnaire_id: number; feedback?: boolean }
+      { questions: QuestionnaireQuestion[] },
+      { questionnaire_id: number; teacher_id?: number; feedback?: boolean }
     >({
       query: (body) => ({
         method: "POST",
@@ -133,7 +133,7 @@ export const api = createApi({
         body,
       }),
     }),
-    answerQuestionnaire: builder.mutation<any, AnswerQuestionnaire>({
+    answerQuestionnaire: builder.mutation<Application, AnswerQuestionnaire>({
       query: (body) => ({
         method: "POST",
         url: "/api/answers",

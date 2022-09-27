@@ -2,16 +2,10 @@ import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { OnboardingApplicationModal } from "./OnboardingApplicationModal";
-import {
-  Container,
-  Footer,
-  Icon,
-  Image,
-  LoadingDots,
-  Text,
-} from "../../components";
+import { Container, Icon, Image, LoadingDots, Text } from "../../components";
 import { useGetApplicationMutation } from "../../service";
 import { TimelineItem } from "../../components/TimelineItem";
+import { format } from "date-fns";
 
 const ApplicationDetails: React.FC = () => {
   const navigate = useNavigate();
@@ -40,11 +34,13 @@ const ApplicationDetails: React.FC = () => {
 
   const getFeedbackStatus = () => {
     if (data?.status === "PENDING_MEET") return "current";
+    if (data?.status === "PENDING_DOCUMENTATION") return "complete";
     if (data?.status === "DONE") return "complete";
     return "pending";
   };
 
   const getDocumentationStatus = () => {
+    if (data?.status === "PENDING_DOCUMENTATION") return "current";
     if (data?.status === "DONE") return "complete";
     return "pending";
   };
@@ -61,7 +57,7 @@ const ApplicationDetails: React.FC = () => {
             flexDirection="row"
             justifyContent="flex-end"
           >
-            <Container onClick={() => navigate(-1)}>
+            <Container onClick={() => navigate(`/teacher/${data?.teacher.id}`)}>
               <Icon name="close" size={24} />
             </Container>
           </Container>
@@ -82,7 +78,14 @@ const ApplicationDetails: React.FC = () => {
                 fontSize="14px"
                 color="#49504C"
                 lineHeight="20px"
-                value={t("ApplicationStatus.label-review")}
+                value={t("ApplicationStatus.started-at", {
+                  value: format(
+                    data?.application_date
+                      ? new Date(data?.application_date)
+                      : new Date(),
+                    "dd/MM/yyyy"
+                  ),
+                })}
               />
             </Container>
 
@@ -139,7 +142,13 @@ const ApplicationDetails: React.FC = () => {
           <TimelineItem
             buttonValue="Preparar feedback"
             description="Prepare um feedback para o professor sobre a aula que você observou."
-            onClick={() => navigate(`/feedback-list/${applicationId}`)}
+            onClick={() => {
+              if (data?.status === "PENDING_FEEDBACK")
+                navigate(
+                  `/questionnaire-feedback/${applicationId}/${data?.teacher.id}`
+                );
+              else navigate(`/feedback-details/${applicationId}`);
+            }}
             status={getPrepareFeedbackStatus()}
             title="Preparação do feedback"
           />
@@ -147,23 +156,27 @@ const ApplicationDetails: React.FC = () => {
           <TimelineItem
             buttonValue="Ver feedback"
             description="Oriente o professor de acordo com o que você preparou"
-            onClick={() => navigate(`/feedback-list/${applicationId}`)}
+            onClick={() => {
+              navigate(`/feedback-details/${applicationId}`);
+            }}
             status={getFeedbackStatus()}
             title="Feedback"
           />
 
           <TimelineItem
             isLast
-            description=""
-            onClick={() => navigate(`/feedback-list/${applicationId}`)}
+            description="Responda um questionário sobre a como foi a sessão de feedback."
+            onClick={() =>
+              navigate(
+                `/documentation-questionnaire/${applicationId}/${data?.teacher.id}`
+              )
+            }
             buttonValue="Documentar sessão"
             status={getDocumentationStatus()}
             title="Documentação da sessão"
           />
         </>
       )}
-
-      <Footer />
 
       <OnboardingApplicationModal />
     </Container>

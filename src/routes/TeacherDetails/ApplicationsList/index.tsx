@@ -2,6 +2,7 @@ import React from "react";
 import { format } from "date-fns";
 import { Application } from "../../../store/type";
 import { Container, Icon, Text } from "../../../components";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   applications?: Application[];
@@ -12,6 +13,7 @@ export const ApplicationsList: React.FC<Props> = ({
   applications,
   onClick,
 }) => {
+  const { t } = useTranslation();
   return (
     <Container flexDirection="column" borderBottom="1px solid #F0F2F5">
       <Container flexDirection="column">
@@ -38,7 +40,9 @@ export const ApplicationsList: React.FC<Props> = ({
                   fontSize="16px"
                   color="#191A1B"
                   lineHeight="24px"
-                  value={application.name || "-"}
+                  value={t("TeacherDetails.session-name", {
+                    value: application.order,
+                  })}
                 />
                 <Text
                   fontSize="14px"

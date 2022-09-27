@@ -23,6 +23,7 @@ export type Project = {
   primary_color: string;
   feedback_questionnaire?: Questionnaire;
   observation_questionnaire?: Questionnaire;
+  doc_questionnaire?: Questionnaire;
 };
 
 export type School = {
@@ -54,18 +55,24 @@ export type Note = {
 export type Application = {
   id: number;
   name?: string;
-  status: "PENDING_FEEDBACK" | "PENDING_RESPONSE" | "PENDING_MEET" | "DONE";
-  questionnaire_id: number;
-  feedback_questionnaire_id: number;
+  order: number;
+  teacher: User;
+  notes: Note[];
   coach_id: number;
-  teacher_id: number;
   created_at: Date;
   updated_at: Date;
   school_id: number;
-  teacher: User;
-  notes: Note[];
+  teacher_id: number;
   application_date: Date;
+  questionnaire_id: number;
   questionnaire: Questionnaire;
+  feedback_questionnaire_id: number;
+  status:
+    | "PENDING_RESPONSE"
+    | "PENDING_FEEDBACK"
+    | "PENDING_MEET"
+    | "PENDING_DOCUMENTATION"
+    | "DONE";
 };
 
 export type Option = {
@@ -120,7 +127,14 @@ export type Answer = {
 };
 
 export type AnswerQuestionnaire = {
-  questionnaire_application_id: number;
+  questionnaire_application_id?: number;
+  questionnaire_application?: {
+    coach_id: number;
+    teacher_id: number;
+    school_id: number;
+    application_date: string;
+  };
+  project_id?: number;
   answers: Answer[];
 };
 

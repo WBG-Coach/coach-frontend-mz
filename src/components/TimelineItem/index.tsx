@@ -46,7 +46,9 @@ export const TimelineItem: React.FC<Props> = ({
   };
 
   return (
-    <StyledTimelineItemContainer onClick={onClick}>
+    <StyledTimelineItemContainer
+      onClick={() => status !== "pending" && onClick()}
+    >
       <StyledTimelineIndicatorContainer>
         <StyledTimelineIndicatorLine
           height="25px"
@@ -62,7 +64,7 @@ export const TimelineItem: React.FC<Props> = ({
         <StyledTimelineItemTitle variant={status}>
           {title}
         </StyledTimelineItemTitle>
-        {!isLast && status === "current" && (
+        {status === "current" && (
           <>
             <StyledTimelineItemDescription>
               {description}

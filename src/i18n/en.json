@@ -71,7 +71,8 @@
     "see-feedback": "Review feedback",
     "add-session": "Add a session",
     "sessions": "Sessions",
-    "competencies": "Competencies"
+    "competencies": "Competencies",
+    "session-name": "Session {{value}}"
   },
   "ApplicationStatus": {
     "title": "Session",
@@ -82,7 +83,8 @@
     "new-review": "New note",
     "info": "To access the Feedback page, you must first complete the Observation Form",
     "competences": "Competencies",
-    "onboarding-modal-title": "Observation sessions"
+    "onboarding-modal-title": "Observation sessions",
+    "started-at": "Started at {{value}}"
   },
   "ApplicationForm": {
     "name": "Session title",
@@ -96,18 +98,20 @@
     "choose-teacher": "Which teacher are you mentoring?"
   },
   "Questionnaire": {
-    "title": "Session",
+    "title": "Observation sheet",
     "feedback": "Feedback",
     "session-title": "Session {{value}}",
-    "title-feedback": "Feedback preparation",
+    "header-feedback": "New feedback",
+    "title-feedback": "Select a competency to provide feedback",
+    "description-feedback": "Below are listed the competencies related to the questions answered in the observation sheet.",
+    "title-feedback-form": "Prepare the feedback",
+    "description-feedback-form": "Fill out the feedback questionnaire below and get ready to hand it to the teacher",
     "title-review": "Documentation",
     "save": "Save",
     "finish": "Finish",
     "continue": "Continue",
     "see-summary": "See summary",
-    "finish-title": "Good job, pedagogical advisor!",
     "question-number": "Question {{value}}",
-    "finish-description": "The observation sheet has been saved.",
     "annotation": "Annotation",
     "return": "Return",
     "teacher": "Teacher",
@@ -116,7 +120,13 @@
     "selected-competency": "Selected competency",
     "see-competence": "See competency",
     "previous-sessions": "Previous sessions",
-    "delivery-feedback": "Delivery feedback"
+    "delivery-feedback": "Delivery feedback",
+    "add-comment": "Add comment",
+    "finish-observation-title": "Observation sheet saved successfully!",
+    "finish-observation-description": "",
+    "finish-documentation-title": "Orientation session successfully completed!",
+    "finish-documentation-description": "You can visit the summary of that session at any time on this teacher's page.",
+    "session-name": "Session {{value}}"
   },
   "FeedbackList": {
     "title": "Feedback",

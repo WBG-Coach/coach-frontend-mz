@@ -1,12 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Button,
-  Container,
-  Icon,
-  LoadingDots,
-  Text,
-} from "../../../components";
+import { Container, Icon, LoadingDots, Text } from "../../../components";
 import {
   useCountCompetenceFeedbacksMutation,
   useGetApplicationMutation,
@@ -19,9 +13,9 @@ const FirstFeedbackQuestion: React.FC<{
   onConfirmAnswer: (answer: Answer) => void;
 }> = ({ applicationId, onConfirmAnswer, answers }) => {
   const { t } = useTranslation();
-  const [answer, setAnswer] = useState<Answer>();
   const [isLoading, setIsLoading] = useState(true);
-  const [haveThumbsDown, setHaveThumbsDown] = useState(false);
+  const [maxFeedbacksPerCompetence, setMaxFeedbacksPerCompetence] =
+    useState(false);
   const [countFeedback, setCountFeedbacks] = useState<Count[]>([]);
 
   const [countCompetenceFeedback] = useCountCompetenceFeedbacksMutation();
@@ -29,9 +23,6 @@ const FirstFeedbackQuestion: React.FC<{
 
   useEffect(() => {
     if (applicationId && answers) {
-      setHaveThumbsDown(
-        !!answers.find((item) => item.option?.selected_icon === "thumbs-down")
-      );
       getApplication({ id: applicationId }).then((application: any) => {
         Promise.all(
           answers.map((answer): Promise<Count> => {
@@ -50,38 +41,44 @@ const FirstFeedbackQuestion: React.FC<{
     }
   }, [applicationId, countCompetenceFeedback, getApplication, answers]);
 
-  const invalidAnswer = useMemo(
-    () => answer?.option?.selected_icon === "thumbs-up",
-    [answer]
+  const haveOnlyPositive = useMemo(
+    () =>
+      !answers?.find((item) => item.option?.selected_icon === "thumbs-down"),
+    [answers]
   );
 
-  const maxFeedbacksPerCompetence = useMemo(
-    () =>
+  const selectAnswer = (answer: Answer) => {
+    if (
       countFeedback &&
       countFeedback[answers?.findIndex((item) => item.id === answer?.id) || 0]
-        ?.quantity > 2,
-    [answer, countFeedback, answers]
-  );
+        ?.quantity > 2
+    ) {
+      setMaxFeedbacksPerCompetence(true);
+    } else {
+      onConfirmAnswer(answer);
+    }
+  };
 
   return isLoading ? (
     <LoadingDots />
   ) : (
     <Container flex={1} flexDirection="column">
       <Text
-        mt="16px"
-        mb="24px"
-        fontSize={18}
-        fontWeight="bold"
-        value={"Selecione uma competência para dar o feedback"}
+        my="8px"
+        fontSize={20}
+        fontWeight="600"
+        lineHeight="24px"
+        value={t("Questionnaire.title-feedback")}
       />
-      <Container mt="24px" mb="100px" flexDirection="column">
-        {invalidAnswer && haveThumbsDown && (
-          <Text
-            mb="16px"
-            color="#e53935"
-            value="Selecione uma competência a melhorar"
-          />
-        )}
+      <Text
+        mb="32px"
+        fontSize={14}
+        color="#49504C"
+        lineHeight="20px"
+        value={t("Questionnaire.description-feedback")}
+      />
+
+      <Container flexDirection="column">
         {maxFeedbacksPerCompetence && (
           <Text
             mb="16px"
@@ -92,66 +89,53 @@ const FirstFeedbackQuestion: React.FC<{
 
         {answers?.map(
           (currentAnswer, index) =>
-            currentAnswer.option?.question?.competence && (
+            currentAnswer.option?.question?.competence &&
+            (haveOnlyPositive ||
+              currentAnswer.option.selected_icon === "thumbs-down") && (
               <Container
                 p="16px"
-                mb="12px"
                 key={index}
                 borderRadius="8px"
-                flexDirection="column"
+                flexDirection="row"
+                alignItems="center"
                 justifyContent="center"
-                onClick={() => setAnswer(currentAnswer)}
-                border={
-                  answer?.id === currentAnswer?.id
-                    ? "1px solid #3373CC"
-                    : "1px solid #E3E5E8"
-                }
+                borderBottom="1px solid #F4F5F5"
+                onClick={() => selectAnswer(currentAnswer)}
               >
-                <Text
-                  color="#494B50"
-                  fontSize={"14px"}
-                  value={currentAnswer?.option.question.competence.title}
-                />
-                <Text
-                  my="8px"
-                  fontSize={"16px"}
-                  value={currentAnswer?.option.question.competence.subtitle}
-                />
                 <Container
-                  justifyContent="center"
+                  mr="8px"
+                  width="24px"
+                  height="24px"
                   alignItems="center"
-                  width="70px"
-                  border="1px solid"
-                  borderColor={currentAnswer?.option.selected_color}
-                  background={currentAnswer?.option.selected_color}
                   borderRadius="12px"
+                  justifyContent="center"
+                  background={currentAnswer?.option.selected_color}
                 >
-                  <Text
-                    value={currentAnswer?.option.text}
-                    color="#fff"
-                    m="auto"
-                    mr="4px"
-                  />
                   <Icon
-                    mr="8px"
                     size={16}
                     color="#fff"
                     name={currentAnswer?.option?.selected_icon || ""}
                   />
                 </Container>
+                <Container flexDirection="column" flex={1}>
+                  <Text
+                    mb="4px"
+                    color="#49504C"
+                    fontSize={"14px"}
+                    lineHeight="20px"
+                    value={currentAnswer?.option.question.competence.title}
+                  />
+                  <Text
+                    fontSize={"14px"}
+                    lineHeight="20px"
+                    fontWeight="500"
+                    value={currentAnswer?.option.question.competence.subtitle}
+                  />
+                </Container>
+                <Icon size={24} name="chevron-right" color="#7D827F" />
               </Container>
             )
         )}
-      </Container>
-
-      <Container left="0" right="0" bottom="0" p="24px 16px" position="fixed">
-        <Button
-          mt={3}
-          width="100%"
-          onClick={() => answer && onConfirmAnswer(answer)}
-          value={t("Questionnaire.continue")}
-          isDisabled={invalidAnswer || maxFeedbacksPerCompetence}
-        />
       </Container>
     </Container>
   );

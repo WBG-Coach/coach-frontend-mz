@@ -26,13 +26,13 @@ export const FinishContainer: React.FC<{ applicationId: number }> = ({
           fontSize={24}
           fontWeight={600}
           textAlign="center"
-          value={t("Questionnaire.finish-observation-title")}
+          value={t("Questionnaire.finish-documentation-title")}
         />
         <Text
           fontSize={16}
           fontWeight={400}
           textAlign="center"
-          value={t("Questionnaire.finish-observation-description")}
+          value={t("Questionnaire.finish-documentation-description")}
         />
       </Container>
 

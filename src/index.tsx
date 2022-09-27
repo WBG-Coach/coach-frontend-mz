@@ -9,6 +9,9 @@ import { store } from "./store";
 import App from "./app";
 import "./i18n";
 
+const DocumentationQuestionnaire = React.lazy(
+  () => import("./routes/DocumentationQuestionnaire")
+);
 const TeacherDetails = React.lazy(() => import("./routes/TeacherDetails"));
 const ObservationQuestionnaire = React.lazy(
   () => import("./routes/ObservationQuestionnaire")
@@ -22,7 +25,6 @@ const ApplicationDetails = React.lazy(
 const FeedbackQuestionnaire = React.lazy(
   () => import("./routes/FeedbackQuestionnaire")
 );
-const FeedbackList = React.lazy(() => import("./routes/FeedbackList"));
 const FeedbackDetails = React.lazy(() => import("./routes/FeedbackDetails"));
 const ObservationDetails = React.lazy(
   () => import("./routes/ObservationDetails")
@@ -68,6 +70,7 @@ root.render(
               </React.Suspense>
             }
           />
+
           <Route
             path="select-school"
             element={
@@ -129,6 +132,7 @@ root.render(
               </ProtectedRoute>
             }
           />
+
           <Route
             path="application-details/:applicationId"
             element={
@@ -139,6 +143,7 @@ root.render(
               </ProtectedRoute>
             }
           />
+
           <Route
             path="questionnaire/:teacherId"
             element={
@@ -159,28 +164,9 @@ root.render(
               </ProtectedRoute>
             }
           />
+
           <Route
-            path="feedback-list/:applicationId"
-            element={
-              <ProtectedRoute>
-                <React.Suspense fallback={<div>Loading...</div>}>
-                  <FeedbackList />
-                </React.Suspense>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="feedback-details/:feedbackId"
-            element={
-              <ProtectedRoute>
-                <React.Suspense fallback={<div>Loading...</div>}>
-                  <FeedbackDetails />
-                </React.Suspense>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="questionnaire-feedback/:applicationId/:questionnaireId"
+            path="questionnaire-feedback/:applicationId/:teacherId"
             element={
               <ProtectedRoute>
                 <React.Suspense fallback={<div>Loading...</div>}>
@@ -189,6 +175,28 @@ root.render(
               </ProtectedRoute>
             }
           />
+          <Route
+            path="feedback-details/:applicationId"
+            element={
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
+                  <FeedbackDetails />
+                </React.Suspense>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="documentation-questionnaire/:applicationId/:teacherId"
+            element={
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
+                  <DocumentationQuestionnaire />
+                </React.Suspense>
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="profile"
             element={

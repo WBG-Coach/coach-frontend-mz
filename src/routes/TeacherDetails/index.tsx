@@ -49,7 +49,7 @@ const TeacherDetails: React.FC = () => {
   return (
     <Container width="100%" height="100%" mb="100px" flexDirection="column">
       <Container mb="8px" flexDirection="row" p="16px 0" mt="-16px">
-        <Container onClick={() => navigate(-1)}>
+        <Container onClick={() => navigate("/teachers")}>
           <Icon name="arrow-left" size={24} />
         </Container>
         <Container flex={1} justifyContent="center">
