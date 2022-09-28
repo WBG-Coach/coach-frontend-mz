@@ -200,7 +200,7 @@ root.render(
             }
           />
           <Route
-            path="documentation-details/:applicationId"
+            path="documentation-details/:applicationId/:teacherId"
             element={
               <ProtectedRoute>
                 <React.Suspense fallback={<div>Loading...</div>}>

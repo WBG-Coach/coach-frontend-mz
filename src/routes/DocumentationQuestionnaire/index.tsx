@@ -88,7 +88,7 @@ const DocumentationQuestionnaire: React.FC<{}> = () => {
           data?.questions.map(
             (questionnaireQuestion, index): Answer => ({
               questionnaire_question_id: questionnaireQuestion.id,
-              option_id: answers[index] || 0,
+              ...(answers[index] && { option_id: answers[index] }),
               notes: notes[index] || "",
               ...location,
             })

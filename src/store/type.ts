@@ -122,7 +122,7 @@ export type Answer = {
   questionnaire_application?: Application;
   questionnaire_question_id: number;
   notes?: string;
-  option_id: number;
+  option_id?: number;
   option?: Option;
   files?: { url: string }[];
 };

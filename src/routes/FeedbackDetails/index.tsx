@@ -37,11 +37,11 @@ const FeedbackDetails: React.FC<{}> = () => {
   }>();
 
   useEffect(() => {
-    if (user.project?.feedback_questionnaire?.id && applicationId) {
+    if (user.project?.observation_questionnaire?.id && applicationId) {
       getFeedbacks(parseInt(applicationId, 10));
       getAnswers({
         questionnaire_application_id: parseInt(applicationId, 10),
-        questionnaire_id: user.project.feedback_questionnaire.id,
+        questionnaire_id: user.project.observation_questionnaire.id,
       });
     }
   }, [user, applicationId, getAnswers, getFeedbacks]);

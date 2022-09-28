@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ButtonQuestionList } from "./ButtonQuestionList";
 import { QuestionnaireHeader } from "./QuestionnaireHeader";
-import { useGetAnswersMutation } from "../../service";
+import { useGetAnswersMutation, useGetQuestionsMutation } from "../../service";
 import {
   Text,
   Button,
@@ -19,8 +19,12 @@ const DocumentationDetails: React.FC<{}> = () => {
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const { applicationId } = useParams<{ applicationId: string }>();
   const [getAnswers, { data, isLoading }] = useGetAnswersMutation();
+  const [getQuestions, requestQuestions] = useGetQuestionsMutation();
+  const { applicationId, teacherId } = useParams<{
+    applicationId: string;
+    teacherId: string;
+  }>();
 
   useEffect(() => {
     if (user.project?.doc_questionnaire?.id && applicationId) {
@@ -30,6 +34,15 @@ const DocumentationDetails: React.FC<{}> = () => {
       });
     }
   }, [user, applicationId, getAnswers]);
+
+  useEffect(() => {
+    if (user.project?.doc_questionnaire?.id) {
+      getQuestions({
+        questionnaire_id: user.project?.doc_questionnaire?.id,
+        teacher_id: parseInt(teacherId || "0"),
+      });
+    }
+  }, [user, teacherId, getQuestions]);
 
   const goToNextQuestion = () => {
     setCurrentQuestion(currentQuestion + 1);
@@ -53,7 +66,7 @@ const DocumentationDetails: React.FC<{}> = () => {
 
       <Container flexDirection="column">
         <Text fontSize={18} fontWeight="bold">
-          {data[currentQuestion].option?.question?.text || ""}
+          {requestQuestions.data?.questions[currentQuestion].question.text}
         </Text>
 
         {data[currentQuestion].option?.text && (
@@ -71,6 +84,7 @@ const DocumentationDetails: React.FC<{}> = () => {
         )}
         {data[currentQuestion].notes && (
           <Text
+            mt="24px"
             fontSize="16px"
             color="#191A1B"
             lineHeight="24px"

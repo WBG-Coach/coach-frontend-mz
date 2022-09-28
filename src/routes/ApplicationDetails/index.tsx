@@ -167,7 +167,9 @@ const ApplicationDetails: React.FC = () => {
             description="Responda um questionário sobre a como foi a sessão de feedback."
             onClick={() => {
               if (data?.status === "DONE") {
-                navigate(`/documentation-details/${applicationId}`);
+                navigate(
+                  `/documentation-details/${applicationId}/${data?.teacher.id}`
+                );
               } else {
                 navigate(
                   `/documentation-questionnaire/${applicationId}/${data?.teacher.id}`
