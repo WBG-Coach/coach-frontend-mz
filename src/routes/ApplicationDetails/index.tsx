@@ -165,11 +165,15 @@ const ApplicationDetails: React.FC = () => {
           <TimelineItem
             isLast
             description="Responda um questionário sobre a como foi a sessão de feedback."
-            onClick={() =>
-              navigate(
-                `/documentation-questionnaire/${applicationId}/${data?.teacher.id}`
-              )
-            }
+            onClick={() => {
+              if (data?.status === "DONE") {
+                navigate(`/documentation-details/${applicationId}`);
+              } else {
+                navigate(
+                  `/documentation-questionnaire/${applicationId}/${data?.teacher.id}`
+                );
+              }
+            }}
             buttonValue="Documentar sessão"
             status={getDocumentationStatus()}
             title="Documentação da sessão"

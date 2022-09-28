@@ -13,21 +13,28 @@ import {
   Icon,
 } from "../../components";
 import { useTheme } from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openGuide } from "../../store/guide";
+import { selectCurrentUser } from "../../store/auth";
 
 const ObservationDetails: React.FC<{}> = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const theme: any = useTheme();
+  const user = useSelector(selectCurrentUser);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const { applicationId } = useParams<{ applicationId: string }>();
   const [getAnswers, { data, isLoading }] = useGetAnswersMutation();
 
   useEffect(() => {
-    if (applicationId) getAnswers(parseInt(applicationId, 10));
-  }, [applicationId, getAnswers]);
+    if (user.project?.observation_questionnaire?.id && applicationId) {
+      getAnswers({
+        questionnaire_application_id: parseInt(applicationId, 10),
+        questionnaire_id: user.project.observation_questionnaire.id,
+      });
+    }
+  }, [user, applicationId, getAnswers]);
 
   const goToNextQuestion = () => {
     setCurrentQuestion(currentQuestion + 1);

@@ -36,6 +36,9 @@ const SelectTeacher = React.lazy(() => import("./routes/SelectTeacher"));
 const SelectProject = React.lazy(() => import("./routes/SelectProject"));
 const ProfileForm = React.lazy(() => import("./routes/ProfileForm"));
 const UpdatePassword = React.lazy(() => import("./routes/UpdatePassword"));
+const DocumentationDetails = React.lazy(
+  () => import("./routes/DocumentationDetails")
+);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -192,6 +195,16 @@ root.render(
               <ProtectedRoute>
                 <React.Suspense fallback={<div>Loading...</div>}>
                   <DocumentationQuestionnaire />
+                </React.Suspense>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="documentation-details/:applicationId"
+            element={
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
+                  <DocumentationDetails />
                 </React.Suspense>
               </ProtectedRoute>
             }

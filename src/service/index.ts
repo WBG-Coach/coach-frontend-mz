@@ -147,11 +147,17 @@ export const api = createApi({
         body,
       }),
     }),
-    getAnswers: builder.mutation<Answer[], number>({
-      query: (questionnaire_application_id) => ({
+    getAnswers: builder.mutation<
+      Answer[],
+      {
+        questionnaire_id: number;
+        questionnaire_application_id: number;
+      }
+    >({
+      query: (body) => ({
         method: "POST",
         url: "/api/answers/search",
-        body: { questionnaire_application_id },
+        body,
       }),
     }),
     getLastAnswers: builder.mutation<Answer[], number>({

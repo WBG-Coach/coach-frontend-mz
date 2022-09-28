@@ -16,16 +16,18 @@ import {
   useUpdateApplicationMutation,
 } from "../../service";
 import { QuestionnaireHeader } from "../ObservationQuestionnaire/QuestionnaireHeader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openGuide } from "../../store/guide";
 import { format } from "date-fns";
 import { FinishContainer } from "./FinishContainer";
+import { selectCurrentUser } from "../../store/auth";
 
 const FeedbackDetails: React.FC<{}> = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isFinish, setFinish] = useState(false);
+  const user = useSelector(selectCurrentUser);
   const [getAnswers, answersRequest] = useGetAnswersMutation();
   const [getFeedbacks, feedbacksRequest] = useGetFeedbacksMutation();
   const [getFeedback, { data, isLoading }] = useGetFeedbackMutation();
@@ -35,11 +37,14 @@ const FeedbackDetails: React.FC<{}> = () => {
   }>();
 
   useEffect(() => {
-    if (applicationId) {
+    if (user.project?.feedback_questionnaire?.id && applicationId) {
       getFeedbacks(parseInt(applicationId, 10));
-      getAnswers(parseInt(applicationId, 10));
+      getAnswers({
+        questionnaire_application_id: parseInt(applicationId, 10),
+        questionnaire_id: user.project.feedback_questionnaire.id,
+      });
     }
-  }, [applicationId, getFeedbacks, getAnswers]);
+  }, [user, applicationId, getAnswers, getFeedbacks]);
 
   useEffect(() => {
     if (feedbacksRequest.data) {

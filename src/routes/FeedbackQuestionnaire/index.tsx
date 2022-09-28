@@ -26,7 +26,7 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   const [answer, setAnswer] = useState<Answer>();
-  const [getAnswer, { data }] = useGetAnswersMutation();
+  const [getAnswers, { data }] = useGetAnswersMutation();
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoadingAnswer, setIsLoadingAnswer] = useState(false);
   const [getQuestions, questionsRequest] = useGetQuestionsMutation();
@@ -78,10 +78,13 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
   };
 
   useEffect(() => {
-    if (applicationId) {
-      getAnswer(parseInt(applicationId, 10));
+    if (user.project?.observation_questionnaire?.id && applicationId) {
+      getAnswers({
+        questionnaire_application_id: parseInt(applicationId, 10),
+        questionnaire_id: user.project.observation_questionnaire.id,
+      });
     }
-  }, [applicationId, getAnswer]);
+  }, [user, applicationId, getAnswers]);
 
   return (
     <>
