@@ -1,7 +1,6 @@
 import { BaseQueryApi } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
 import { MaybePromise } from "@reduxjs/toolkit/dist/query/tsHelpers";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { format } from "date-fns";
 import { RootState } from "../store";
 import {
   Answer,
@@ -209,19 +208,6 @@ export const api = createApi({
         body,
       }),
     }),
-    createApplication: builder.mutation<void, Partial<Application>>({
-      query: (body) => ({
-        method: "POST",
-        url: "/api/questionnaire-applications",
-        body: {
-          ...body,
-          application_date: format(
-            body.application_date || new Date(),
-            "yyyy-MM-dd"
-          ),
-        },
-      }),
-    }),
     updateApplication: builder.mutation<void, Partial<Application>>({
       query: (body) => ({
         method: "PUT",
@@ -313,7 +299,6 @@ export const {
   useGetContentGuideMutation,
   useGetLastFeedbacksMutation,
   useUpdateApplicationMutation,
-  useCreateApplicationMutation,
   useGetLastApplicationsMutation,
   useAnswerQuestionnaireMutation,
   useCountCompetenceFeedbacksMutation,

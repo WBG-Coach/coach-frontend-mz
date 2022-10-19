@@ -10,7 +10,7 @@ export const HomeButton: React.FC<Props> = ({ icon, onClick, value }) => {
   return (
     <Container
       p="16px"
-      flex={1}
+      // flex={1}
       minWidth="85px"
       onClick={onClick}
       alignItems="center"

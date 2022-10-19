@@ -38,7 +38,7 @@ const TeachersList: React.FC<{}> = () => {
             value={t("Teachers.create-session")}
             onClick={() => navigate("/select-teacher")}
           />
-          <HomeButton
+          {/* <HomeButton
             icon="analytics"
             value={t("Teachers.statistics")}
             onClick={() => navigate("")}
@@ -47,7 +47,7 @@ const TeachersList: React.FC<{}> = () => {
             icon="puzzle-piece-solid"
             value={t("Teachers.competencies")}
             onClick={() => navigate("")}
-          />
+          /> */}
         </Container>
         <Text
           mb="4px"
