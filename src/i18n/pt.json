@@ -102,6 +102,7 @@
     "finish-feedback-title": "O seu feedback foi entregue ao professor!",
     "title-review": "Documentação",
     "save": "Salvar",
+    "finish-feedback": "Completar feedback",
     "finish": "Concluir",
     "continue": "Continuar",
     "see-summary": "Ver resumo",
@@ -133,7 +134,7 @@
   },
   "Profile": {
     "logout": "Sair",
-    "help": "Ajuda",
+    "help": "Suporte por e-mail",
     "update-password": "Alterar senha",
     "edit-profile": "Editar perfil",
     "version": "Version {{value}}"

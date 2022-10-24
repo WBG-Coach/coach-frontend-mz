@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Container, Image, Text } from "../../../components";
+import { useNavigate } from "react-router-dom";
+import { Container, Icon, Image, Text } from "../../../components";
 import { User } from "../../../store/type";
 
 type Props = {
@@ -9,6 +10,7 @@ type Props = {
 
 export const TeacherInfo: React.FC<Props> = ({ teacher }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <Container
@@ -42,17 +44,29 @@ export const TeacherInfo: React.FC<Props> = ({ teacher }) => {
           />
         </Container>
       )}
-      <Text
-        mt="12px"
-        fontSize="20px"
-        color="#00121A"
-        fontWeight={600}
-        lineHeight="24px"
-        value={teacher?.name}
-      />
-      <Text mt="4px" color="#2B363B" fontSize="14px" lineHeight="20px">
-        {t("TeacherDetails.subject", { subject: teacher?.subject })}
-      </Text>
+      <Container alignItems="center">
+        <Container flexDirection="column" flex={1}>
+          <Text
+            mt="12px"
+            fontSize="20px"
+            color="#00121A"
+            fontWeight={600}
+            lineHeight="24px"
+            value={teacher?.name}
+          />
+          <Text mt="4px" color="#2B363B" fontSize="14px" lineHeight="20px">
+            {t("TeacherDetails.subject", { subject: teacher?.subject })}
+          </Text>
+        </Container>
+        <Container
+          p="8px"
+          borderRadius="8px"
+          border="1px solid #E6E6E6"
+          onClick={() => navigate(`/teacher-form/${teacher?.id}`)}
+        >
+          <Icon name="pen-solid" size={24} color="#4D4D4D" />
+        </Container>
+      </Container>
     </Container>
   );
 };

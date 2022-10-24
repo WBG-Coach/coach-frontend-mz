@@ -10,6 +10,7 @@ import { Input } from "../../components/Input";
 import { uploadFileToS3 } from "../../util";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/auth";
+import { Select } from "../../components/Select";
 
 const SchoolForm: React.FC<{}> = () => {
   const [createSchool, { isSuccess }] = useCreateSchoolsMutation();
@@ -74,7 +75,7 @@ const SchoolForm: React.FC<{}> = () => {
         validationSchema={validation}
         onSubmit={submitForm}
       >
-        {({ handleSubmit, setFieldValue, errors }) => (
+        {({ handleSubmit, setFieldValue, values, errors }) => (
           <Container
             height="calc(100vh - 80px)"
             width="100%"
@@ -164,9 +165,12 @@ const SchoolForm: React.FC<{}> = () => {
                 fontWeight={600}
                 value={t("SchoolForm.country")}
               />
-              <Input
+              <Select
                 mb="16px"
-                onChangeText={(text) => setFieldValue("country", text)}
+                data={[{ value: "Moçambique" }]}
+                value={values.country || ""}
+                modalTitle={t("SchoolForm.country")}
+                onSelectItem={(text) => setFieldValue("country", text.value)}
               />
             </Container>
             <Button

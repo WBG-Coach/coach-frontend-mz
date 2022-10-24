@@ -7,10 +7,14 @@ import {
   Container,
   LoadingDots,
 } from "../../components";
-import { useCreateTeacherMutation } from "../../service";
+import {
+  useCreateTeacherMutation,
+  useGetTeacherByIdMutation,
+  useUpdateUserMutation,
+} from "../../service";
 import { selectCurrentUser } from "../../store/auth";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { uploadFileToS3 } from "../../util";
 import { useSelector } from "react-redux";
@@ -19,7 +23,10 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 const TeacherForm: React.FC<{}> = () => {
+  const { teacherId } = useParams<{ teacherId: string }>();
   const [createTeacher, { isSuccess, isLoading }] = useCreateTeacherMutation();
+  const [updateTeacher, updateTeacherRequest] = useUpdateUserMutation();
+  const [getTeacherById, teacherRequest] = useGetTeacherByIdMutation();
   const [imageUrl, setImageUrl] = useState<string>();
   const user = useSelector(selectCurrentUser);
   const navigate = useNavigate();
@@ -32,8 +39,14 @@ const TeacherForm: React.FC<{}> = () => {
   });
 
   useEffect(() => {
-    if (isSuccess) navigate(-1);
-  }, [isSuccess, navigate]);
+    if (teacherId) {
+      getTeacherById(parseInt(teacherId, 10));
+    }
+  }, [getTeacherById, teacherId]);
+
+  useEffect(() => {
+    if (isSuccess || updateTeacherRequest.isSuccess) navigate(-1);
+  }, [isSuccess, navigate, updateTeacherRequest.isSuccess]);
 
   const addImage = async (file?: File | null) => {
     try {
@@ -47,13 +60,16 @@ const TeacherForm: React.FC<{}> = () => {
   };
 
   const submitForm = (teacher: User) => {
-    if (user?.selectedSchool?.id)
+    if (teacherId) {
+      updateTeacher({ ...teacher, id: parseInt(teacherId, 10) });
+    } else {
       createTeacher({
         ...teacher,
         image_url: imageUrl,
-        school_id: user?.selectedSchool?.id,
+        school_id: user?.selectedSchool?.id || 0,
         project_id: user.project?.id || 0,
       });
+    }
   };
 
   return (
@@ -74,19 +90,29 @@ const TeacherForm: React.FC<{}> = () => {
         </Container>
       </Container>
 
-      {isLoading ? (
+      {(teacherId && teacherRequest.isLoading) ||
+      updateTeacherRequest.isLoading ||
+      isLoading ? (
         <LoadingDots />
       ) : (
         <Formik
-          initialValues={{
-            name: "",
-            last_name: "",
-            subject: "",
-          }}
+          initialValues={
+            teacherId
+              ? {
+                  name: teacherRequest.data?.name || "",
+                  last_name: teacherRequest.data?.last_name || "",
+                  subject: teacherRequest.data?.subject || "",
+                }
+              : {
+                  name: "",
+                  last_name: "",
+                  subject: "",
+                }
+          }
           validationSchema={validation}
           onSubmit={submitForm}
         >
-          {({ handleSubmit, setFieldValue, errors }) => (
+          {({ handleSubmit, setFieldValue, values, errors }) => (
             <Container
               height="calc(100vh - 80px)"
               width="100%"
@@ -103,12 +129,12 @@ const TeacherForm: React.FC<{}> = () => {
                   background="#E3E5E8"
                   justifyContent="center"
                 >
-                  {imageUrl ? (
+                  {values.image_url || imageUrl ? (
                     <Image
-                      src={imageUrl}
                       width="120px"
                       height="120px"
                       borderRadius="60px"
+                      src={values.image_url || imageUrl || ""}
                     />
                   ) : (
                     <Icon name="university" size={60} />
@@ -143,6 +169,7 @@ const TeacherForm: React.FC<{}> = () => {
                 />
                 <Input
                   mb="16px"
+                  value={values.name}
                   errorMessage={errors.name}
                   onChangeText={(text) => setFieldValue("name", text)}
                 />
@@ -156,6 +183,7 @@ const TeacherForm: React.FC<{}> = () => {
                 />
                 <Input
                   mb="16px"
+                  value={values.last_name}
                   errorMessage={errors.last_name}
                   onChangeText={(text) => setFieldValue("last_name", text)}
                 />
@@ -169,6 +197,7 @@ const TeacherForm: React.FC<{}> = () => {
                 />
                 <Input
                   mb="16px"
+                  value={values.subject}
                   errorMessage={errors.subject}
                   onChangeText={(text) => setFieldValue("subject", text)}
                 />

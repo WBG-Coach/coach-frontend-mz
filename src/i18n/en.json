@@ -115,7 +115,8 @@
     "title-review": "Documentation",
     "finish-feedback-title": "Your feedback has been delivered to the teacher!",
     "save": "Save",
-    "finish": "Finish",
+    "finish-feedback": "Complete feedback",
+    "finish": "Finish observation",
     "continue": "Continue",
     "see-summary": "See summary",
     "question-number": "Question {{value}}",
@@ -144,7 +145,7 @@
   },
   "Profile": {
     "logout": "Logout",
-    "help": "Help",
+    "help": "Email support",
     "update-password": "Update password",
     "edit-profile": "Edit profile",
     "version": "Version {{value}}"

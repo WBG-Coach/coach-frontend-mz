@@ -153,7 +153,7 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
                   mt={3}
                   width="100%"
                   onClick={sendQuestionnaire}
-                  value={t("Questionnaire.save")}
+                  value={t("Questionnaire.finish-feedback")}
                 />
               </Container>
             </Container>
