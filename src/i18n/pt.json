@@ -38,6 +38,7 @@
     "empty-description": "Adicione as escolas das quais você faz parte"
   },
   "Teachers": {
+    "greetings": "Olá, {{name}}!",
     "title": "Professores",
     "empty": "Sem professores",
     "add-teacher": "Adicionar professor",

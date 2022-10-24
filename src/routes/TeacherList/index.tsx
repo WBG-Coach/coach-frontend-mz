@@ -32,22 +32,19 @@ const TeachersList: React.FC<{}> = () => {
     <>
       <Header />
       <Container width="100%" height="100%" mb="100px" flexDirection="column">
-        <Container overflowX="auto" gridGap="16px" mt="24px" mb="32px">
+        <Text
+          mt="24px"
+          fontSize="24px"
+          lineHeight="24px"
+          fontWeight="600"
+          value={t("Teachers.greetings", { name: user.name })}
+        />
+        <Container mt="32px" overflowX="auto" gridGap="16px" mb="32px">
           <HomeButton
             icon="plus"
             value={t("Teachers.create-session")}
             onClick={() => navigate("/select-teacher")}
           />
-          {/* <HomeButton
-            icon="analytics"
-            value={t("Teachers.statistics")}
-            onClick={() => navigate("")}
-          />
-          <HomeButton
-            icon="puzzle-piece-solid"
-            value={t("Teachers.competencies")}
-            onClick={() => navigate("")}
-          /> */}
         </Container>
         <Text
           mb="4px"

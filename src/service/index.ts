@@ -272,6 +272,18 @@ export const api = createApi({
         },
       }),
     }),
+    findCity: builder.mutation<
+      any,
+      {
+        latitude: number;
+        longitude: number;
+      }
+    >({
+      query: ({ latitude, longitude }) => ({
+        method: "GET",
+        url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyBJR-Qm19jraWkc52MXazoQfMp5uBnZkUg`,
+      }),
+    }),
   }),
 });
 
@@ -303,4 +315,5 @@ export const {
   useAnswerQuestionnaireMutation,
   useCountCompetenceFeedbacksMutation,
   useAnswerDocQuestionnaireMutation,
+  useFindCityMutation,
 } = api;

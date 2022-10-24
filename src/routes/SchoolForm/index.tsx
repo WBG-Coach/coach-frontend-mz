@@ -66,6 +66,9 @@ const SchoolForm: React.FC<{}> = () => {
       <Formik
         initialValues={{
           name: "",
+          address: "",
+          city: "",
+          country: "",
           image_url: "",
         }}
         validationSchema={validation}
@@ -118,6 +121,7 @@ const SchoolForm: React.FC<{}> = () => {
                 }}
               />
             </Container>
+
             <Container width="100%" flexDirection="column">
               <Text
                 mb="4px"
@@ -130,6 +134,39 @@ const SchoolForm: React.FC<{}> = () => {
                 mb="16px"
                 errorMessage={errors.name}
                 onChangeText={(text) => setFieldValue("name", text)}
+              />
+              <Text
+                mb="4px"
+                fontSize="14px"
+                lineHeight="18px"
+                fontWeight={600}
+                value={t("SchoolForm.address")}
+              />
+              <Input
+                mb="16px"
+                onChangeText={(text) => setFieldValue("address", text)}
+              />
+              <Text
+                mb="4px"
+                fontSize="14px"
+                lineHeight="18px"
+                fontWeight={600}
+                value={t("SchoolForm.city")}
+              />
+              <Input
+                mb="16px"
+                onChangeText={(text) => setFieldValue("city", text)}
+              />
+              <Text
+                mb="4px"
+                fontSize="14px"
+                lineHeight="18px"
+                fontWeight={600}
+                value={t("SchoolForm.country")}
+              />
+              <Input
+                mb="16px"
+                onChangeText={(text) => setFieldValue("country", text)}
               />
             </Container>
             <Button

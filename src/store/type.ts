@@ -29,6 +29,9 @@ export type Project = {
 export type School = {
   id?: number;
   name: string;
+  city?: string;
+  country?: string;
+  address?: string;
   created_at?: Date;
   updated_at?: Date;
   image_url?: string;
@@ -119,6 +122,9 @@ export type QuestionnaireQuestion = {
 
 export type Answer = {
   id?: number;
+  latitude?: number;
+  longitude?: number;
+  city?: string;
   questionnaire_application?: Application;
   questionnaire_question_id: number;
   notes?: string;

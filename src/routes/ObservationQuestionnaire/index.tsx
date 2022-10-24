@@ -11,6 +11,7 @@ import { OptionsList } from "./OptionsList";
 import {
   useGetQuestionsMutation,
   useAnswerQuestionnaireMutation,
+  useFindCityMutation,
 } from "../../service";
 import {
   Icon,
@@ -36,6 +37,7 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
   const [isLoadingAnswer, setIsLoadingAnswer] = useState(false);
   const [files, setFiles] = useState<AnswerFile[][]>([[]]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [findCity] = useFindCityMutation();
   const [answerQuestionnaire, answerRequest] = useAnswerQuestionnaireMutation();
   const [notes, setNotes] = useState<Array<string | undefined>>([]);
   const [showComments, setShowComments] = useState(false);
@@ -103,6 +105,8 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
   const sendQuestionnaire = async () => {
     setIsLoadingAnswer(true);
     const location = await getLocation();
+    const responseCity: any = await findCity(location).catch((e) => {});
+
     await answerQuestionnaire({
       project_id: user.project?.id || 0,
       questionnaire_application: {
@@ -119,6 +123,7 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
               option_id: answers[index] || 0,
               notes: notes[index] || "",
               files: files[index],
+              city: responseCity?.plus_code?.compound_code.split(" ")[1],
               ...location,
             })
           )) ||

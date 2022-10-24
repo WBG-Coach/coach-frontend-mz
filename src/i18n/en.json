@@ -32,7 +32,10 @@
     "save": "Save",
     "name": "Name",
     "title": "New school",
-    "change-photo": "Change image"
+    "change-photo": "Change image",
+    "address": "Address",
+    "city": "City",
+    "country": "Country"
   },
   "Schools": {
     "schools": "Schools",
@@ -43,6 +46,7 @@
     "empty-description": "Add the schools you are a part of"
   },
   "Teachers": {
+    "greetings": "Hi, {{name}}!",
     "title": "Teachers",
     "empty": "No teachers",
     "add-teacher": "Add a teacher",
@@ -72,7 +76,8 @@
     "add-session": "Add a session",
     "sessions": "Sessions",
     "competencies": "Competencies",
-    "session-name": "Session {{value}}"
+    "session-name": "Session {{value}}",
+    "empty-message": "There aren't sessions here"
   },
   "ApplicationStatus": {
     "title": "Session",

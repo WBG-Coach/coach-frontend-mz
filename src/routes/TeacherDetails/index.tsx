@@ -6,6 +6,7 @@ import { CompetenceList } from "./CompetenceList";
 import { selectCurrentUser } from "../../store/auth";
 import { ApplicationsList } from "./ApplicationsList";
 import { useNavigate, useParams } from "react-router-dom";
+import EmptyStateImage from "../../assets/images/empty-state.svg";
 import {
   LoadingDots,
   Container,
@@ -13,6 +14,7 @@ import {
   Icon,
   Text,
   AddButton,
+  Image,
 } from "../../components";
 import {
   useGetApplicationsMutation,
@@ -45,6 +47,30 @@ const TeacherDetails: React.FC = () => {
       });
     }
   }, [user, teacherId, getTeacherById, getApplications]);
+
+  const renderEmptyState = () => (
+    <Container
+      mt="40px"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Image mb="32px" src={EmptyStateImage} width="240px" />
+      <Text value={t("TeacherDetails.empty-message")} />
+
+      <Container
+        mt="32px"
+        p="14px 20px"
+        borderRadius="12px"
+        background="#F3F3F3"
+        alignItems="center"
+        onClick={() => navigate(`/questionnaire/${teacherId}`)}
+      >
+        <Icon name="plus" size={20} mr="8px" />
+        <Text value={t("TeacherDetails.add-session")} />
+      </Container>
+    </Container>
+  );
 
   return (
     <Container width="100%" height="100%" mb="100px" flexDirection="column">
@@ -81,20 +107,27 @@ const TeacherDetails: React.FC = () => {
 
           {currentTab === 0 && (
             <>
-              <ApplicationsList
-                applications={data}
-                onClick={(applicationId) =>
-                  navigate(`/application-details/${applicationId}`)
-                }
-              />
-
-              <AddButton
-                label={t("TeacherDetails.add-session")}
-                onClick={() => navigate(`/questionnaire/${teacherId}`)}
-              />
+              {data?.length === 0 ? (
+                renderEmptyState()
+              ) : (
+                <>
+                  <ApplicationsList
+                    applications={data}
+                    onClick={(applicationId) =>
+                      navigate(`/application-details/${applicationId}`)
+                    }
+                  />
+                  <AddButton
+                    label={t("TeacherDetails.add-session")}
+                    onClick={() => navigate(`/questionnaire/${teacherId}`)}
+                  />
+                </>
+              )}
             </>
           )}
-          {currentTab === 1 && <CompetenceList data={answersRequest.data} />}
+          {currentTab === 1 && answersRequest.data?.length && (
+            <CompetenceList data={answersRequest.data} />
+          )}
         </>
       )}
 
