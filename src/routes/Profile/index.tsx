@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Container, Footer, Icon, Image, Text } from "../../components";
+import { Button, Container, Footer, Icon, Image, Text } from "../../components";
+import { ConfirmModal } from "../../components/ConfirmModal";
 import { LanguageButton } from "../../components/LanguageButton";
 import { PROJECT } from "../../mock";
 import { logout, selectCurrentUser } from "../../store/auth";
@@ -18,6 +19,7 @@ const Profile: React.FC<{}> = () => {
   const { t } = useTranslation();
   const user: User = useSelector(selectCurrentUser);
   const navigate = useNavigate();
+  const [showExitModal, setShowExitModal] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -107,7 +109,12 @@ const Profile: React.FC<{}> = () => {
           navigate("/update-password")
         )}
         {renderOption("question-circle", t("Profile.help"), openHelpEmail)}
-        {renderOption("signout", t("Profile.logout"), handleLogout, false)}
+        {renderOption(
+          "signout",
+          t("Profile.logout"),
+          () => setShowExitModal(true),
+          false
+        )}
 
         <Text
           mt="16px"
@@ -117,6 +124,14 @@ const Profile: React.FC<{}> = () => {
         />
       </Container>
       <Footer />
+      <ConfirmModal isOpen={showExitModal} title={t("Profile.confirm-exit")}>
+        <Button mb="12px" value={t("Profile.logout")} onClick={handleLogout} />
+        <Button
+          variant="secondary"
+          value={t("Profile.cancel-exit")}
+          onClick={() => setShowExitModal(false)}
+        />
+      </ConfirmModal>
     </>
   );
 };

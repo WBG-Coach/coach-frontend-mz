@@ -11,7 +11,6 @@ import { OptionsList } from "./OptionsList";
 import {
   useGetQuestionsMutation,
   useAnswerQuestionnaireMutation,
-  useFindCityMutation,
 } from "../../service";
 import {
   Icon,
@@ -27,6 +26,7 @@ import { openGuide } from "../../store/guide";
 import { selectCurrentUser } from "../../store/auth";
 import { format } from "date-fns";
 import { OnboardingApplicationModal } from "./OnboardingApplicationModal";
+import { ConfirmModal } from "../../components/ConfirmModal";
 
 const ObservationQuestionnaire: React.FC<{}> = () => {
   const theme: any = useTheme();
@@ -37,10 +37,10 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
   const [isLoadingAnswer, setIsLoadingAnswer] = useState(false);
   const [files, setFiles] = useState<AnswerFile[][]>([[]]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [findCity] = useFindCityMutation();
   const [answerQuestionnaire, answerRequest] = useAnswerQuestionnaireMutation();
   const [notes, setNotes] = useState<Array<string | undefined>>([]);
   const [showComments, setShowComments] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [answers, setAnswers] = useState<Array<number | undefined>>([]);
   const [getQuestions, { data, isLoading }] = useGetQuestionsMutation();
   const { teacherId } = useParams<{ teacherId: string }>();
@@ -105,7 +105,7 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
   const sendQuestionnaire = async () => {
     setIsLoadingAnswer(true);
     const location = await getLocation();
-    const responseCity: any = await findCity(location).catch((e) => {});
+    setShowConfirmModal(false);
 
     await answerQuestionnaire({
       project_id: user.project?.id || 0,
@@ -123,7 +123,6 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
               option_id: answers[index] || 0,
               notes: notes[index] || "",
               files: files[index],
-              city: responseCity?.plus_code?.compound_code.split(" ")[1],
               ...location,
             })
           )) ||
@@ -322,7 +321,7 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
                       <Button
                         mt={3}
                         width="100%"
-                        onClick={sendQuestionnaire}
+                        onClick={() => setShowConfirmModal(true)}
                         value={t("Questionnaire.finish")}
                         isDisabled={answers.includes(undefined)}
                       />
@@ -341,6 +340,22 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
           )}
         </Container>
       )}
+      <ConfirmModal
+        isOpen={showConfirmModal}
+        title={t("Questionnaire.observation-confirm-title")}
+        description={t("Questionnaire.observation-confirm-description")}
+      >
+        <Button
+          mb="12px"
+          value={t("Questionnaire.finish")}
+          onClick={sendQuestionnaire}
+        />
+        <Button
+          variant="secondary"
+          value={t("Questionnaire.cancel-finish")}
+          onClick={() => setShowConfirmModal(false)}
+        />
+      </ConfirmModal>
       <OnboardingApplicationModal />
     </>
   );

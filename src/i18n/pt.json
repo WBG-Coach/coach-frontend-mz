@@ -49,10 +49,12 @@
   },
   "TeacherForm": {
     "save": "Adicionar professor",
+    "save-update": "Atualizar professor",
     "name": "Nome",
     "last_name": "Apelido",
     "subject": "Materia",
     "title": "Novo professor",
+    "title-update": "Atualizar professor",
     "change-photo": "Mudar foto"
   },
   "TeacherDetails": {
@@ -90,6 +92,9 @@
     "choose-teacher": "Qual professor você está a orientar?"
   },
   "Questionnaire": {
+    "observation-confirm-title": "Finalizar observação?",
+    "observation-confirm-description": "Você não poderá editar a ficha de observação depois.",
+    "cancel-finish": "Voltar",
     "question-order": "Questão {{current}} de {{total}}",
     "title": "Ficha de observação",
     "feedback": "Feedback",
@@ -137,7 +142,9 @@
     "help": "Suporte por e-mail",
     "update-password": "Alterar senha",
     "edit-profile": "Editar perfil",
-    "version": "Version {{value}}"
+    "version": "Version {{value}}",
+    "confirm-exit": "Realmente deseja sair?",
+    "cancel-exit": "Voltar"
   },
   "UpdateProfile": {
     "change-photo": "Alterar foto",

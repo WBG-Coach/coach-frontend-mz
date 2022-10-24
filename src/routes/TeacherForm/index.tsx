@@ -82,7 +82,9 @@ const TeacherForm: React.FC<{}> = () => {
             color="#191A1B"
             fontWeight={600}
             lineHeight="24px"
-            value={t("TeacherForm.title")}
+            value={
+              teacherId ? t("TeacherForm.title-update") : t("TeacherForm.title")
+            }
           />
         </Container>
         <Container onClick={() => navigate(-1)}>
@@ -129,15 +131,15 @@ const TeacherForm: React.FC<{}> = () => {
                   background="#E3E5E8"
                   justifyContent="center"
                 >
-                  {values.image_url || imageUrl ? (
+                  {teacherRequest.data?.image_url || imageUrl ? (
                     <Image
                       width="120px"
                       height="120px"
                       borderRadius="60px"
-                      src={values.image_url || imageUrl || ""}
+                      src={teacherRequest.data?.image_url || imageUrl || ""}
                     />
                   ) : (
-                    <Icon name="university" size={60} />
+                    <Icon name="user" size={60} />
                   )}
                 </Container>
                 <Container mt="16px">
@@ -206,7 +208,11 @@ const TeacherForm: React.FC<{}> = () => {
                 mt="auto"
                 width="100%"
                 onClick={handleSubmit}
-                value={t("TeacherForm.save")}
+                value={
+                  teacherId
+                    ? t("TeacherForm.save-update")
+                    : t("TeacherForm.save")
+                }
               />
             </Container>
           )}

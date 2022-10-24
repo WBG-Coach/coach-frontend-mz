@@ -60,10 +60,12 @@
   },
   "TeacherForm": {
     "save": "Add teacher",
+    "save-update": "Update teacher",
     "name": "First name",
     "last_name": "Last name",
     "subject": "Subject",
     "title": "New teacher",
+    "title-update": "Update teacher",
     "change-photo": "Change photo"
   },
   "TeacherDetails": {
@@ -103,6 +105,9 @@
     "choose-teacher": "Which teacher are you mentoring?"
   },
   "Questionnaire": {
+    "observation-confirm-title": "End observation?",
+    "observation-confirm-description": "You will not be able to edit the observation sheet afterwards.",
+    "cancel-finish": "Return",
     "question-order": "Question {{current}} of {{total}}",
     "title": "Observation sheet",
     "feedback": "Feedback",
@@ -148,7 +153,9 @@
     "help": "Email support",
     "update-password": "Update password",
     "edit-profile": "Edit profile",
-    "version": "Version {{value}}"
+    "version": "Version {{value}}",
+    "confirm-exit": "Really want to leave?",
+    "cancel-exit": "Return"
   },
   "UpdateProfile": {
     "change-photo": "Update photo",
