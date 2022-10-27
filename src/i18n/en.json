@@ -32,6 +32,7 @@
     "save": "Save",
     "name": "Name",
     "title": "New school",
+    "title-update": "Update school",
     "change-photo": "Change image",
     "address": "Address",
     "city": "City",
@@ -40,6 +41,8 @@
   "Schools": {
     "schools": "Schools",
     "title": "Select a school",
+    "complete": "Completed",
+    "update": "Update",
     "empty-title": "Start by adding a school",
     "new-school": "Add a school",
     "school_description": "{{value}} teachers assigned to you",

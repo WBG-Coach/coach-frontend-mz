@@ -12,7 +12,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   children,
   description,
   leftContent,
-  rigthContent,
+  rightContent: rigthContent,
 }) => {
   return (
     <Container

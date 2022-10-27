@@ -94,6 +94,16 @@ root.render(
               </ProtectedRoute>
             }
           />
+          <Route
+            path="school-form/:schoolId"
+            element={
+              <ProtectedRoute>
+                <React.Suspense fallback={<div>Loading...</div>}>
+                  <SchoolForm />
+                </React.Suspense>
+              </ProtectedRoute>
+            }
+          />
 
           <Route
             path="teachers"

@@ -79,6 +79,22 @@ export const api = createApi({
         body,
       }),
     }),
+    updateSchool: builder.mutation<void, School>({
+      query: (body) => ({
+        method: "PUT",
+        url: "/api/schools",
+        body,
+      }),
+    }),
+    getSchoolById: builder.mutation<School, number>({
+      query: (id) => ({
+        method: "POST",
+        url: "/api/schools/search",
+        body: {
+          id,
+        },
+      }),
+    }),
     getTeachers: builder.mutation<School, number>({
       query: (id) => ({
         method: "POST",
@@ -299,8 +315,10 @@ export const {
   useGetTeachersMutation,
   useGetFeedbackMutation,
   useGetFeedbacksMutation,
+  useUpdateSchoolMutation,
   useGetQuestionsMutation,
   useCreateSchoolsMutation,
+  useGetSchoolByIdMutation,
   useCreateTeacherMutation,
   useUpdatePasswordMutation,
   useGetLastAnswersMutation,

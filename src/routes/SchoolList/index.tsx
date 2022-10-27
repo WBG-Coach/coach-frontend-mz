@@ -1,36 +1,26 @@
 import React, { useEffect } from "react";
-import { selectCurrentUser, selectSchool } from "../../store/auth";
+import { selectCurrentUser } from "../../store/auth";
 import { LoadingDots } from "../../components/LoadingDots";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useGetSchoolsMutation } from "../../service";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { School } from "../../store/type";
 import EmptyStateImage from "../../assets/images/empty-state.svg";
-import {
-  Text,
-  Icon,
-  Image,
-  ListItem,
-  AddButton,
-  Container,
-  Button,
-} from "../../components";
+import { Text, Image, Container, Button } from "../../components";
 import { PROJECT } from "../../mock";
+import { SchoolListComponent } from "../../components/SchoolListComponent";
 
 const SchoolsList: React.FC<{}> = () => {
   const [getSchools, { data, isLoading }] = useGetSchoolsMutation();
   const user = useSelector(selectCurrentUser);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {
     if (user.id) getSchools(user.id);
   }, [user, getSchools]);
 
-  const chooseSchool = (school: School) => {
-    dispatch(selectSchool(school));
+  const onSelect = () => {
     navigate("/teachers");
   };
 
@@ -43,46 +33,7 @@ const SchoolsList: React.FC<{}> = () => {
       {isLoading ? (
         <LoadingDots />
       ) : data && data?.length > 0 ? (
-        <Container flexDirection="column">
-          <Text
-            mb="8px"
-            fontSize="24px"
-            color="#191A1B"
-            fontWeight={600}
-            lineHeight="32px"
-            value={t("Schools.title")}
-          />
-
-          {data?.map((school, index) => (
-            <ListItem
-              key={index}
-              leftContent={
-                !school.image_url && (
-                  <Container
-                    width={48}
-                    height={48}
-                    borderRadius={24}
-                    alignItems="center"
-                    background="#F0F2F5"
-                    justifyContent="center"
-                  >
-                    <Icon name="university" size={24} />
-                  </Container>
-                )
-              }
-              title={school.name}
-              imageUrl={school.image_url}
-              onClick={() => chooseSchool(school)}
-              description={t("Schools.school_description", { value: 1 })}
-            />
-          ))}
-          <AddButton
-            onClick={() => {
-              navigate("/school-form");
-            }}
-            label={t("Schools.new-school")}
-          />
-        </Container>
+        <SchoolListComponent afterSelectSchool={onSelect} />
       ) : (
         <Container
           width="100%"

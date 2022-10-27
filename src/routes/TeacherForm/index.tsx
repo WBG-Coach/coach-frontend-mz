@@ -61,7 +61,11 @@ const TeacherForm: React.FC<{}> = () => {
 
   const submitForm = (teacher: User) => {
     if (teacherId) {
-      updateTeacher({ ...teacher, id: parseInt(teacherId, 10) });
+      updateTeacher({
+        ...teacher,
+        image_url: imageUrl,
+        id: parseInt(teacherId, 10),
+      });
     } else {
       createTeacher({
         ...teacher,

@@ -7,7 +7,7 @@ type ListItemProps = {
   description: string;
   onClick: () => void;
   children?: ReactNode;
-  rigthContent?: ReactNode;
+  rightContent?: ReactNode;
 };
 
 export default ListItemProps;

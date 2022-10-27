@@ -26,6 +26,9 @@
   "SchoolForm": {
     "save": "Salvar",
     "name": "Nome",
+    "complete": "Concluído",
+    "update": "Editar",
+    "title-update": "Atualizar school",
     "title": "Nova escola",
     "change-photo": "Mudar foto"
   },
