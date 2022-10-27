@@ -17,6 +17,7 @@ export const StyledInput = styled.input`
   padding: 16px;
   margin: 0;
   border: none;
+  font-size: 16px;
   border-radius: 8px;
   background: transparent;
   width: calc(100% - 32px);
