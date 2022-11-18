@@ -27,6 +27,7 @@ import { selectCurrentUser } from "../../store/auth";
 import { format } from "date-fns";
 import { OnboardingApplicationModal } from "./OnboardingApplicationModal";
 import { ConfirmModal } from "../../components/ConfirmModal";
+import { toast } from "react-toastify";
 
 const ObservationQuestionnaire: React.FC<{}> = () => {
   const theme: any = useTheme();
@@ -104,30 +105,34 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
 
   const sendQuestionnaire = async () => {
     setIsLoadingAnswer(true);
-    const location = await getLocation();
     setShowConfirmModal(false);
+    try {
+      const location = await getLocation();
 
-    await answerQuestionnaire({
-      project_id: user.project?.id || 0,
-      questionnaire_application: {
-        coach_id: user.id || 0,
-        teacher_id: parseInt(teacherId || "0"),
-        school_id: user.selectedSchool?.id || 0,
-        application_date: format(new Date(), "yyyy-MM-dd"),
-      },
-      answers:
-        (data?.questions &&
-          data?.questions.map(
-            (questionnaireQuestion, index): Answer => ({
-              questionnaire_question_id: questionnaireQuestion.id,
-              option_id: answers[index] || 0,
-              notes: notes[index] || "",
-              files: files[index],
-              ...location,
-            })
-          )) ||
-        [],
-    });
+      await answerQuestionnaire({
+        project_id: user.project?.id || 0,
+        questionnaire_application: {
+          coach_id: user.id || 0,
+          teacher_id: parseInt(teacherId || "0"),
+          school_id: user.selectedSchool?.id || 0,
+          application_date: format(new Date(), "yyyy-MM-dd"),
+        },
+        answers:
+          (data?.questions &&
+            data?.questions.map(
+              (questionnaireQuestion, index): Answer => ({
+                questionnaire_question_id: questionnaireQuestion.id,
+                option_id: answers[index] || 0,
+                notes: notes[index] || "",
+                files: files[index],
+                ...location,
+              })
+            )) ||
+          [],
+      });
+    } catch {
+      toast.error("API ERROR");
+    }
     setIsLoadingAnswer(false);
   };
 

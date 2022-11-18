@@ -1,6 +1,7 @@
 {
   "Validations": {
-    "required": "Obrigatório"
+    "required": "Obrigatório",
+    "optional": "Opcional"
   },
   "Login": {
     "email": "Email",
@@ -37,7 +38,9 @@
     "title": "Escolha a escola",
     "new-school": "Adicionar escola",
     "empty-title": "Comece adicionando uma escola",
-    "school_description": "{{value}} Professores alocados a você",
+    "schoolDescription_other": "{{count}} Professores alocados a você",
+    "schoolDescription_zero": "Nunhum professor alocados a você",
+    "schoolDescription_one": "{{count}} Professor alocados a você",
     "empty-description": "Adicione as escolas das quais você faz parte"
   },
   "Teachers": {
@@ -81,7 +84,17 @@
     "new-review": "Nova nota",
     "info": "Para acessar a página de Feedbacks é necessário primeiro preencher a Ficha de Observação",
     "competences": "Competências",
-    "onboarding-modal-title": "Sessão de orientação"
+    "onboarding-modal-title": "Sessão de orientação",
+    "observation-title": "Observação da aula",
+    "prepare-feedback-title": "Preparação do feedback",
+    "prepare-feedback-button": "Preparar feedback",
+    "prepare-feedback-description": "Prepare um feedback para o professor sobre a aula que você observou",
+    "feedback-title": "Feedback",
+    "feedback-button": "Ver feedback",
+    "feedback-description": "Oriente o professor de acordo com o que você preparou",
+    "documentation-title": "Documentação da sessão",
+    "documentation-button": "Documentar sessão",
+    "documentation-description": "Responda um questionário sobre a como foi a sessão de feedback."
   },
   "ApplicationForm": {
     "name": "Nome da sessão",

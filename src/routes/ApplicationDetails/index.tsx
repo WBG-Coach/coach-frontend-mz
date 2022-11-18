@@ -129,18 +129,18 @@ const ApplicationDetails: React.FC = () => {
 
           <TimelineItem
             isFirst
+            title={t("ApplicationStatus.observation-title")}
             buttonValue=""
             description=""
             status="complete"
-            title="Observação da aula"
             onClick={() =>
               navigate(`/questionnaire-observation-review/${applicationId}`)
             }
           />
-
           <TimelineItem
-            buttonValue="Preparar feedback"
-            description="Prepare um feedback para o professor sobre a aula que você observou."
+            title={t("ApplicationStatus.prepare-feedback-title")}
+            buttonValue={t("ApplicationStatus.prepare-feedback-button")}
+            description={t("ApplicationStatus.prepare-feedback-description")}
             onClick={() => {
               if (data?.status === "PENDING_FEEDBACK")
                 navigate(
@@ -149,22 +149,23 @@ const ApplicationDetails: React.FC = () => {
               else navigate(`/feedback-details/${applicationId}`);
             }}
             status={getPrepareFeedbackStatus()}
-            title="Preparação do feedback"
           />
 
           <TimelineItem
-            buttonValue="Ver feedback"
-            description="Oriente o professor de acordo com o que você preparou"
+            title={t("ApplicationStatus.feedback-title")}
+            buttonValue={t("ApplicationStatus.feedback-button")}
+            description={t("ApplicationStatus.feedback-description")}
             onClick={() => {
               navigate(`/feedback-details/${applicationId}`);
             }}
             status={getFeedbackStatus()}
-            title="Feedback"
           />
 
           <TimelineItem
             isLast
-            description="Responda um questionário sobre a como foi a sessão de feedback."
+            title={t("ApplicationStatus.documentation-title")}
+            buttonValue={t("ApplicationStatus.documentation-button")}
+            description={t("ApplicationStatus.documentation-description")}
             onClick={() => {
               if (data?.status === "DONE") {
                 navigate(
@@ -176,9 +177,7 @@ const ApplicationDetails: React.FC = () => {
                 );
               }
             }}
-            buttonValue="Documentar sessão"
             status={getDocumentationStatus()}
-            title="Documentação da sessão"
           />
         </>
       )}

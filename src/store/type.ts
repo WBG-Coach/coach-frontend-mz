@@ -35,6 +35,7 @@ export type School = {
   created_at?: Date;
   updated_at?: Date;
   image_url?: string;
+  users_count?: number;
   users?: { user: User }[];
 };
 

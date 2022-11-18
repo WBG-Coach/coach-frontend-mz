@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next";
 import { selectGuide } from "./store/guide";
 import GuideContent from "./components/GuideContent";
 import { ThemeProvider } from "styled-components";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import { theme } from "./theme";
 
 const App = () => {
@@ -64,6 +66,7 @@ const App = () => {
         flexDirection="column"
         width="cacl(100% - 32px)"
       >
+        <ToastContainer position="top-center" />
         {loaded && <Outlet />}
         {guide.id && (
           <Container

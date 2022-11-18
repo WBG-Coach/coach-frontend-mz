@@ -73,7 +73,17 @@ export const SchoolListComponent: React.FC<{
             title={school.name}
             imageUrl={school.image_url}
             onClick={() => chooseSchool(school)}
-            description={t("Schools.school_description", { value: 1 })}
+            description={
+              !school.users_count
+                ? t("Schools.schoolDescription_zero")
+                : school.users_count > 1
+                ? t("Schools.schoolDescription_other", {
+                    count: school.users_count,
+                  })
+                : t("Schools.schoolDescription_one", {
+                    count: 1,
+                  })
+            }
             leftContent={
               !school.image_url && (
                 <Container

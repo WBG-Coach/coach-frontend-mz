@@ -1,6 +1,7 @@
 {
   "Validations": {
-    "required": "Required"
+    "required": "Required",
+    "optional": "Optional"
   },
   "SelectProject": {
     "title": "Choose a project",
@@ -45,8 +46,10 @@
     "update": "Update",
     "empty-title": "Start by adding a school",
     "new-school": "Add a school",
-    "school_description": "{{value}} teachers assigned to you",
-    "empty-description": "Add the schools you are a part of"
+    "schoolDescription_other": "{{count}} teachers assigned to you",
+    "schoolDescription_zero": "no teacher assigned to you",
+    "schoolDescription_one": "{{count}} teacher assigned to you",
+    "empty-description": "Add your schools"
   },
   "Teachers": {
     "greetings": "Hi, {{name}}!",
@@ -56,7 +59,7 @@
     "last-seasons": "Previous sessions",
     "previous-sessions": "Previous sessions",
     "teacher_description": "{{subject}} teacher",
-    "description": "These teachers are allocated to you.",
+    "description": "These teachers are assigned to you.",
     "create-session": "Create session",
     "statistics": "Statistics",
     "competencies": "Competencies"
@@ -94,7 +97,17 @@
     "info": "To access the Feedback page, you must first complete the Observation Form",
     "competences": "Competencies",
     "onboarding-modal-title": "Orientation sessions",
-    "started-at": "Started at {{value}}"
+    "started-at": "Started at {{value}}",
+    "observation-title": "Observation session",
+    "prepare-feedback-title": "Feedback preparation",
+    "prepare-feedback-button": "Prepare feedback",
+    "prepare-feedback-description": "Prepare feedback for the teacher about the class you observed.",
+    "feedback-title": "Feedback",
+    "feedback-button": "See feedback",
+    "feedback-description": "Orient the teacher according to what you have prepared",
+    "documentation-title": "Session documentation",
+    "documentation-button": "Document session",
+    "documentation-description": "Answer a questionnaire about how the feedback session went."
   },
   "ApplicationForm": {
     "name": "Session title",

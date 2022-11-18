@@ -128,7 +128,8 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
                       fontSize="14px"
                       lineHeight="18px"
                       value={
-                        questionnaireQuestion.question.text + " (opcional)"
+                        questionnaireQuestion.question.text +
+                        `(${t("Validations.optional")})`
                       }
                     />
                     <TextArea
