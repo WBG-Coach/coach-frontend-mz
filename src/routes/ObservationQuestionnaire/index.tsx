@@ -130,6 +130,10 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
             )) ||
           [],
       });
+
+      if (location.latitude === 0 && location.longitude === 0) {
+        toast.info("Submitted without location");
+      }
     } catch {
       toast.error("API ERROR");
     }
