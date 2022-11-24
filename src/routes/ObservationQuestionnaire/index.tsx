@@ -221,6 +221,7 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
                     (_, index) =>
                       index === currentQuestion && (
                         <OptionsList
+                          key={index}
                           onClick={answerQuestion}
                           selectedOptionId={answers[currentQuestion]}
                           type={
@@ -284,6 +285,7 @@ const ObservationQuestionnaire: React.FC<{}> = () => {
                       <Container
                         p="16px"
                         mt="16px"
+                        key={index}
                         borderRadius="8px"
                         border="1px solid"
                         borderColor={theme.colors.primary}

@@ -22,7 +22,12 @@ export const LastAnswersList: React.FC<Props> = ({
         value={t("Questionnaire.previous-sessions")}
       />
       {lastAnwsers.map((answer) => (
-        <Container mb="24px" flexDirection="row" alignItems="center">
+        <Container
+          key={answer.id}
+          mb="24px"
+          flexDirection="row"
+          alignItems="center"
+        >
           <Container
             mr="8px"
             width="24px"

@@ -37,16 +37,26 @@ export const getLocation = (): Promise<{
   latitude: number;
   longitude: number;
 }> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        resolve({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        () =>
+          resolve({
+            latitude: 0,
+            longitude: 0,
+          })
+      );
     } else {
-      reject("Geolocation is not supported by this browser.");
+      resolve({
+        latitude: 0,
+        longitude: 0,
+      });
     }
   });
 };
