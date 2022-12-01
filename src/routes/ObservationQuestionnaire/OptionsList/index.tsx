@@ -74,7 +74,7 @@ export const OptionsList: React.FC<Props> = ({
         </Container>
       ))}
     </Container>
-  ) : (
+  ) : filtedOptions.length <= 5 ? (
     <Container flexDirection="column">
       {filtedOptions.map((option) => (
         <OptionButton
@@ -89,6 +89,39 @@ export const OptionsList: React.FC<Props> = ({
           isSelected={selectedOptionId === option.id}
         />
       ))}
+    </Container>
+  ) : (
+    <Container flexDirection="column">
+      <Container gridGap="16px">
+        {filtedOptions.slice(0, 5).map((option) => (
+          <OptionButton
+            key={option.id}
+            mb="16px"
+            justifyContent="center"
+            variant="secondary"
+            value={option.text}
+            selectedColor={option.selected_color}
+            onClick={() => onClick(option.id)}
+            selectedIcon={option.selected_icon as any}
+            isSelected={selectedOptionId === option.id}
+          />
+        ))}
+      </Container>
+      <Container gridGap="16px">
+        {filtedOptions.slice(5).map((option) => (
+          <OptionButton
+            key={option.id}
+            mb="16px"
+            justifyContent="center"
+            variant="secondary"
+            value={option.text}
+            selectedColor={option.selected_color}
+            onClick={() => onClick(option.id)}
+            selectedIcon={option.selected_icon as any}
+            isSelected={selectedOptionId === option.id}
+          />
+        ))}
+      </Container>
     </Container>
   );
 };

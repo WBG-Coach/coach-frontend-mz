@@ -79,7 +79,7 @@ const FeedbackDetails: React.FC<{}> = () => {
         fontSize="24px"
         fontWeight={600}
         lineHeight="28px"
-        value={"Feedback"}
+        value={t("Questionnaire.feedback")}
       />
 
       <Container mb="16px" py="16px" flexDirection="row">

@@ -36,6 +36,7 @@ const TeacherForm: React.FC<{}> = () => {
     name: Yup.string().required(t("Validations.required")),
     last_name: Yup.string().required(t("Validations.required")),
     subject: Yup.string().required(t("Validations.required")),
+    level: Yup.string(),
   });
 
   useEffect(() => {
@@ -102,19 +103,12 @@ const TeacherForm: React.FC<{}> = () => {
         <LoadingDots />
       ) : (
         <Formik
-          initialValues={
-            teacherId
-              ? {
-                  name: teacherRequest.data?.name || "",
-                  last_name: teacherRequest.data?.last_name || "",
-                  subject: teacherRequest.data?.subject || "",
-                }
-              : {
-                  name: "",
-                  last_name: "",
-                  subject: "",
-                }
-          }
+          initialValues={{
+            name: teacherRequest.data?.name || "",
+            last_name: teacherRequest.data?.last_name || "",
+            subject: teacherRequest.data?.subject || "",
+            level: teacherRequest.data?.level || "",
+          }}
           validationSchema={validation}
           onSubmit={submitForm}
         >
@@ -206,6 +200,20 @@ const TeacherForm: React.FC<{}> = () => {
                   value={values.subject}
                   errorMessage={errors.subject}
                   onChangeText={(text) => setFieldValue("subject", text)}
+                />
+
+                <Text
+                  mb="4px"
+                  fontSize="14px"
+                  lineHeight="18px"
+                  fontWeight={600}
+                  value={t("TeacherForm.level")}
+                />
+                <Input
+                  mb="16px"
+                  value={values.level}
+                  errorMessage={errors.level}
+                  onChangeText={(text) => setFieldValue("level", text)}
                 />
               </Container>
               <Button

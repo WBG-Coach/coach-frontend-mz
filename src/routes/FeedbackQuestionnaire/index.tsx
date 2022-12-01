@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   Button,
   Container,
+  Icon,
   LoadingDots,
   Text,
   TextArea,
@@ -15,11 +16,13 @@ import {
   useGetQuestionsMutation,
 } from "../../service";
 import { Answer } from "../../store/type";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getLocation } from "../../util";
 import FirstFeedbackQuestion from "./FirstFeedbackQuestion";
 import { selectCurrentUser } from "../../store/auth";
 import { FeedbackOnboardingModal } from "./FeedbackOnboardingModal";
+import { Tabs } from "../../components/Tabs";
+import { openGuide } from "../../store/guide";
 
 const FeedbackQuestionnaire: React.FC<{}> = () => {
   const { t } = useTranslation();
@@ -32,6 +35,9 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
   const [getQuestions, questionsRequest] = useGetQuestionsMutation();
   const [answerFeedback] = useAnswerFeedbackMutation();
   const [notes, setNotes] = useState<string[]>([]);
+  const [currentTab, setCurrentTab] = useState(0);
+  const dispatch = useDispatch();
+
   const { teacherId, applicationId } = useParams<{
     teacherId: string;
     applicationId: string;
@@ -119,28 +125,169 @@ const FeedbackQuestionnaire: React.FC<{}> = () => {
                 value={t("Questionnaire.description-feedback-form")}
               />
 
-              {questionsRequest?.data?.questions?.map(
-                (questionnaireQuestion, index) => (
-                  <Container key={index} flexDirection="column">
-                    <Text
-                      mb="8px"
-                      fontWeight="600"
-                      fontSize="14px"
-                      lineHeight="18px"
-                      value={
-                        questionnaireQuestion.question.text +
-                        `(${t("Validations.optional")})`
-                      }
-                    />
-                    <TextArea
-                      mb="20px"
-                      value={notes[index]}
-                      onChangeText={(text) => noteQuestion(text, index)}
-                    />
+              <Tabs
+                onChange={setCurrentTab}
+                currentTab={currentTab}
+                data={[
+                  t("Questionnaire.preparation-notes"),
+                  t("Questionnaire.support-material"),
+                ]}
+              />
+              {currentTab === 0 ? (
+                <>
+                  {questionsRequest?.data?.questions?.map(
+                    (questionnaireQuestion, index) => (
+                      <Container mt="8px" key={index} flexDirection="column">
+                        <Text
+                          mb="8px"
+                          fontWeight="600"
+                          fontSize="14px"
+                          lineHeight="18px"
+                          value={
+                            questionnaireQuestion.question.text +
+                            `(${t("Validations.optional")})`
+                          }
+                        />
+                        <TextArea
+                          mb="20px"
+                          value={notes[index]}
+                          onChangeText={(text) => noteQuestion(text, index)}
+                        />
+                      </Container>
+                    )
+                  )}
+                  <Container
+                    borderRadius="12px"
+                    background="#FAFAFA"
+                    p="16px"
+                    flexDirection="column"
+                  >
+                    <Container alignItems="center">
+                      <Icon name="exclamation-circle" mr="4px" size={20} />
+                      <Text
+                        value={t("Questionnaire.infos-header")}
+                        fontSize="14px"
+                      />
+                    </Container>
+                    <ul>
+                      <li>
+                        <Text
+                          value="Comece com uma pergunta de acolhimento"
+                          fontSize="14px"
+                          lineHeight="20px"
+                        />
+                      </li>
+                      <li>
+                        <Text
+                          value="Explique ao professor o porquê de ter escolhido essa competência"
+                          fontSize="14px"
+                          lineHeight="20px"
+                        />
+                      </li>
+                      <li>
+                        <Text
+                          value="Prepare-se para demonstrar a competência pedagógica seleccionada"
+                          fontSize="14px"
+                          lineHeight="20px"
+                        />
+                      </li>
+                      <li>
+                        <Text
+                          value="Deixe tempo suficiente para o professor praticar"
+                          fontSize="14px"
+                          lineHeight="20px"
+                        />
+                      </li>
+                      <li>
+                        <Text
+                          value="Dê retorno ao professor"
+                          fontSize="14px"
+                          lineHeight="20px"
+                        />
+                      </li>
+                      <li>
+                        <Text
+                          value="Marque o dia e hora do próximo encontro"
+                          fontSize="14px"
+                          lineHeight="20px"
+                        />
+                      </li>
+                    </ul>
                   </Container>
-                )
-              )}
+                </>
+              ) : (
+                <>
+                  <Container
+                    mb="40px"
+                    alignItems="flex-start"
+                    borderRadius="12px"
+                    flexDirection="column"
+                  >
+                    <Container py="16px" alignItems="center">
+                      <Icon name="notes" size={16} mr="8px" />
+                      <Container flexDirection="column">
+                        <Text
+                          fontSize="14px"
+                          color="#49504C"
+                          lineHeight="18px"
+                          value={t("Questionnaire.class-plan")}
+                        />
 
+                        {data && (
+                          <Text mt="12px" value={data[0].option?.text} />
+                        )}
+                      </Container>
+                    </Container>
+
+                    <Container
+                      p="10px 16px"
+                      borderRadius="12px"
+                      background="#F4F5F5"
+                      onClick={() =>
+                        data &&
+                        dispatch(openGuide(data[0].option?.content_guide_id))
+                      }
+                    >
+                      <Text value={t("Questionnaire.see-class-plan")} />
+                    </Container>
+                  </Container>
+
+                  <Container
+                    mb="40px"
+                    alignItems="flex-start"
+                    borderRadius="12px"
+                    flexDirection="column"
+                  >
+                    <Container py="16px" alignItems="center">
+                      <Icon name="puzzle-piece-solid" size={16} mr="8px" />
+                      <Container flexDirection="column">
+                        <Text
+                          fontSize="14px"
+                          color="#49504C"
+                          lineHeight="18px"
+                          value={t("Questionnaire.selected-competency")}
+                        />
+                        <Text
+                          mt="12px"
+                          value={answer?.option?.question?.competence?.subtitle}
+                        />
+                      </Container>
+                    </Container>
+
+                    <Container
+                      p="10px 16px"
+                      borderRadius="12px"
+                      background="#F4F5F5"
+                      onClick={() =>
+                        data &&
+                        dispatch(openGuide(data[0].option?.content_guide_id))
+                      }
+                    >
+                      <Text value={t("Questionnaire.see-competence")} />
+                    </Container>
+                  </Container>
+                </>
+              )}
               <Container mb="100px" />
 
               <Container

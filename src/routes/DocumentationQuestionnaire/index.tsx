@@ -122,10 +122,28 @@ const DocumentationQuestionnaire: React.FC<{}> = () => {
             })}
           />
           <Container flexDirection="column">
-            <Text fontSize={18} mb="32px" fontWeight="bold">
+            <Text
+              fontSize={18}
+              mb={
+                data?.questions[currentQuestion]?.question.options &&
+                data?.questions[currentQuestion]?.question.options.length > 5
+                  ? "8px"
+                  : "32px"
+              }
+              fontWeight="bold"
+            >
               {data?.questions &&
                 data?.questions[currentQuestion]?.question?.text}
             </Text>
+            {data?.questions[currentQuestion]?.question.options &&
+              data?.questions[currentQuestion]?.question.options.length > 5 && (
+                <Text
+                  mb="32px"
+                  fontSize="14px"
+                  color="#4D4D4D"
+                  value="Sendo a opção 1 'Nada Efetiva' e a opção 10 'Muito Efetiva'."
+                />
+              )}
 
             {data?.questions &&
               data?.questions.map(

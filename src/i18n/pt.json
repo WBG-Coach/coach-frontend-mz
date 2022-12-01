@@ -27,6 +27,9 @@
   "SchoolForm": {
     "save": "Salvar",
     "name": "Nome",
+    "address": "Endereço",
+    "city": "Distrito",
+    "country": "País",
     "complete": "Concluído",
     "update": "Editar",
     "title-update": "Atualizar school",
@@ -45,6 +48,7 @@
   },
   "Teachers": {
     "greetings": "Olá, {{name}}!",
+    "create-session": "Iniciar uma nova sessão",
     "title": "Professores",
     "empty": "Sem professores",
     "add-teacher": "Adicionar professor",
@@ -54,6 +58,7 @@
     "description": "Esses são os professores alocados a você."
   },
   "TeacherForm": {
+    "level": "Período letivo",
     "save": "Adicionar professor",
     "save-update": "Atualizar professor",
     "name": "Nome",
@@ -72,12 +77,14 @@
     "see-feedback": "Ver feedbacks",
     "add-session": "Adicionar sessão",
     "sessions": "Sessões",
-    "competencies": "Competêncies",
-    "session-name": "Sessão {{value}}"
+    "competencies": "Competências",
+    "session-name": "Sessão {{value}}",
+    "empty-message": "Não existem sessões registadas aqui"
   },
   "ApplicationStatus": {
     "title": "Sessão",
     "steps": "Etapas",
+    "started-at": "Iniciada  dia {{value}}",
     "label-observation": "Ficha de observação",
     "label-feedback": "Feedbacks",
     "label-review": "Documentação",
@@ -85,15 +92,15 @@
     "info": "Para acessar a página de Feedbacks é necessário primeiro preencher a Ficha de Observação",
     "competences": "Competências",
     "onboarding-modal-title": "Sessão de orientação",
-    "observation-title": "Observação da aula",
-    "prepare-feedback-title": "Preparação do feedback",
-    "prepare-feedback-button": "Preparar feedback",
-    "prepare-feedback-description": "Prepare um feedback para o professor sobre a aula que você observou",
-    "feedback-title": "Feedback",
-    "feedback-button": "Ver feedback",
+    "observation-title": "Observação de toda a aula",
+    "prepare-feedback-title": "Preparação do encontro de acompanhamento",
+    "prepare-feedback-button": "Preparar o encontro",
+    "prepare-feedback-description": "Prepare o retorno para o professor sobre a aula que você observou",
+    "feedback-title": "Encontro com o professor",
+    "feedback-button": "Ver encontro",
     "feedback-description": "Oriente o professor de acordo com o que você preparou",
-    "documentation-title": "Documentação da sessão",
-    "documentation-button": "Documentar sessão",
+    "documentation-title": "Documentação",
+    "documentation-button": "Documentar",
     "documentation-description": "Responda um questionário sobre a como foi a sessão de feedback."
   },
   "ApplicationForm": {
@@ -113,13 +120,16 @@
     "cancel-finish": "Voltar",
     "question-order": "Questão {{current}} de {{total}}",
     "title": "Ficha de observação",
-    "feedback": "Feedback",
+    "feedback": "Encontro de acompanhamento",
+    "preparation-notes": "Notas de preparação",
+    "support-material": "Material de apoio",
+    "infos-header": "Dicas para preparar-se:",
     "session-title": "Sessão {{value}}",
-    "header-feedback": "Novo feedback",
-    "title-feedback": "Selecione uma competência para dar o feedback",
+    "header-feedback": "Novo encontro",
+    "title-feedback": "Seleccione uma competência para dar retorno",
     "description-feedback": "Abaixo estão listadas as competências relacionadas com as perguntas respondidas na ficha de observação",
-    "title-feedback-form": "Prepare o feedback",
-    "description-feedback-form": "Preencha o questionário de feedback abaixo e prepare-se para entregar ao professor",
+    "title-feedback-form": "Prepare o encontro",
+    "description-feedback-form": "Estude o protocolo de orientação e prepare a demonstração da competência seleccionada.",
     "finish-feedback-title": "O seu feedback foi entregue ao professor!",
     "title-review": "Documentação",
     "save": "Salvar",
@@ -143,8 +153,6 @@
     "finish-documentation-title": "Sessão de orientação concluída com sucesso!",
     "finish-documentation-description": "Você pode visitar o resumo dessa sessão a qualquer momento na página deste professor.",
     "session-name": "Sessão {{value}}"
-
-
   },
   "FeedbackList": {
     "title": "Feedbacks",

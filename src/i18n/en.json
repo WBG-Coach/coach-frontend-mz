@@ -65,6 +65,7 @@
     "competencies": "Competencies"
   },
   "TeacherForm": {
+    "level": "Grade level",
     "save": "Add teacher",
     "save-update": "Update teacher",
     "name": "First name",

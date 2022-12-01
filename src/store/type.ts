@@ -13,6 +13,7 @@ export type User = {
   answers?: Answer[];
   api_token?: string;
   project?: Project;
+  level?: string;
 };
 
 export type Project = {
