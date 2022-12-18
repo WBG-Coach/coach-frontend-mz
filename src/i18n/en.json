@@ -122,6 +122,9 @@
     "choose-teacher": "Which teacher are you mentoring?"
   },
   "Questionnaire": {
+    "preparation-notes": "Preparation notes",
+    "support-material": "Support material",
+    "infos-header": "Tips to prepare:",
     "observation-confirm-title": "End observation?",
     "observation-confirm-description": "You will not be able to edit the observation sheet afterwards.",
     "cancel-finish": "Return",

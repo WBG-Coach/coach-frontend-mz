@@ -9,8 +9,8 @@ export const OptionButton: React.FC<ButtonProps> = (props) => {
       {props.value}
       {props.selectedIcon && props.isSelected && (
         <Icon
-          name={props.selectedIcon}
           size={24}
+          name={props.selectedIcon}
           color={props.selectedColor || ""}
         />
       )}
