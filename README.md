@@ -12,7 +12,7 @@
   <img width="23%" src="https://user-images.githubusercontent.com/13595853/213291784-3b5019ff-94d5-4819-8d72-cb34b30b2d0c.png" />
 </div>
 
-## Get start
+## Getting Started
 
 Add tour application configuration to your `.env` file in the root of your project:
 
