@@ -7,7 +7,7 @@ export const Image: React.FC<ImageProps> = (props) => {
     <StyledImage
       {...props}
       src={
-        props.src.startsWith("./")
+        props.src?.startsWith("./")
           ? props.src.replace("./", window.location.origin + "/")
           : props.src
       }
