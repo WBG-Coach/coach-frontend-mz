@@ -1,7 +1,7 @@
 # Coach digital
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/WBG-Coach/coach-admin/blob/main/LICENSE.md)
 
-> Coach digital description
+> This is the frontend application of the "Aprender+" project, created by the World Bank to help evaluate teachers and manage improvements in teaching through feedback.
 
 ### You can access here:
 [https://coachdigital.org/](https://coachdigital.org/)
