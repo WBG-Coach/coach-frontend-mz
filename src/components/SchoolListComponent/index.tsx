@@ -74,9 +74,9 @@ export const SchoolListComponent: React.FC<{
             imageUrl={school.image_url}
             onClick={() => chooseSchool(school)}
             description={
-              !school.users_count
+              !school.users_count || school.users_count === 1
                 ? t("Schools.schoolDescription_zero")
-                : school.users_count > 1
+                : school.users_count > 2
                 ? t("Schools.schoolDescription_other", {
                     count: school.users_count,
                   })
